@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="login_button_text">Login</string>
     <string name="register_button_text">Register</string>
+    <string name="login_sucess_text">Success!</string>
 
 </resources>
