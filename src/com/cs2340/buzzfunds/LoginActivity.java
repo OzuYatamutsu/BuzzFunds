@@ -1,5 +1,10 @@
 package com.cs2340.buzzfunds;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -196,13 +201,16 @@ public class LoginActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
+			
+			//Create a URL ready username and password pair
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username",mUsername));
+			postParameters.add(new BasicNameValuePair("password",mPassword));
+			
+			String response = null;
+			response = BasicHttpClient.exePost("http://buzzfunds-abschenoni.rhcloude.com/LoginServer/login.do", postParameters);
+			response = response.toString();//change it from url string to readable string
+			response = response.replaceAll("\\s+", ""); //url uses //s+ to denote spaces
 
 			for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
