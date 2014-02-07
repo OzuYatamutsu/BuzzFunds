@@ -153,13 +153,10 @@ public class LoginActivity extends Activity {
 				if(mAuthTask.get()) {
 					setContentView(R.layout.activity_login_success);
 				}
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 		}
 	}
 
