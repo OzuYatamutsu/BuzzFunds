@@ -216,9 +216,9 @@ public class LoginActivity extends Activity {
 			postParameters.add(new BasicNameValuePair("password",mPassword));
 			
 			String response = null;
-			//response = BasicHttpClient.exePost("http://buzzfunds-abschenoni.rhcloude.com/LoginServer/login.do", postParameters);
-			response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/loginserver?username=" + mUsername 
-					+ "&password=" + mPassword);
+			response = BasicHttpClient.exePost("http://buzzfunds-abschenoni.rhcloude.com/login", postParameters);
+			//response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/loginserver?username=" + mUsername 
+					//+ "&password=" + mPassword);
 			response = response.toString();//change it from url string to readable string
 			response = response.replaceAll("\\s+", ""); //url uses //s+ to denote spaces
 
