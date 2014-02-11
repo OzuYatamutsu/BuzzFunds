@@ -25,9 +25,9 @@ public final class R {
     }
     public static final class id {
         public static final int EditText01=0x7f08000a;
-        public static final int EditText02=0x7f08000c;
-        public static final int TextView01=0x7f08000b;
-        public static final int TextView02=0x7f08000d;
+        public static final int EditText02=0x7f08000b;
+        public static final int TextView01=0x7f08000d;
+        public static final int TextView02=0x7f08000c;
         public static final int action_forgot_password=0x7f08000e;
         public static final int action_settings=0x7f08000f;
         public static final int button1=0x7f080008;

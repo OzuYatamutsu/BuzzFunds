@@ -30,13 +30,13 @@ public class LoginActivity extends Activity {
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"admin:pass123" };
+	//private static final String[] DUMMY_CREDENTIALS = new String[] {
+	//		"admin:pass123" };
 
 	/**
 	 * The default email to populate the email field with.
 	 */
-	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+	//public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
+		//mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
 		mUsernameView = (EditText) findViewById(R.id.username);
 		mUsernameView.setText(mUsername);
 
@@ -216,20 +216,23 @@ public class LoginActivity extends Activity {
 			postParameters.add(new BasicNameValuePair("password",mPassword));
 			
 			String response = null;
-			response = BasicHttpClient.exePost("http://buzzfunds-abschenoni.rhcloude.com/LoginServer/login.do", postParameters);
+			//response = BasicHttpClient.exePost("http://buzzfunds-abschenoni.rhcloude.com/LoginServer/login.do", postParameters);
+			response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/loginserver?username=" + mUsername 
+					+ "&password=" + mPassword);
 			response = response.toString();//change it from url string to readable string
 			response = response.replaceAll("\\s+", ""); //url uses //s+ to denote spaces
 
-			for (String credential : DUMMY_CREDENTIALS) {
+			/*for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mUsername)) {
 					// Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword);
 				}
-			}
+			}*/
 
 			// TODO: register the new account here.
-			return false;
+			System.out.println(response);
+			return (response.equals("1"));
 		}
 
 		@Override
