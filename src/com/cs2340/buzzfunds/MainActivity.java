@@ -25,5 +25,10 @@ public class MainActivity extends Activity {
 		Intent login = new Intent(this, LoginActivity.class);
 		startActivity(login);
 	}
+	
+	public void switchToRegister(View view) {
+		Intent register = new Intent(this, RegisterActivity.class);
+		startActivity(register);
+	}
 
 }
