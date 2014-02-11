@@ -24,6 +24,7 @@
         android:layout_alignLeft="@+id/button1"
         android:layout_below="@+id/button1"
         android:layout_marginTop="24dp"
-        android:text="@string/register_button_text" />
+        android:text="@string/registerbutton_text" 
+        android:onClick="switchToRegister"/>
 
 </RelativeLayout>
