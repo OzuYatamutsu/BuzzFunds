@@ -1,10 +1,5 @@
 package com.cs2340.buzzfunds;
 
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -26,23 +21,15 @@ import android.widget.TextView;
  * well.
  */
 public class LoginActivity extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
 	//private static final String[] DUMMY_CREDENTIALS = new String[] {
 	//		"admin:pass123" };
-
-	/**
-	 * The default email to populate the email field with.
-	 */
-	//public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
 	Intent intent = getIntent();
+	
 	// Values for email and password at the time of the login attempt.
 	private String mUsername;
 	private String mPassword;
@@ -57,14 +44,11 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		//mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
 		mUsernameView = (EditText) findViewById(R.id.username);
 		mUsernameView.setText(mUsername);
-
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -208,13 +192,11 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
-			
-			//Create a URL ready username and password pair
-			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-			postParameters.add(new BasicNameValuePair("username",mUsername));
-			postParameters.add(new BasicNameValuePair("password",mPassword));
-			
+			Authenticator login = new Authenticator("http://buzzfunds-abschenoni.rhcloude.com/login");
+			return login.httpPostAuth(mUsername, mPassword, "1");
+		}
+
+		/* Previous functionality just in case
 			String response = null;
 			response = BasicHttpClient.exePost("http://buzzfunds-abschenoni.rhcloude.com/login", postParameters);
 			//response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/loginserver?username=" + mUsername 
@@ -222,19 +204,9 @@ public class LoginActivity extends Activity {
 			response = response.toString();//change it from url string to readable string
 			response = response.replaceAll("\\s+", ""); //url uses //s+ to denote spaces
 
-			/*for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mUsername)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}*/
-
-			// TODO: register the new account here.
-			System.out.println(response);
 			return (response.equals("1"));
-		}
-
+		 */
+		
 		@Override
 		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
