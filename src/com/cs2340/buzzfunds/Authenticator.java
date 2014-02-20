@@ -40,8 +40,8 @@ public class Authenticator {
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		
 		//note '/login' is slightly different than the preivous '/loginserver'
-		response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/login?username="
-			+ username + "&password=" + password);
+		response = BasicHttpClient.exeGet(endpoint + "?username=" + username + "&password=" + password);
+		
 
 		//Couldn't get the POST quite functional so we will just rely on GET for now
 		//postParameters.add(new BasicNameValuePair("username", username));
@@ -49,7 +49,8 @@ public class Authenticator {
 		//response = BasicHttpClient.exePost(endpoint, postParameters)
 		//		.toString().replaceAll("\\s+", "");
 		
-		return response.equals(successState);
+		
+		return response.substring(0,1).equals(successState);
 	}
 	
 	public boolean httpRegisterGetAuth(String username, String password, String successState) {
@@ -57,7 +58,7 @@ public class Authenticator {
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		
 		//note '/login' is slightly different than the preivous '/loginserver'
-		response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/register?username="
+		response = BasicHttpClient.exeGet("http://buzzfunds.herokuapp.com/register?username="
 			+ username + "&password=" + password);
 		
 		//Couldn't get the POST quite functional so we will just rely on GET for now
