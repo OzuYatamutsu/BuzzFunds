@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -193,9 +194,7 @@ public class LoginActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			Authenticator login = new Authenticator("http://buzzfunds.herokuapp.com/login");
-			boolean result = login.httpLoginGetAuth(mUsername, mPassword, "1");
-			
-			return result;
+			return login.httpLoginGetAuth(mUsername, mPassword, "1");
 		}
 
 		/* Previous functionality just in case
@@ -213,7 +212,6 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
 			showProgress(false);
-
 			if (success) {
 				finish();
 			} else {

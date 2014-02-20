@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.util.Log;
+
 /**
  * The Authenticator class performs authentication operations 
  * against a remote data source.
@@ -49,7 +51,7 @@ public class Authenticator {
 		//response = BasicHttpClient.exePost(endpoint, postParameters)
 		//		.toString().replaceAll("\\s+", "");
 		
-		
+		String answer = response.substring(0,1);
 		return response.substring(0,1).equals(successState);
 	}
 	

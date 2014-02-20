@@ -121,5 +121,18 @@ public class RegisterActivity extends Activity {
 			Authenticator auth = new Authenticator("http://buzzfunds.herokuapp.com/register");
 			return auth.httpRegisterGetAuth(mUsername, mPassword, "1");
 		}
+		
+		@Override
+		protected void onPostExecute(final Boolean success) {
+			mRegisterTask = null;
+
+			if (success) {
+				finish();
+			} else {
+				mPasswordView
+						.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.requestFocus();
+			}
+		}
 	}
 }
