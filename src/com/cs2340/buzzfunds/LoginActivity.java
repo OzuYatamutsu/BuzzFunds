@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -193,7 +192,7 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			Authenticator login = new Authenticator("http://buzzfunds.herokuapp.com/login");
+			Authenticator login = new Authenticator("http://buzzfunds.herokuapp.com");
 			return login.httpLoginGetAuth(mUsername, mPassword, "1");
 		}
 
