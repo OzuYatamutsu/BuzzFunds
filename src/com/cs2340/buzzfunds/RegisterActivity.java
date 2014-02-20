@@ -72,7 +72,7 @@ public class RegisterActivity extends Activity {
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
-		} else if (mPassword.equals(mVerify)) {
+		} else if (!mPassword.equals(mVerify)) {
 			// TODO: Error string if password doesn't match verify field
 			// mPasswordView.setError(getString(R.string.error_verify_does_not_match));
 			focusView = mPasswordView;
@@ -100,7 +100,7 @@ public class RegisterActivity extends Activity {
 			mRegisterTask.execute((Void) null);
 			try {
 				if (mRegisterTask.get()) {
-					// TODO: Register successful, log in user
+					setContentView(R.layout.activity_login_success);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -118,7 +118,7 @@ public class RegisterActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: Attempt to register user here
-			Authenticator auth = new Authenticator("http://buzzfunds.herokuapp.com/register");
+			Authenticator auth = new Authenticator("http://buzzfunds.herokuapp.com");
 			return auth.httpRegisterGetAuth(mUsername, mPassword, "1");
 		}
 		
@@ -129,9 +129,9 @@ public class RegisterActivity extends Activity {
 			if (success) {
 				finish();
 			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
+				mUsernameView
+						.setError(getString(R.string.error_username_exists));
+				mUsernameView.requestFocus();
 			}
 		}
 	}
