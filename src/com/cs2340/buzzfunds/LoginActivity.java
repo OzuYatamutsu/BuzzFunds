@@ -135,7 +135,9 @@ public class LoginActivity extends Activity {
 			mAuthTask.execute((Void) null);
 			try {
 				if(mAuthTask.get()) {
-					setContentView(R.layout.activity_login_success);
+					//setContentView(R.layout.activity_login_success);
+					Intent success = new Intent(this, SuccessActivity.class);
+					startActivity(success);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

@@ -100,7 +100,9 @@ public class RegisterActivity extends Activity {
 			mRegisterTask.execute((Void) null);
 			try {
 				if (mRegisterTask.get()) {
-					setContentView(R.layout.activity_login_success);
+					//setContentView(R.layout.activity_login_success);
+					Intent success = new Intent(this, SuccessActivity.class);
+					startActivity(success);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
