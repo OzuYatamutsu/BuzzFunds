@@ -1,11 +1,5 @@
 package com.cs2340.buzzfunds;
 
-import java.util.ArrayList;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import android.util.Log;
-
 /**
  * The Authenticator class performs authentication operations 
  * against a remote data source.
@@ -17,6 +11,8 @@ public class Authenticator {
 	 * The network endpoint of the authentication source.
 	 */
 	private String endpoint;
+	private static final String LOGIN_ENDPOINT = "/login";
+	private static final String REGISTER_ENDPOINT = "/register";
 	
 	/**
 	 * Constructs a new Authenticator with a given network endpoint.
@@ -28,7 +24,7 @@ public class Authenticator {
 	}
 	
 	/**
-	 * Attempts to authenticate against the remote endpoint by POSTing 
+	 * Attempts to authenticate against the remote endpoint by GETting 
 	 * provided credentials against a web server.
 	 * 
 	 * @param username The provided username
@@ -39,10 +35,10 @@ public class Authenticator {
 	 */
 	public boolean httpLoginGetAuth(String username, String password, String successState) {
 		String response;
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		
 		//note '/login' is slightly different than the preivous '/loginserver'
-		response = BasicHttpClient.exeGet(endpoint + "?username=" + username + "&password=" + password);
+		response = BasicHttpClient.exeGet(endpoint + LOGIN_ENDPOINT + "?username=" + 
+				username + "&password=" + password);
 		
 
 		//Couldn't get the POST quite functional so we will just rely on GET for now
@@ -51,16 +47,14 @@ public class Authenticator {
 		//response = BasicHttpClient.exePost(endpoint, postParameters)
 		//		.toString().replaceAll("\\s+", "");
 		
-		String answer = response.substring(0,1);
 		return response.substring(0,1).equals(successState);
 	}
 	
 	public boolean httpRegisterGetAuth(String username, String password, String successState) {
 		String response;
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		
 		//note '/login' is slightly different than the preivous '/loginserver'
-		response = BasicHttpClient.exeGet("http://buzzfunds.herokuapp.com/register?username="
+		response = BasicHttpClient.exeGet(endpoint + REGISTER_ENDPOINT + "?username="
 			+ username + "&password=" + password);
 		
 		//Couldn't get the POST quite functional so we will just rely on GET for now
@@ -69,7 +63,7 @@ public class Authenticator {
 		//response = BasicHttpClient.exePost(endpoint, postParameters)
 		//		.toString().replaceAll("\\s+", "");
 		
-		return response.equals(successState);
+		return response.substring(0,1).equals(successState);
 	}
 
 }

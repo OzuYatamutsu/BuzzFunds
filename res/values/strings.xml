@@ -11,5 +11,6 @@
     <string name="register_password_text">Choose a password</string>
     <string name="register_passwordverify_text">Re-enter your password:</string>
     <string name="register_button_text">Register</string>
+    <string name="error_username_exists">Username already exists.</string>
 
 </resources>
