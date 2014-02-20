@@ -35,14 +35,37 @@ public class Authenticator {
 	 * 	determine if authentication was successful or not
 	 * @return true if authentication was successful; else false
 	 */
-	public boolean httpPostAuth(String username, String password, String successState) {
+	public boolean httpLoginGetAuth(String username, String password, String successState) {
 		String response;
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		
-		postParameters.add(new BasicNameValuePair("username", username));
-		postParameters.add(new BasicNameValuePair("password", password));
-		response = BasicHttpClient.exePost(endpoint, postParameters)
-				.toString().replaceAll("\\s+", "");
+		//note '/login' is slightly different than the preivous '/loginserver'
+		response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/login?username="
+			+ username + "&password=" + password);
+
+		//Couldn't get the POST quite functional so we will just rely on GET for now
+		//postParameters.add(new BasicNameValuePair("username", username));
+		//postParameters.add(new BasicNameValuePair("password", password));
+		//response = BasicHttpClient.exePost(endpoint, postParameters)
+		//		.toString().replaceAll("\\s+", "");
+		
+		return response.equals(successState);
+	}
+	
+	public boolean httpRegisterGetAuth(String username, String password, String successState) {
+		String response;
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		
+		//note '/login' is slightly different than the preivous '/loginserver'
+		response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/register?username="
+			+ username + "&password=" + password);
+		
+		//Couldn't get the POST quite functional so we will just rely on GET for now
+		//postParameters.add(new BasicNameValuePair("username", username));
+		//postParameters.add(new BasicNameValuePair("password", password));
+		//response = BasicHttpClient.exePost(endpoint, postParameters)
+		//		.toString().replaceAll("\\s+", "");
+		
 		return response.equals(successState);
 	}
 

@@ -118,7 +118,8 @@ public class RegisterActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: Attempt to register user here
-			return false;
+			Authenticator auth = new Authenticator("http://buzzfunds-abschenoni.rhcloud.com/register");
+			return auth.httpRegisterGetAuth(mUsername, mPassword, "1");
 		}
 	}
 }

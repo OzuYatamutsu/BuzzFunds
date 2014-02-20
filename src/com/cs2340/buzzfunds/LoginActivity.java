@@ -192,8 +192,8 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			Authenticator login = new Authenticator("http://buzzfunds-abschenoni.rhcloude.com/login");
-			return login.httpPostAuth(mUsername, mPassword, "1");
+			Authenticator login = new Authenticator("http://buzzfunds-abschenoni.rhcloud.com/login");
+			return login.httpLoginGetAuth(mUsername, mPassword, "1");
 		}
 
 		/* Previous functionality just in case
