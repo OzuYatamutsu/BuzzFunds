@@ -4,6 +4,9 @@ package com.cs2340.buzzfunds;
  * The Authenticator class performs authentication operations 
  * against a remote data source.
  * 
+ * There should be one Authenticator object per authenticated
+ * data source.
+ * 
  * @author Sean Collins
  */
 public class Authenticator {
@@ -11,9 +14,21 @@ public class Authenticator {
 	 * The network endpoint of the authentication source.
 	 */
 	private String endpoint;
+	/**
+	 * The default login endpoint.
+	 */
 	private static final String LOGIN_ENDPOINT = "/login";
+	/**
+	 * The default register endpoint.
+	 */
 	private static final String REGISTER_ENDPOINT = "/register";
-	
+	/**
+	 * Tracks whether Authentication for the associated data source
+	 * was previously successful.
+	 * 
+	 * Useful for security checks (e.g. if user is allowed to access Activity).
+	 */
+	private boolean isAuthenticated;
 	/**
 	 * Constructs a new Authenticator with a given network endpoint.
 	 * 
@@ -21,11 +36,14 @@ public class Authenticator {
 	 */
 	public Authenticator(String endpoint) {
 		this.endpoint = endpoint;
+		isAuthenticated = false;
 	}
 	
 	/**
 	 * Attempts to authenticate against the remote endpoint by GETting 
 	 * provided credentials against a web server.
+	 * 
+	 * Authenticates against (endpoint + "/login") by default.
 	 * 
 	 * @param username The provided username
 	 * @param password The provided password
@@ -33,11 +51,29 @@ public class Authenticator {
 	 * 	determine if authentication was successful or not
 	 * @return true if authentication was successful; else false
 	 */
-	public boolean httpLoginGetAuth(String username, String password, String successState) {
+	public boolean httpLoginGetAuth(String username, String password, 
+			String successState) {
+		return httpLoginGetAuth(username, password, successState, LOGIN_ENDPOINT);
+	}
+	
+	/**
+	 * Attempts to authenticate against the remote endpoint by GETting 
+	 * provided credentials against a web server. The loginEndpoint provided
+	 * is appended to the network endpoint in the authentication request.
+	 * 
+	 * @param username The provided username
+	 * @param password The provided password
+	 * @param successState The value to check the response of the server against to 
+	 * 	determine if authentication was successful or not
+	 * @param loginEndpoint Appended to URI to authenticate against (e.g. "/login")
+	 * @return true if authentication was successful; else false
+	 */
+	public boolean httpLoginGetAuth(String username, String password, 
+			String successState, String loginEndpoint) {
 		String response;
 		
 		//note '/login' is slightly different than the preivous '/loginserver'
-		response = BasicHttpClient.exeGet(endpoint + LOGIN_ENDPOINT + "?username=" + 
+		response = BasicHttpClient.exeGet(endpoint + loginEndpoint + "?username=" + 
 				username + "&password=" + password);
 		
 
@@ -47,23 +83,56 @@ public class Authenticator {
 		//response = BasicHttpClient.exePost(endpoint, postParameters)
 		//		.toString().replaceAll("\\s+", "");
 		
+		isAuthenticated = response.substring(0,1).equals(successState);
 		return response.substring(0,1).equals(successState);
 	}
 	
-	public boolean httpRegisterGetAuth(String username, String password, String successState) {
+	/**
+	 * Attempts to register a new user against the remote endpoint by GETting
+	 * provided credentials against a web server. The registerEndpoint provided
+	 * is appended to the network endpoint in the register request.
+	 * 
+	 * @param username The provided username
+	 * @param password The provided password
+	 * @param successState The value to check the response of the server against to 
+	 * 	determine if registration was successful or not
+	 * @return true if registration was successful; else false
+	 */
+	public boolean httpRegisterGetAuth(String username, String password, 
+			String successState) {
+		return httpRegisterGetAuth(username, password, successState, REGISTER_ENDPOINT);
+	}
+	
+	/**
+	 * Attempts to register a new user against the remote endpoint by GETting
+	 * provided credentials against a web server. The registerEndpoint provided
+	 * is appended to the network endpoint in the register request.
+	 * 
+	 * @param username The provided username
+	 * @param password The provided password
+	 * @param successState The value to check the response of the server against to 
+	 * 	determine if registration was successful or not
+	 * @param registerEndpoint Appended to URI to authenticate against (e.g. "/register")
+	 * @return true if registration was successful; else false
+	 */
+	public boolean httpRegisterGetAuth(String username, String password, 
+			String successState, String registerEndpoint) {
 		String response;
 		
-		//note '/login' is slightly different than the preivous '/loginserver'
-		response = BasicHttpClient.exeGet(endpoint + REGISTER_ENDPOINT + "?username="
+		response = BasicHttpClient.exeGet(endpoint + registerEndpoint + "?username="
 			+ username + "&password=" + password);
 		
-		//Couldn't get the POST quite functional so we will just rely on GET for now
-		//postParameters.add(new BasicNameValuePair("username", username));
-		//postParameters.add(new BasicNameValuePair("password", password));
-		//response = BasicHttpClient.exePost(endpoint, postParameters)
-		//		.toString().replaceAll("\\s+", "");
-		
+		// Assume the user is authenticated after registration
+		isAuthenticated = response.substring(0,1).equals(successState);
 		return response.substring(0,1).equals(successState);
+	}
+	
+	/**
+	 * Returns the value of isAuthenticated for this data source.
+	 * @return The value of isAuthenticated
+	 */
+	public boolean isAuth() {
+		return isAuthenticated;
 	}
 
 }
