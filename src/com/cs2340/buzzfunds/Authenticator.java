@@ -92,6 +92,8 @@ public class Authenticator {
 	 * provided credentials against a web server. The registerEndpoint provided
 	 * is appended to the network endpoint in the register request.
 	 * 
+	 * Registers against (endpoint + "/register") by default.
+	 * 
 	 * @param username The provided username
 	 * @param password The provided password
 	 * @param successState The value to check the response of the server against to 
