@@ -138,6 +138,10 @@ public class LoginActivity extends Activity {
 					//setContentView(R.layout.activity_login_success);
 					Intent success = new Intent(this, SuccessActivity.class);
 					startActivity(success);
+					
+					// Replace when AccountOverviewActivity is done!
+					// Intent success = new Intent(this, AccountOverviewActivity.class);
+					// startActivity(success)
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
