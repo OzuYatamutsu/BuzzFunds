@@ -37,6 +37,10 @@
             android:name="com.cs2340.buzzfunds.SuccessActivity"
             android:label="@string/title_activity_success" >
         </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.AccountOverviewActivity"
+            android:label="@string/title_activity_account_overview" >
+        </activity>
     </application>
 
 </manifest>
