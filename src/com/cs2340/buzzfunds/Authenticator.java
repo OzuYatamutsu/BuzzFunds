@@ -23,20 +23,12 @@ public class Authenticator {
 	 */
 	private static final String REGISTER_ENDPOINT = "/register";
 	/**
-	 * Tracks whether Authentication for the associated data source
-	 * was previously successful.
-	 * 
-	 * Useful for security checks (e.g. if user is allowed to access Activity).
-	 */
-	private boolean isAuthenticated;
-	/**
 	 * Constructs a new Authenticator with a given network endpoint.
 	 * 
 	 * @param endpoint A provided network endpoint
 	 */
 	public Authenticator(String endpoint) {
 		this.endpoint = endpoint;
-		isAuthenticated = false;
 	}
 	
 	/**
@@ -83,7 +75,6 @@ public class Authenticator {
 		//response = BasicHttpClient.exePost(endpoint, postParameters)
 		//		.toString().replaceAll("\\s+", "");
 		
-		isAuthenticated = response.substring(0,1).equals(successState);
 		return response.substring(0,1).equals(successState);
 	}
 	
@@ -124,17 +115,6 @@ public class Authenticator {
 		response = BasicHttpClient.exeGet(endpoint + registerEndpoint + "?username="
 			+ username + "&password=" + password);
 		
-		// Assume the user is authenticated after registration
-		isAuthenticated = response.substring(0,1).equals(successState);
 		return response.substring(0,1).equals(successState);
 	}
-	
-	/**
-	 * Returns the value of isAuthenticated for this data source.
-	 * @return The value of isAuthenticated
-	 */
-	public boolean isAuth() {
-		return isAuthenticated;
-	}
-
 }
