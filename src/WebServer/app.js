@@ -104,7 +104,7 @@ mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function 
 //	Input: interest(Double) the amount of interest associated with this account
 //	Output: success(bool) whether the account was added successfully or not
 //  Input: date(String) the date in which the account was created occurred
-app.get('/addAccount', function(request, response)
+app.get('/addaccount', function(request, response)
 {	
   //Check if there is an existing account with the same name
 	var
@@ -182,8 +182,45 @@ app.get('/addAccount', function(request, response)
 
 
 //-----------------------BEGIN GRAB ACCOUNTS-----------------------//
+// Takes the user and returns an array of json accounts associated with that user
+//	Input: user(String) the name of the user in question
+//	Output: accounts(json[]) the accounts associated with a user 
+
+app.get('/retrieveaccounts', function(request, response) {
+	var cUser = request.query.user,
+		uri = process.env.MONGOLAB_URI || 
+    	      process.env.MONGOHQ_URL  ||
+    	      'mongodb://localhost/RiotData';
+    mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
+    	if(!err){
+    		console.log('we are connected!');
+			var loginCollection = db.collection('login');
+			var accountsCollection = db.collection('accounts');
+
+			loginCollection.findOne({'username':cUser}, function(err, item){
+				if(item===null){ //didn't find a user
+					response.send('0');
+				}
+				else{
+					var accounts = item.accounts;
+					response.send(accounts);
+				}
+			});
+    	}
+    	else{
+    		response.send('Database connection was not successful');
+    	}
+    });
+
+});
+
 
 //-----------------------BEGIN UPDATE ACCOUNT----------------------//
+
+
+
+
+//----------------------CREATE WEB SERVER--------------------------//
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
