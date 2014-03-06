@@ -102,8 +102,9 @@ mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function 
 //  Input: balance(Double) the amount of money in the account
 //	Input: type(String) the type of account
 //	Input: interest(Double) the amount of interest associated with this account
+//  Input: date(String) the date in which the account was created
 //	Output: success(bool) whether the account was added successfully or not
-//  Input: date(String) the date in which the account was created occurred
+
 app.get('/addaccount', function(request, response)
 {	
   //Check if there is an existing account with the same name
@@ -130,13 +131,23 @@ app.get('/addaccount', function(request, response)
 				if(item === null ) //	if name doesn't already exist....
 				{
 					console.log('password nonexistent so that means this is a new value');
-					
+					var firstTrans = { 	'name'    :"*Account Created*",
+									'balance' :cBalance,
+									'insDate' :cDate,
+									'effDate' :cDate
+								},
+					accountDoc = {	'name'    :cName,
+									'amount' :cBalance,
+									'type'    :cType,
+									'interest':cInterest,
+									'transactionHistory': firstTrans
+								};
 					//  Into login find user*: user
 					//  Into user* Insert: doc{ account : {list} + {user'-'name} }
 					loginCollection.update( {'username':cUser},
-											{'$push': {"accounts": cName}}, 
+											{'$push': {"accounts": accountDoc}}, 
 											function(err, result){
-												console.log('adding the upadte');
+												console.log('adding the update');
 											});
 					
 					//Create first line of transaction history as JSON
@@ -146,17 +157,7 @@ app.get('/addaccount', function(request, response)
 					//								interest: interest,
 					//								transactionHistory: doc}
 
-					var firstTrans = { 	'name'    :"*Account Created*",
-										'balance' :cBalance,
-										'insDate' :cDate,
-										'effDate' :cDate
-									},
-						accountDoc = {	'name'    :cName,
-										'amount' :cBalance,
-										'type'    :cType,
-										'interest':cInterest,
-										'transactionHistory': firstTrans
-									};
+
 					accountsCollection.insert(accountDoc, {w:1}, function(err, result) {
 						console.log('Added a new account!!!')
 					});
@@ -202,8 +203,7 @@ app.get('/retrieveaccounts', function(request, response) {
 					response.send('0');
 				}
 				else{
-					var accounts = item.accounts;
-					response.send(accounts);
+					response.send(item.accounts);
 				}
 			});
     	}
