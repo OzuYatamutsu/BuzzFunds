@@ -1,5 +1,9 @@
 package com.cs2340.buzzfunds;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.JSONValue;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -26,6 +30,30 @@ public class AccountOverviewActivity extends Activity {
 		}
 	}
 
+	public boolean testAdd() {
+		Account account = addTestAccount("admin", "test11");
+		if (account != null) {
+			accounts = new Account[1];
+			accounts[0] = account;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public Account addTestAccount(String username, String account) {
+		Authenticator testAccountAdd = new Authenticator("https://buzzfunds.herokuapp.com");
+		String response = testAccountAdd.httpGetCreateAccount(username, account, 100.00, "checking");
+		// Below should be synced with server on login
+		// someLoginFunctionHere();
+		JSONObject jsonParse = (JSONObject)JSONValue.parse(response);
+		try {
+			return new Account(jsonParse.getString("_id"), testAccountAdd);
+		} catch (JSONException e) {
+			return null; // No JSON mapping exists (maybe account add failed?)
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -35,6 +63,9 @@ public class AccountOverviewActivity extends Activity {
 
 	private boolean populateAccounts() {
 		// This fails for now
+		// How to get accounts from server?
 		return false;
 	}
+	
+	
 }

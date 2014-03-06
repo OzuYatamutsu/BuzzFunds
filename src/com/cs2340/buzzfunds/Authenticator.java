@@ -23,6 +23,10 @@ public class Authenticator {
 	 */
 	private static final String REGISTER_ENDPOINT = "/register";
 	/**
+	 * The default account add endpoint.
+	 */
+	private static final String ADDACCOUNT_ENDPOINT = "/addaccount";
+	/**
 	 * Constructs a new Authenticator with a given network endpoint.
 	 * 
 	 * @param endpoint A provided network endpoint
@@ -116,5 +120,45 @@ public class Authenticator {
 			+ username + "&password=" + password);
 		
 		return response.substring(0,1).equals(successState);
+	}
+	
+	
+	
+	/**
+	 * Attempts to add a new account against the remote endpoint by GETting
+	 * provided credentials against a web server. The addAccountEndpoint provided
+	 * is appended to the network endpoint in the register request.
+	 * 
+	 * @param username The provided username
+	 * @param account A String account ID
+	 * @param balance The amount to initally add to this account
+	 * @param type The account type
+	 * @return The JSON-encoded server response
+	 */
+	public String httpGetCreateAccount(String username, String account, 
+			double balance, String type) {
+		return httpGetCreateAccount(username, account, balance, type, ADDACCOUNT_ENDPOINT);
+	}
+	
+	/**
+	 * Attempts to add a new account against the remote endpoint by GETting
+	 * provided credentials against a web server. The addAccountEndpoint provided
+	 * is appended to the network endpoint in the register request.
+	 * 
+	 * @param username The provided username
+	 * @param account A String account ID
+	 * @param balance The amount to initally add to this account
+	 * @param type The account type
+	 * @param registerEndpoint Appended to URI to authenticate against (e.g. "/addaccount")
+	 * @return The JSON-encoded server response
+	 */
+	public String httpGetCreateAccount(String username, String account, 
+			double balance, String type, String addAccountEndpoint) {
+		String response;
+		
+		response = BasicHttpClient.exeGet(endpoint + addAccountEndpoint + "?account="
+			+ account + "&user=" + username + "&balance=" + balance + "&type=" + type);
+		
+		return response;
 	}
 }
