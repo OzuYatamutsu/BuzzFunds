@@ -1,5 +1,6 @@
 package com.cs2340.buzzfunds;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
@@ -11,6 +12,7 @@ import android.view.Menu;
 
 public class AccountOverviewActivity extends Activity {
 	boolean isAuth = getIntent().getExtras().getBoolean("AUTH_STATE");
+	String username = getIntent().getExtras().getString("USERNAME");
 	Account[] accounts;
 	
 	@Override
@@ -62,9 +64,10 @@ public class AccountOverviewActivity extends Activity {
 	}
 
 	private boolean populateAccounts() {
-		// This fails for now
-		// How to get accounts from server?
-		return false;
+		boolean result = false;
+		Authenticator endpoint = new Authenticator("https://buzzfunds.herokuapp.com");
+		JSONArray jsonParse = (JSONArray)JSONValue.parse(endpoint.httpGetSyncAccounts(username));
+		return result;
 	}
 	
 	
