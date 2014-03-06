@@ -27,6 +27,10 @@ public class Authenticator {
 	 */
 	private static final String ADDACCOUNT_ENDPOINT = "/addaccount";
 	/**
+	 * The default sync endpoint.
+	 */
+	private static final String SYNC_ENDPOINT = "/retrieveaccounts";
+	/**
 	 * Constructs a new Authenticator with a given network endpoint.
 	 * 
 	 * @param endpoint A provided network endpoint
@@ -158,6 +162,33 @@ public class Authenticator {
 		
 		response = BasicHttpClient.exeGet(endpoint + addAccountEndpoint + "?account="
 			+ account + "&user=" + username + "&balance=" + balance + "&type=" + type);
+		
+		return response;
+	}
+	
+	/**
+	 * Attempts to sync a JSON array of accounts associated with this user from server.
+	 * 
+	 * Syncs against "/retrieveaccounts" by default.
+	 * 
+	 * @param username The username associated with the acccounts
+	 * @return The JSON-encoded server response as a String
+	 */
+	public String httpGetSyncAccounts(String username) {
+		return httpGetSyncAccounts(endpoint + SYNC_ENDPOINT + "&user=" + username);
+	}
+	
+	/**
+	 * Attempts to sync a JSON array of accounts associated with this user from server.
+	 * 
+	 * @param username The username associated with the acccounts
+	 * @param syncEndpoint The appended to URI to sync against (e.g. "/retrieveaccounts")
+	 * @return The JSON-encoded server response as a String
+	 */
+	public String httpGetSyncAccounts(String username, String syncEndpoint) {
+		String response;
+		
+		response = BasicHttpClient.exeGet(endpoint + syncEndpoint + "&user=" + username);
 		
 		return response;
 	}
