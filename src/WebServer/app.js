@@ -162,7 +162,7 @@ app.get('/addAccount', function(request, response)
 					});
 					
 					loginCollection.findOne({'username':cUser}, function(err, item){
-						response.send(item);
+						response.send('1');
 					});
 					
 				}
