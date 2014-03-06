@@ -137,6 +137,7 @@ public class LoginActivity extends Activity {
 				if(mAuthTask.get()) {
 					Intent success = new Intent(this, AccountOverviewActivity.class);
 					success.putExtra("AUTH_STATE", true);
+					success.putExtra("USERNAME", mUsername);
 					startActivity(success);
 				}
 			} catch (Exception e) {
