@@ -7,11 +7,17 @@ import android.view.Menu;
 
 public class AccountOverviewActivity extends Activity {
 	boolean isAuth = getIntent().getExtras().getBoolean("AUTH_STATE");
+	Account[] accounts;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_account_overview);
+		if (populateAccounts()) {
+			setContentView(R.layout.activity_account_overview);
+		} else {
+			setContentView(R.layout.activity_account_overview_empty);
+		}
+		
 		if (!isAuth) {
 			// User is not (yet) allowed to be here!
 			Intent toLogin = new Intent(this, LoginActivity.class);
@@ -27,4 +33,8 @@ public class AccountOverviewActivity extends Activity {
 		return true;
 	}
 
+	private boolean populateAccounts() {
+		// This fails for now
+		return false;
+	}
 }
