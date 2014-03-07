@@ -40,8 +40,7 @@ public class AccountOverviewActivity extends Activity {
 	}
 	
 	public Account addTestAccount(String username, String account) {
-		Account response = null;
-		response = endpoint.httpGetAddAccount(account, "checking");
+		Account response = endpoint.httpGetAddAccount(account, "checking");
 		return response;
 	}
 	
@@ -54,9 +53,12 @@ public class AccountOverviewActivity extends Activity {
 
 	private boolean populateAccounts() {
 		boolean result = false;
-		// Rewrite this
+		accounts = endpoint.httpGetSyncAccount();
+		if (accounts != null) {
+			result = true;
+		}
+		
 		return result;
 	}
-	
 	
 }
