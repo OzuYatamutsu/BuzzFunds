@@ -195,20 +195,9 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			Authenticator login = new Authenticator("http://buzzfunds.herokuapp.com");
-			return login.httpLoginGetAuth(mUsername, mPassword, "1");
+			Authenticator login = new Authenticator(DefaultConnection.BUZZFUNDS.connProfile);
+			return login.httpGetLogin("1");
 		}
-
-		/* Previous functionality just in case
-			String response = null;
-			response = BasicHttpClient.exePost("http://buzzfunds-abschenoni.rhcloude.com/login", postParameters);
-			//response = BasicHttpClient.exeGet("https://buzzfunds.herokuapp.com/loginserver?username=" + mUsername 
-					//+ "&password=" + mPassword);
-			response = response.toString();//change it from url string to readable string
-			response = response.replaceAll("\\s+", ""); //url uses //s+ to denote spaces
-
-			return (response.equals("1"));
-		 */
 		
 		@Override
 		protected void onPostExecute(final Boolean success) {

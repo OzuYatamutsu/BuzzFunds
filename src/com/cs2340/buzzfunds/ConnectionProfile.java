@@ -19,7 +19,11 @@ public class ConnectionProfile {
 	 */
 	public String authUserEndpoint;
 	/**
-	 * The URI endpoint to sync accounts against
+	 * The URI endpoint to add Accounts against
+	 */
+	public String addAccountEndpoint;
+	/**
+	 * The URI endpoint to sync Accounts against
 	 */
 	public String syncAccountEndpoint;
 	
@@ -29,13 +33,16 @@ public class ConnectionProfile {
 	 * @param endpoint The base server location, without any URI endpoints
 	 * @param registerUserEndpoint The URI endpoint to register Users against
 	 * @param authUserEndpoint The URI endpoint to authenticate against
+	 * @param addAccountEndpoint The URI endpoint to add Accounts against
 	 * @param syncAccountEndpoint The URI endpoint to sync accounts against
 	 */
 	public ConnectionProfile(String endpoint, String registerUserEndpoint, 
-			String authUserEndpoint, String syncAccountEndpoint) {
+			String authUserEndpoint, String addAccountEndpoint, 
+			String syncAccountEndpoint) {
 		this.endpoint = endpoint;
 		this.registerUserEndpoint = registerUserEndpoint;
 		this.authUserEndpoint = authUserEndpoint;
+		this.addAccountEndpoint = addAccountEndpoint;
 		this.syncAccountEndpoint = syncAccountEndpoint;
 	}
 	
@@ -47,7 +54,7 @@ public class ConnectionProfile {
 	 * @param syncAccountEndpoint The URI endpoint to sync accounts against
 	 */
 	public ConnectionProfile(String endpoint, String authUserEndpoint, String syncAccountEndpoint) {
-		this(endpoint, null, authUserEndpoint, syncAccountEndpoint);
+		this(endpoint, null, authUserEndpoint, null, syncAccountEndpoint);
 	}
 	
 	/**
@@ -57,7 +64,7 @@ public class ConnectionProfile {
 	 * @param authUserEndpoint The URI endpoint to authenticate against
 	 */
 	public ConnectionProfile(String endpoint, String authUserEndpoint) {
-		this(endpoint, null, authUserEndpoint, null);
+		this(endpoint, null, authUserEndpoint, null, null);
 	}
 	
 	/**
@@ -66,6 +73,6 @@ public class ConnectionProfile {
 	 * @param endpoint The base server location, without any URI endpoints
 	 */
 	public ConnectionProfile(String endpoint) {
-		this(endpoint, null, null, null);
+		this(endpoint, null, null, null, null);
 	}
 }

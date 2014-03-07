@@ -120,9 +120,8 @@ public class RegisterActivity extends Activity {
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: Attempt to register user here
-			Authenticator auth = new Authenticator("http://buzzfunds.herokuapp.com");
-			return auth.httpRegisterGetAuth(mUsername, mPassword, "1");
+			Authenticator auth = new Authenticator(DefaultConnection.BUZZFUNDS.connProfile);
+			return auth.httpGetRegister("1");
 		}
 		
 		@Override
