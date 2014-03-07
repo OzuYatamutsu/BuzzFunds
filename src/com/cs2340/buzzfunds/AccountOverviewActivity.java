@@ -66,7 +66,18 @@ public class AccountOverviewActivity extends Activity {
 	private boolean populateAccounts() {
 		boolean result = false;
 		Authenticator endpoint = new Authenticator("https://buzzfunds.herokuapp.com");
-		JSONArray jsonParse = (JSONArray)JSONValue.parse(endpoint.httpGetSyncAccounts(username));
+		JSONObject jsonParse = (JSONObject)JSONValue.parse(endpoint.httpGetSyncAccounts(username));
+		//for (int i = 0; i < jsonParse.length(); i++) {
+			
+		//}
+		accounts = new Account[1];
+		try {
+			accounts[0] = new Account(jsonParse.getString("key"), endpoint);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			// Swallows exceptio for now
+			e.printStackTrace();
+		}
 		return result;
 	}
 	

@@ -1,5 +1,13 @@
 package com.cs2340.buzzfunds;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+
 /**
  * An Account object stores account information as retrieved from
  * a database or data source.
@@ -15,8 +23,8 @@ public class Account {
 	 * A key used to identify this account against a database.
 	 */
 	private String key;
-	
 	private Authenticator dataSource;
+	private Queue<Transaction> transactionQueue = new LinkedList<Transaction>();
 	
 	/**
 	 * Constructs a new Account object with a given key. 
@@ -38,7 +46,7 @@ public class Account {
 	 */
 	public String sync() {
 		String initString = "Success!";
-		boolean balanceState = pullBalance();
+		boolean balanceState = false; //pullBalance();
 		if (!balanceState) {
 			initString = "There was a problem syncing balances to the server.";
 		}
@@ -51,13 +59,14 @@ public class Account {
 	 * Attempts to synchronize this Account's balance with a data source.
 	 * @return true if successful; else false
 	 */
-	public boolean pullBalance() {
-		boolean success = true; // Placeholder
-		// Sync logic here
-		if (success) { // Placeholder
-			double balance = 100.00; // Placeholder
-			this.balance = balance;
-		}
+	public boolean pullBalance() throws Exception {
+		boolean success = false;
+		/*JSONParser jsonParser = new JSONParser();
+		JSONObject jsonResponse = (JSONObject)jsonParser.parse(dataSource.httpGetSyncAccounts(key));
+		if (jsonResponse != null) {
+			this.balance = Double.parseDouble(jsonResponse.get("balance").toString());
+			this.key = jsonResponse.get("user").toString();
+		}*/
 		
 		return success;
 	}
@@ -81,6 +90,28 @@ public class Account {
 	}
 	
 	/**
-	 * 
+	 * Pushes a Transaction from transactionQueue to the data source.
+	 *
+	 * @return true if the Transaction was successful; false otherwise
 	 */
+	/*public boolean dequeue() {
+		
+	}*/
+	
+	/**
+	 * Returns whether this Account has changes which need to be pushed to
+	 * the data source and resynced.
+	 *
+	 * @return true if changes need to be pushed; false if up to date with data source
+	 */
+	public boolean pushNeeded() {
+		return !transactionQueue.isEmpty();
+	}
+	
+	/**
+	 * Adds a transaction to transactionQueue.
+	 */
+	 public void queue(Transaction transaction) {
+		 transactionQueue.add(transaction);
+	 }
 }
