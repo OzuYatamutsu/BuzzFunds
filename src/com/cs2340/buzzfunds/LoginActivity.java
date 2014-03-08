@@ -135,7 +135,8 @@ public class LoginActivity extends Activity {
 			mAuthTask.execute((Void) null);
 			try {
 				if(mAuthTask.get()) {
-					Intent success = new Intent(this, AccountOverviewActivity.class);
+					//Intent success = new Intent(this, AccountOverviewActivity.class);
+					Intent success = new Intent(this, SuccessActivity.class);
 					success.putExtra("AUTH_STATE", true);
 					success.putExtra("USERNAME", mUsername);
 					startActivity(success);
@@ -195,7 +196,7 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			Authenticator login = new Authenticator(DefaultConnection.BUZZFUNDS.connProfile);
+			Authenticator login = new Authenticator(DefaultConnection.BUZZFUNDS, mUsername, mPassword);
 			return login.httpGetLogin("1");
 		}
 		

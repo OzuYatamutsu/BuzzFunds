@@ -120,7 +120,7 @@ public class RegisterActivity extends Activity {
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			Authenticator auth = new Authenticator(DefaultConnection.BUZZFUNDS.connProfile);
+			Authenticator auth = new Authenticator(DefaultConnection.BUZZFUNDS);
 			return auth.httpGetRegister("1");
 		}
 		

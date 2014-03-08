@@ -8,7 +8,7 @@ import android.view.Menu;
 public class AccountOverviewActivity extends Activity {
 	boolean isAuth = getIntent().getExtras().getBoolean("AUTH_STATE");
 	String username = getIntent().getExtras().getString("USERNAME");
-	Authenticator endpoint = new Authenticator(DefaultConnection.BUZZFUNDS.connProfile);
+	Authenticator endpoint = new Authenticator(DefaultConnection.BUZZFUNDS);
 	Account[] accounts;
 	
 	@Override

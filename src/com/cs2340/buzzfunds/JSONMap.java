@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 /**
  * An object which translates a JSON-encoded String 
  * into a Map of key-value pairs.
@@ -24,7 +28,12 @@ public class JSONMap implements Map<String, String> {
 	 */
 	public JSONMap(String jsonString) {
 		map = new HashMap<String, String>();
-		// Convert here
+		JSONParser parser = new JSONParser();
+		try {
+			JSONObject object = (JSONObject)parser.parse(jsonString);
+		} catch (ParseException e) {
+			// TODO: Swallows exception for now
+		}
 	}
 	
 	@Override
