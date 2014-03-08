@@ -287,30 +287,6 @@ app.get('/transaction', function(req,res){
 					});
 				}
 			} );
-
-
-			// loginCollection.update( query, {$push: {'accounts.transactionHistory':firstTrans}}, function(err){
-			// 	if(err){
-			// 		console.log('did not update correctly');
-			// 		console.log(err);
-			// 	}
-			// 	console.log("updated the logincollection");
-			// 	loginCollection.findOne( query, function(err, item){
-			// 	if(item===null)
-			// 	{
-			// 		res.send('did not find a user');					
-			// 	}
-			// 	else
-			// 	{
-			// 		res.send(item);
-			// 	}
-			// });
-			// // modify account transaction history in login
-			// // modify account transaction history in account
-
-
-
-			// });
 		}
 		else{
 			res.send('Database connection was not successful');	
