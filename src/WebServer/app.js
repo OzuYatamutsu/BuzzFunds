@@ -31,13 +31,17 @@ app.get('/users', user.list);
 
 //--------------------BEGIN USER LOGIN-----------------------//
 app.get('/login', function(request, response) {
+	
 	var cUser = request.query.username; 
 		cPass = request.query.password;
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL ||
     	      'mongodb://localhost/RiotData';
-
-mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
+if(cUser == null || cPass == null){
+	response.send(400, 'username or password were not formatted correctly: /login?username=USERNAME&password=PASSWORD');	
+}
+else{
+	mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
 	if(!err){
 		console.log('we are connected!');
 		var collection = db.collection('login');
@@ -55,6 +59,8 @@ mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function 
 		})
 	}
 });
+}
+
 });
 
 //------------------BEGIN USER REGISTRATION--------------------//
@@ -64,8 +70,12 @@ app.get('/register', function(request, response) {
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL ||
     	      'mongodb://localhost/RiotData';
-
-mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
+if(cUser == null || cPass == null){
+	response.send(400, 'username or password were not formatted correctly: /register?username=USERNAME&password=PASSWORD');	
+}
+else
+{
+	mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
 	if(!err){ 
 		console.log('we are connected!');
 		var collection = db.collection('login');
@@ -93,6 +103,7 @@ mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function 
 		response.send('oh no :(...')
 	}
 });
+}
 });
 
 //-----------------------BEGIN ADD ACCOUNT-------------------------//
@@ -121,6 +132,10 @@ app.get('/addaccount', function(request, response)
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
     	      'mongodb://localhost/RiotData';
+    if(cName == null || cUser == null || cBalance == null || cType == null || cInterest == null || cDate == null){
+    	response.send(400);
+    }
+    else{
     mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
 		if(!err){
 			console.log('we are connected!');
@@ -179,6 +194,7 @@ app.get('/addaccount', function(request, response)
 			response.send('Database connection was not successful...');
 		}
     });
+	}
 });
 
 
@@ -192,7 +208,11 @@ app.get('/retrieveaccounts', function(request, response) {
 		uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
     	      'mongodb://localhost/RiotData';
-    mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
+if(cUser == null){
+	response.send(400);
+}
+else{
+	mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
     	if(!err){
     		console.log('we are connected!');
 			var loginCollection = db.collection('login');
@@ -211,7 +231,7 @@ app.get('/retrieveaccounts', function(request, response) {
     		response.send('Database connection was not successful');
     	}
     });
-
+}
 });
 
 //-----------------------BEGIN TRANSACTION----------------------//
@@ -250,54 +270,53 @@ app.get('/transaction', function(req,res){
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
     	      'mongodb://localhost/RiotData';
-
+if(cUser == null || cName == null || cDelta == null || cType == null || cAccount == null || cInitDate == null || cExeDate == null){
+	res.send(400);
+}
+else{
     mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function (err, db) {
-		if(!err){
-    		console.log('we are connected!');
-			var loginCollection = db.collection('login'),
-			    accountsCollection = db.collection('accounts'),
-				firstTrans = { 	'name'    : cName,
-								'balance' : cDelta,
-								'insDate' : cInitDate,
-								'effDate' : cExeDate
-							},
-				query = {
-					'username': cUser,
-					'accounts.name': cAccount
-				}
-				console.log(cAccount);
-			loginCollection.update( query, {$push : {'accounts.$.transactionHistory' : firstTrans}}, function(err)
+	if(!err){
+		console.log('we are connected!');
+		var loginCollection = db.collection('login'),
+		    accountsCollection = db.collection('accounts'),
+			firstTrans = { 	'name'    : cName,
+							'balance' : cDelta,
+							'insDate' : cInitDate,
+							'effDate' : cExeDate
+						},
+			query = {
+				'username': cUser,
+				'accounts.name': cAccount
+			}
+			console.log(cAccount);
+		loginCollection.update( query, {$push : {'accounts.$.transactionHistory' : firstTrans}}, function(err)
+		{
+			if(err)
 			{
-				if(err)
-				{
-					console.log(err);
-				}
-				else
-				{
-					console.log('the update returned');
-					loginCollection.findOne( query, function(err, item){
-						if(item===null)
-						{
-							res.send('did not find a document');
-						}
-						else
-						{
-							res.send('1');
-						}
-					});
-				}
-			} );
-		}
-		else{
-			res.send('Database connection was not successful');	
-		}
+				console.log(err);
+			}
+			else
+			{
+				console.log('the update returned');
+				loginCollection.findOne( query, function(err, item){
+					if(item===null)
+					{
+						res.send('did not find a document');
+					}
+					else
+					{
+						res.send('1');
+					}
+				});
+			}
+		} );
+	}
+	else{
+		res.send('Database connection was not successful');	
+	}
 });
+}
 });
-
-// 
-
-
-
 
 //-----------------------BEGIN DELETE ACCOUNT----------------------//
 
