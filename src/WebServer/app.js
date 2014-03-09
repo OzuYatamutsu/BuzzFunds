@@ -47,14 +47,19 @@ else{
 		var collection = db.collection('login');
 		collection.findOne({'username':cUser}, function(err, item){
 			console.log(item.password);
-			if(cPass == item.password)
-			{
-				console.log('passwords were equivalent!');
-				response.send('1');
+			if(item != null){	
+				if(cPass == item.password)
+				{
+					console.log('passwords were equivalent!');
+					response.send('1');
+				}
+				else
+				{
+					response.send('0');
+				}	
 			}
-			else
-			{
-				response.send('0');
+			else{
+				response.send(400, 'username does not exist');
 			}
 		})
 	}
