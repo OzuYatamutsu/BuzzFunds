@@ -46,7 +46,6 @@ else{
 		console.log('we are connected!');
 		var collection = db.collection('login');
 		collection.findOne({'username':cUser}, function(err, item){
-			console.log(item.password);
 			if(item != null){	
 				if(cPass == item.password)
 				{
