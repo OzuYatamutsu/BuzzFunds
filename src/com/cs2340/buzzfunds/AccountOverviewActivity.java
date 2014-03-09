@@ -6,15 +6,24 @@ import android.content.Intent;
 import android.view.Menu;
 
 public class AccountOverviewActivity extends Activity {
-	boolean isAuth = getIntent().getExtras().getBoolean("AUTH_STATE");
-	String username = getIntent().getExtras().getString("USERNAME");
+	boolean isAuth;
+	Bundle extras = null; //getIntent().getExtras();
+	Intent intent = getIntent();
+	String username;
 	Authenticator endpoint = new Authenticator(DefaultConnection.BUZZFUNDS);
 	Account[] accounts;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (populateAccounts()) {
+		if (extras != null) {
+			isAuth = getIntent().getExtras().getBoolean("AUTH_STATE");
+			username = getIntent().getExtras().getString("USERNAME");
+		}
+		
+		
+		
+		/*if (populateAccounts()) {
 			setContentView(R.layout.activity_account_overview);
 		} else {
 			setContentView(R.layout.activity_account_overview_empty);
@@ -25,10 +34,16 @@ public class AccountOverviewActivity extends Activity {
 			Intent toLogin = new Intent(this, LoginActivity.class);
 			toLogin.putExtra("AUTH_ERROR", true);
 			startActivity(toLogin);
-		}
+		}*/
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+	    super.onNewIntent(intent);
+	    setIntent(intent);
 	}
 
-	public boolean testAdd() {
+	/*public boolean testAdd() {
 		Account account = addTestAccount("admin", "test11");
 		if (account != null) {
 			accounts = new Account[1];
@@ -37,12 +52,13 @@ public class AccountOverviewActivity extends Activity {
 		} else {
 			return false;
 		}
-	}
+	}*/
 	
+	/*
 	public Account addTestAccount(String username, String account) {
 		Account response = endpoint.httpGetAddAccount(account, "checking");
 		return response;
-	}
+	}*/
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,7 +67,7 @@ public class AccountOverviewActivity extends Activity {
 		return true;
 	}
 
-	private boolean populateAccounts() {
+	/*private boolean populateAccounts() {
 		boolean result = false;
 		accounts = endpoint.httpGetSyncAccount();
 		if (accounts != null) {
@@ -59,6 +75,6 @@ public class AccountOverviewActivity extends Activity {
 		}
 		
 		return result;
-	}
+	}*/
 	
 }

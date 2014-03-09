@@ -2,6 +2,7 @@ package com.cs2340.buzzfunds;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -88,6 +89,7 @@ public class LoginActivity extends Activity {
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
+	@SuppressLint("NewApi")
 	public void attemptLogin() {
 		if (mAuthTask != null) {
 			return;
@@ -135,10 +137,12 @@ public class LoginActivity extends Activity {
 			mAuthTask.execute((Void) null);
 			try {
 				if(mAuthTask.get()) {
-					//Intent success = new Intent(this, AccountOverviewActivity.class);
-					Intent success = new Intent(this, SuccessActivity.class);
+					Intent success = new Intent(this, AccountOverviewActivity.class);
+					//Intent success = new Intent(this, SuccessActivity.class);
 					success.putExtra("AUTH_STATE", true);
 					success.putExtra("USERNAME", mUsername);
+					success.getExtras().getBoolean("AUTH_STATE");
+					success.getExtras().getString("USERNAME");
 					startActivity(success);
 				}
 			} catch (Exception e) {
