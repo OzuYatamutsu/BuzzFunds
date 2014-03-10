@@ -159,18 +159,44 @@ public class Authenticator {
 		return accounts;
 	}
 	
+	/**
+	 * Sets the username used by this Authenticator.
+	 * 
+	 * @param username The username to set in this Authenticator
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
+	/**
+	 * Sets the password used by this Authenticator.
+	 * 
+	 * @param password The password to set in this Authenticator
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
+	/**
+	 * Returns the username used by this Authenticator.
+	 * 
+	 * @return The username used by this Authenticator.
+	 */
 	public String getUsername() {
 		return username;
 	}
 	
+	/**
+	 * Unimplemented for security reasons.
+	 */
+	protected void getPassword() {
+		// Don't implement this (unless for testing!)
+	}
+	
+	/**
+	 * Returns the connection endpoint used in this Authenticator.
+	 * @return The connection endpoint used in this Authenticator.
+	 */
 	public String getEndpoint() {
 		return conn.endpoint;
 	}

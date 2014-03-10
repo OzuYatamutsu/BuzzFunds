@@ -49,6 +49,10 @@ public class AccountOverviewActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Populates accounts by contacting server.
+	 * @return true if the local accounts store was populated; false otherwise
+	 */
 	private boolean populateAccounts() {
 		boolean result = false;
 		accounts = endpoint.httpGetSyncAccount();
