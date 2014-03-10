@@ -17,46 +17,24 @@ public class AccountOverviewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		if (IntentSingleton.keyExists("USERNAME")) {
 			username = IntentSingleton.getString("USERNAME");
+			endpoint.setUsername(username);
 		}
 		
 		isAuth = IntentSingleton.getBoolean("AUTH_STATE");
-		
-		/*if (populateAccounts()) {
-			setContentView(R.layout.activity_account_overview);
-		} else {
-			setContentView(R.layout.activity_account_overview_empty);
-		}
 		
 		if (!isAuth) {
 			// User is not (yet) allowed to be here!
 			Intent toLogin = new Intent(this, LoginActivity.class);
 			toLogin.putExtra("AUTH_ERROR", true);
 			startActivity(toLogin);
-		}*/
-	}
-	
-	@Override
-	protected void onNewIntent(Intent intent) {
-	    super.onNewIntent(intent);
-	    setIntent(intent);
-	}
-
-	/*public boolean testAdd() {
-		Account account = addTestAccount("admin", "test11");
-		if (account != null) {
-			accounts = new Account[1];
-			accounts[0] = account;
-			return true;
-		} else {
-			return false;
 		}
-	}*/
-	
-	/*
-	public Account addTestAccount(String username, String account) {
-		Account response = endpoint.httpGetAddAccount(account, "checking");
-		return response;
-	}*/
+		
+		if (populateAccounts()) {
+			setContentView(R.layout.activity_account_overview);
+		} else {
+			setContentView(R.layout.activity_account_overview_empty);
+		}
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,7 +43,7 @@ public class AccountOverviewActivity extends Activity {
 		return true;
 	}
 
-	/*private boolean populateAccounts() {
+	private boolean populateAccounts() {
 		boolean result = false;
 		accounts = endpoint.httpGetSyncAccount();
 		if (accounts != null) {
@@ -73,6 +51,6 @@ public class AccountOverviewActivity extends Activity {
 		}
 		
 		return result;
-	}*/
+	}
 	
 }

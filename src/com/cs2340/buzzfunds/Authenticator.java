@@ -1,5 +1,7 @@
 package com.cs2340.buzzfunds;
 
+import org.json.simple.parser.ParseException;
+
 /**
  * The Authenticator class performs authentication operations 
  * against a remote data source.
@@ -118,10 +120,7 @@ public class Authenticator {
 					+ conn.addAccountEndpoint + "?account="
 					+ id + "&user=" + username + "&balance=" 
 					+ 0.00 + "&type=" + type);
-			if (jsonResponse != "" && jsonResponse != null) {
-				JSONMap map = new JSONMap(jsonResponse);
-				// Construct new JSONMap here and feed info to Account constructor
-			}
+			
 		}
 		
 		return newAccount;
@@ -139,14 +138,35 @@ public class Authenticator {
 		
 		if (conn.syncAccountEndpoint != null) {
 			String jsonResponse = BasicHttpClient.exeGet(conn.endpoint 
-					+ conn.syncAccountEndpoint + "&user=" + username);
+					+ conn.syncAccountEndpoint + "?user=" + username);
 			if (jsonResponse != "" && jsonResponse != null) {
-				JSONMap map = new JSONMap(jsonResponse);
-				// Construct new JSONMap here and feed info to Account constructor
+				JSONMap map;
+				if (jsonResponse != "" && jsonResponse != null) {
+					try {
+						map = new JSONMap(jsonResponse);
+					} catch (Exception e) {
+						return null; // Invalid or nonexistant data
+					}
+
+					// temp
+					accounts = new Account[1];
+					accounts[0] = new Account(map.get("name"), this);
+				}
 			}
 		}
 		
 		return accounts;
 	}
 	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
 }
