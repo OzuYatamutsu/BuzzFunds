@@ -51,6 +51,7 @@ public class AccountOverviewActivity extends Activity {
 
 	/**
 	 * Populates accounts by contacting server.
+	 * 
 	 * @return true if the local accounts store was populated; false otherwise
 	 */
 	private boolean populateAccounts() {
