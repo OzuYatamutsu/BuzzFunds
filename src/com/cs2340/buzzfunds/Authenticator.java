@@ -149,8 +149,10 @@ public class Authenticator {
 					}
 
 					accounts = new Account[map.size()];
+					String[] ids = map.returnAllValues("name");
+					String[] amounts = map.returnAllValues("amount");
 					for (int i = 0; i < map.size(); i++) {
-						accounts[i] = new Account(map.get("name"), this, Double.parseDouble(map.get("amount")));
+						accounts[i] = new Account(ids[i], this, Double.parseDouble(amounts[i]));
 					}
 				}
 			}
