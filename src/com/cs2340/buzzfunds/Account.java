@@ -23,7 +23,7 @@ public class Account {
 	/**
 	 * A key used to identify this account against a database.
 	 */
-	private String key;
+	private String key, type;
 	private Authenticator dataSource;
 	private Queue<Transaction> transactionQueue = new LinkedList<Transaction>();
 	
@@ -34,17 +34,20 @@ public class Account {
 	 * 
 	 * @param key A key used to identify this Account to a data source
 	 * @param dataSource The data source authenticated against
+	 * @param type The type of account
 	 */
-	public Account(String key, Authenticator dataSource) {
+	public Account(String key, Authenticator dataSource, String type) {
 		this.key = key;
 		this.dataSource = dataSource;
+		this.type = type;
 		sync();
 	}
 	
-	public Account(String key, Authenticator dataSource, double balance) {
+	public Account(String key, Authenticator dataSource, double balance, String type) {
 		this.key = key;
 		this.dataSource = dataSource;
 		this.balance = balance;
+		this.type = type;
 	}
 	
 	/**
@@ -127,9 +130,19 @@ public class Account {
 	 }
 	 
 	 /**
+	  * Returns this Account's type.
+	  * 
+	  * @return This Account's type
+	  */
+	 public String getType() {
+		 return type;
+	 }
+	 
+	 /**
 	  * Returns a String representation of this Account.
 	  */
 	 public String toString() {
-		 return "[" + NumberFormat.getCurrencyInstance().format(getBalance()) + "] " + getKey();
+		 return "[" + NumberFormat.getCurrencyInstance().format(getBalance()) 
+				 + "] " + getKey() + ", " + getType();
 	 }
 }

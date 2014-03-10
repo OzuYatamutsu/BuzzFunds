@@ -14,50 +14,6 @@
         android:layout_height="wrap_content"
         android:text="@string/create_account_id" />
 
-    <EditText
-        android:id="@+id/create_account_newId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="18dp"
-        android:ems="10" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/create_account_newId"
-        android:layout_below="@+id/create_account_newId"
-        android:layout_marginTop="44dp" >
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/radioGroup1"
-        android:layout_alignLeft="@+id/create_account_newId"
-        android:layout_marginBottom="17dp"
-        android:text="@string/create_account_type" />
-
-    <RadioButton
-        android:id="@+id/create_account_checking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:text="@string/create_account_checking" />
-
-    <RadioButton
-        android:id="@+id/create_account_savings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/create_account_checking"
-        android:checked="true"
-        android:text="@string/create_account_savings" />
-
     <Button
         android:id="@+id/create_account_submit"
         android:layout_width="wrap_content"
@@ -65,7 +21,51 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
-        android:text="@string/create_account" 
-        android:onClick="createAccount" />
+        android:onClick="createAccount"
+        android:text="@string/create_account" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/create_account_newId"
+        android:layout_below="@+id/create_account_newId"
+        android:layout_marginTop="27dp"
+        android:text="@string/create_account_type" />
+
+    <RadioGroup
+        android:id="@+id/newAccountType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="17dp" >
+
+        <RadioButton
+            android:id="@+id/create_account_savings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/create_account_savings" />
+
+        <RadioButton
+            android:id="@+id/create_account_checking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_account_checking" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/create_account_newId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/create_account_submit"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="17dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

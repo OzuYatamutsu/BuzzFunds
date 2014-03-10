@@ -4,14 +4,17 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class CreateAccountActivity extends Activity {
 
 	EditText mAccountId;
 	RadioButton mAccountTypeSavings;
 	RadioButton mAccountTypeChecking;
+	RadioGroup mNewAccountType;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +22,14 @@ public class CreateAccountActivity extends Activity {
 		setContentView(R.layout.activity_create_account);
 		mAccountId = (EditText) findViewById(R.id.create_account_newId);
 		mAccountTypeSavings = (RadioButton) findViewById(R.id.create_account_savings);
-		mAccountTypeChecking = (RadioButton) findViewById(R.id.create_account_checking);
+		//mAccountTypeChecking = (RadioButton) findViewById(R.id.create_account_checking);
+		mNewAccountType = (RadioGroup) findViewById(R.id.newAccountType);
 	}
 	
 	private String getAccountType() {
-		if (mAccountTypeSavings.isChecked()) {
+		int selectedId = mNewAccountType.getCheckedRadioButtonId();
+		RadioButton checked = (RadioButton) findViewById(selectedId);
+		if (checked.getText().equals(mAccountTypeSavings.getText())) {
 			return "savings";
 		} else {
 			return "checking";
@@ -37,7 +43,7 @@ public class CreateAccountActivity extends Activity {
 		return true;
 	}
 	
-	public void createAccount() {
+	public void createAccount(View view) {
 		if (submitAccount()) {
 			// Successful, transition back to AccountOverviewActivity
 			Intent intent = new Intent(this, AccountOverviewActivity.class);
@@ -52,9 +58,9 @@ public class CreateAccountActivity extends Activity {
 		if (IntentSingleton.getString("USERNAME") != null) {
 			Authenticator auth = new Authenticator(DefaultConnection.BUZZFUNDS, 
 					IntentSingleton.getString("USERNAME"));
-			Account newAccount = auth.httpGetAddAccount(mAccountId.getText().toString(), 
-					getAccountType());
-			if (newAccount != null) {
+			//Account newAccount = auth.httpGetAddAccount(mAccountId.getText().toString(), 
+					//getAccountType());
+			if (auth.httpGetAddAccount(mAccountId.getText().toString(), getAccountType(), "1")) {
 				result = true;
 			}
 		}

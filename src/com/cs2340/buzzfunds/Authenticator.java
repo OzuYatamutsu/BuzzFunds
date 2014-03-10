@@ -1,6 +1,12 @@
 package com.cs2340.buzzfunds;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.simple.parser.ParseException;
+
+import android.annotation.SuppressLint;
+import android.text.format.DateFormat;
 
 /**
  * The Authenticator class performs authentication operations 
@@ -109,21 +115,29 @@ public class Authenticator {
 	 * 
 	 * @param id The accountID to identify this account as
 	 * @param type The type of account (e.g. "savings," "checking," etc.)
-	 * @return A new Account object generated from the JSON-encoded server response,
-	 * or null if account add was unsuccessful or not enough information was supplied
+	 * @param successState The value to check the response of the server against to 
+	 * 	determine if account creation was successful or not
+	 * @return true if account creation was successful; false if invalid information
+	 * or no addAccountEndpoint declared in ConnectionProfile
 	 */
-	public Account httpGetAddAccount(String id, String type) {
-		Account newAccount = null;
+	@SuppressLint("SimpleDateFormat")
+	public boolean httpGetAddAccount(String id, String type, String successState) {
+		boolean result = false;
 		
 		if (conn.addAccountEndpoint != null) {
-			String jsonResponse = BasicHttpClient.exeGet(conn.endpoint
-					+ conn.addAccountEndpoint + "?account="
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+			Date date = new Date();
+			String response = BasicHttpClient.exeGet(conn.endpoint
+					+ conn.addAccountEndpoint + "?name="
 					+ id + "&user=" + username + "&balance=" 
-					+ 0.00 + "&type=" + type);
-			
+					+ 0.00 + "&type=" + type + "&interest="
+					+ 0.00 + "&date=" + dateFormat.format(date));
+			if (response.substring(0,1).equals(successState)) {
+				result = true;
+			}
 		}
 		
-		return newAccount;
+		return result;
 	}
 	
 	/**
@@ -141,19 +155,18 @@ public class Authenticator {
 					+ conn.syncAccountEndpoint + "?user=" + username);
 			if (jsonResponse != "" && jsonResponse != null) {
 				JSONMap map;
-				if (jsonResponse != "" && jsonResponse != null) {
-					try {
-						map = new JSONMap(jsonResponse);
-					} catch (Exception e) {
-						return null; // Invalid or nonexistant data
-					}
+				try {
+					map = new JSONMap(jsonResponse);
+				} catch (Exception e) {
+					return null; // Invalid or nonexistant data
+				}
 
-					accounts = new Account[map.size()];
-					String[] ids = map.returnAllValues("name");
-					String[] amounts = map.returnAllValues("amount");
-					for (int i = 0; i < map.size(); i++) {
-						accounts[i] = new Account(ids[i], this, Double.parseDouble(amounts[i]));
-					}
+				accounts = new Account[map.size()];
+				String[] ids = map.returnAllValues("name");
+				for (int i = 0; i < map.size(); i++) {
+					accounts[i] = new Account(ids[i], this, 
+							Double.parseDouble(map.get(ids[i], "amount")), 
+							map.get(ids[i], "type"));
 				}
 			}
 		}
