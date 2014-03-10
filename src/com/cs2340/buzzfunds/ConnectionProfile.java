@@ -26,6 +26,10 @@ public class ConnectionProfile {
 	 * The URI endpoint to sync Accounts against
 	 */
 	public String syncAccountEndpoint;
+	/**
+	 * The URI endpoint to push Transactions to
+	 */
+	public String transactionEndpoint;
 	
 	/**
 	 * Constructs a new ConnectionProfile with given information.
@@ -35,15 +39,17 @@ public class ConnectionProfile {
 	 * @param authUserEndpoint The URI endpoint to authenticate against
 	 * @param addAccountEndpoint The URI endpoint to add Accounts against
 	 * @param syncAccountEndpoint The URI endpoint to sync accounts against
+	 * @param transactionEndpoint The URI endpoint to push Transactions to
 	 */
 	public ConnectionProfile(String endpoint, String registerUserEndpoint, 
 			String authUserEndpoint, String addAccountEndpoint, 
-			String syncAccountEndpoint) {
+			String syncAccountEndpoint, String transactionEndpoint) {
 		this.endpoint = endpoint;
 		this.registerUserEndpoint = registerUserEndpoint;
 		this.authUserEndpoint = authUserEndpoint;
 		this.addAccountEndpoint = addAccountEndpoint;
 		this.syncAccountEndpoint = syncAccountEndpoint;
+		this.transactionEndpoint = transactionEndpoint;
 	}
 	
 	/**
@@ -54,7 +60,7 @@ public class ConnectionProfile {
 	 * @param syncAccountEndpoint The URI endpoint to sync accounts against
 	 */
 	public ConnectionProfile(String endpoint, String authUserEndpoint, String syncAccountEndpoint) {
-		this(endpoint, null, authUserEndpoint, null, syncAccountEndpoint);
+		this(endpoint, null, authUserEndpoint, null, syncAccountEndpoint, null);
 	}
 	
 	/**
@@ -64,7 +70,7 @@ public class ConnectionProfile {
 	 * @param authUserEndpoint The URI endpoint to authenticate against
 	 */
 	public ConnectionProfile(String endpoint, String authUserEndpoint) {
-		this(endpoint, null, authUserEndpoint, null, null);
+		this(endpoint, null, authUserEndpoint, null, null, null);
 	}
 	
 	/**
@@ -73,6 +79,6 @@ public class ConnectionProfile {
 	 * @param endpoint The base server location, without any URI endpoints
 	 */
 	public ConnectionProfile(String endpoint) {
-		this(endpoint, null, null, null, null);
+		this(endpoint, null, null, null, null, null);
 	}
 }

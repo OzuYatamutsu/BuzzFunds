@@ -12,12 +12,14 @@ public class DefaultConnection {
 		 * Register: /register<br>
 		 * Login: /login<br>
 		 * Add Account: /addaccount<br>
-		 * Get Account(s): /retrieveaccounts
+		 * Get Account(s): /retrieveaccounts<br>
+		 * Transaction: /transaction
 		 */
 		public static final ConnectionProfile BUZZFUNDS = new ConnectionProfile(
 				"http://buzzfunds.herokuapp.com", 
 				"/register", 
 				"/login", 
 				"/addaccount", 
-				"/retrieveaccounts");
+				"/retrieveaccounts",
+				"/transaction");
 }
