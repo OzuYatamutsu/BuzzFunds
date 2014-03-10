@@ -125,7 +125,7 @@ public class Authenticator {
 		boolean result = false;
 		
 		if (conn.addAccountEndpoint != null) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			String response = BasicHttpClient.exeGet(conn.endpoint
 					+ conn.addAccountEndpoint + "?name="
