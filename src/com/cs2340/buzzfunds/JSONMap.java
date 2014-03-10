@@ -1,13 +1,23 @@
 package com.cs2340.buzzfunds;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.json.simple.JSONObject;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import com.google.gson.*;
 
 /**
  * An object which translates a JSON-encoded String 
@@ -26,14 +36,10 @@ public class JSONMap implements Map<String, String> {
 	 * 
 	 * @param jsonString The JSON-encoded String to translate
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONMap(String jsonString) {
-		map = new HashMap<String, String>();
-		JSONParser parser = new JSONParser();
-		try {
-			JSONObject object = (JSONObject)parser.parse(jsonString);
-		} catch (ParseException e) {
-			// TODO: Swallows exception for now
-		}
+		List<Map<String, String>> jsonParser = (JSONArray) JSONValue.parse(jsonString);
+		map = (Map<String, String>) jsonParser.get(0);	
 	}
 	
 	@Override
