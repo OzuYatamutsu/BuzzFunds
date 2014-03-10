@@ -3,8 +3,11 @@ package com.cs2340.buzzfunds;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -38,6 +41,15 @@ public class AccountOverviewActivity extends Activity {
 			        android.R.layout.simple_list_item_1, accounts);
 			ListView accountList = (ListView) findViewById(R.id.accountList);
 			accountList.setAdapter(adapter);
+			accountList.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Log.d("click event", "the button: " + id + " was pressed at " + position);
+					
+				}
+			});
 		} else {
 			setContentView(R.layout.activity_account_overview_empty);
 		}
