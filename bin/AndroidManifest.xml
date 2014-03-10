@@ -41,6 +41,10 @@
             android:name="com.cs2340.buzzfunds.AccountOverviewActivity"
             android:label="@string/title_activity_account_overview" >
         </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.CreateAccountActivity"
+            android:label="@string/title_activity_create_account" >
+        </activity>
     </application>
 
 </manifest>

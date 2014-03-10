@@ -17,5 +17,12 @@
     <string name="title_activity_account_overview">AccountOverviewActivity</string>
     <string name="no_accounts">Whoa! It looks like you don\'t have any accounts associated with your login. Why don\'t you add one?</string>
     <string name="add_account">Add account</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="create_account_id">Please enter the ID of your new account:</string>
+    <string name="create_account_type">Please select an account type:</string>
+    <string name="create_account_savings">Savings</string>
+    <string name="create_account_checking">Checking</string>
+    <string name="create_account">Create account</string>
+    <string name="new_account_button">New Account</string>
 
 </resources>
