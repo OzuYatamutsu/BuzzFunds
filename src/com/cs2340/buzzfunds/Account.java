@@ -130,6 +130,15 @@ public class Account {
 	 }
 	 
 	 /**
+	  * Returns this Account's ID (key minus username-prefix).
+	  * 
+	  * @return This Account's key, without username prefix
+	  */
+	 public String getId() {
+		return key.replace(dataSource.getUsername() + "-", "");
+	 }
+	 
+	 /**
 	  * Returns this Account's type.
 	  * 
 	  * @return This Account's type
@@ -143,6 +152,6 @@ public class Account {
 	  */
 	 public String toString() {
 		 return "[" + NumberFormat.getCurrencyInstance().format(getBalance()) 
-				 + "] " + getKey() + ", " + getType();
+				 + "] " + getId() + ", " + getType();
 	 }
 }
