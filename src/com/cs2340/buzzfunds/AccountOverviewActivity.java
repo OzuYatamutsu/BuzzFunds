@@ -7,7 +7,6 @@ import android.view.Menu;
 
 public class AccountOverviewActivity extends Activity {
 	boolean isAuth;
-	Bundle extras = null; //getIntent().getExtras();
 	Intent intent = getIntent();
 	String username;
 	Authenticator endpoint = new Authenticator(DefaultConnection.BUZZFUNDS);
@@ -16,12 +15,11 @@ public class AccountOverviewActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (extras != null) {
-			isAuth = getIntent().getExtras().getBoolean("AUTH_STATE");
-			username = getIntent().getExtras().getString("USERNAME");
+		if (IntentSingleton.keyExists("USERNAME")) {
+			username = IntentSingleton.getString("USERNAME");
 		}
 		
-		
+		isAuth = IntentSingleton.getBoolean("AUTH_STATE");
 		
 		/*if (populateAccounts()) {
 			setContentView(R.layout.activity_account_overview);

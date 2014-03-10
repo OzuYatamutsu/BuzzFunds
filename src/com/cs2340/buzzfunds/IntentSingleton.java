@@ -40,7 +40,7 @@ public class IntentSingleton {
 	 * @param key The String key associated with the String
 	 * @param value The value of the String
 	 */
-	public void putString(String key, String value) {
+	public static void putString(String key, String value) {
 		stringMap.put(key, value);
 	}
 	
@@ -50,9 +50,8 @@ public class IntentSingleton {
 	 * @param key The String key associated with the boolean
 	 * @param value The value of the boolean
 	 */
-	public void putBoolean(String key, boolean value) {
+	public static void putBoolean(String key, boolean value) {
 		booleanMap.put(key, value);
-		
 	}
 	
 	/**
@@ -61,7 +60,7 @@ public class IntentSingleton {
 	 * @param key The String key of the value
 	 * @return The value associated with the key, or null if none found
 	 */
-	public String getString(String key) {
+	public static String getString(String key) {
 		return stringMap.get(key);
 	}
 	
@@ -71,7 +70,17 @@ public class IntentSingleton {
 	 * @param key The String key of the value
 	 * @return The value associated with the key, or null if none found
 	 */
-	public boolean getBoolean(String key) {
+	public static boolean getBoolean(String key) {
 		return booleanMap.get(key);
+	}
+	
+	/**
+	 * Checks if key exists in this IntentSingleton store.
+	 * 
+	 * @param key The key to check
+	 * @return true if found; else false
+	 */
+	public static boolean keyExists(String key) {
+		return (stringMap.containsKey(key) || booleanMap.containsKey(key));
 	}
 }
