@@ -150,7 +150,9 @@ public class Authenticator {
 
 					// temp
 					accounts = new Account[1];
-					accounts[0] = new Account(map.get("name"), this);
+					//accounts[0] = new Account(map.get("name"), this);
+					String a = map.get("amount");
+					accounts[0] = new Account(map.get("name"), this, Double.parseDouble(map.get("amount")));
 				}
 			}
 		}
@@ -168,5 +170,9 @@ public class Authenticator {
 	
 	public String getUsername() {
 		return username;
+	}
+	
+	public String getEndpoint() {
+		return conn.endpoint;
 	}
 }

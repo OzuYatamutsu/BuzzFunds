@@ -26,11 +26,11 @@ public final class R {
     public static final class id {
         public static final int TextView01=0x7f08000f;
         public static final int TextView02=0x7f08000c;
+        public static final int accountList=0x7f080000;
         public static final int action_forgot_password=0x7f080012;
         public static final int action_settings=0x7f080011;
         public static final int button1=0x7f080002;
         public static final int button2=0x7f08000a;
-        public static final int listView1=0x7f080000;
         public static final int login=0x7f080008;
         public static final int login_form=0x7f080005;
         public static final int login_status=0x7f080003;

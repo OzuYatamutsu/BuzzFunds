@@ -1,5 +1,6 @@
 package com.cs2340.buzzfunds;
 
+import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -40,6 +41,12 @@ public class Account {
 		sync();
 	}
 	
+	public Account(String key, Authenticator dataSource, double balance) {
+		this.key = key;
+		this.dataSource = dataSource;
+		this.balance = balance;
+	}
+	
 	/**
 	 * Initializes this account by syncing balances between app and database.
 	 * @return A String describing success state
@@ -61,12 +68,7 @@ public class Account {
 	 */
 	public boolean pullBalance() throws Exception {
 		boolean success = false;
-		/*JSONParser jsonParser = new JSONParser();
-		JSONObject jsonResponse = (JSONObject)jsonParser.parse(dataSource.httpGetSyncAccounts(key));
-		if (jsonResponse != null) {
-			this.balance = Double.parseDouble(jsonResponse.get("balance").toString());
-			this.key = jsonResponse.get("user").toString();
-		}*/
+		//this.balance = dataSource.getEndpoint();
 		
 		return success;
 	}
@@ -113,5 +115,21 @@ public class Account {
 	 */
 	 public void queue(Transaction transaction) {
 		 transactionQueue.add(transaction);
+	 }
+	 
+	 /**
+	  * Returns this Account's key.
+	  * 
+	  * @return This Account's key
+	  */
+	 public String getKey() {
+		 return key;
+	 }
+	 
+	 /**
+	  * Returns a String representation of this Account.
+	  */
+	 public String toString() {
+		 return "[" + NumberFormat.getCurrencyInstance().format(getBalance()) + "] " + getKey();
 	 }
 }

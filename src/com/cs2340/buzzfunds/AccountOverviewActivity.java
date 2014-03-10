@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class AccountOverviewActivity extends Activity {
 	boolean isAuth;
@@ -31,6 +33,10 @@ public class AccountOverviewActivity extends Activity {
 		
 		if (populateAccounts()) {
 			setContentView(R.layout.activity_account_overview);
+			ArrayAdapter<Account> adapter = new ArrayAdapter<Account>(this, 
+			        android.R.layout.simple_list_item_1, accounts);
+			ListView accountList = (ListView) findViewById(R.id.accountList);
+			accountList.setAdapter(adapter);
 		} else {
 			setContentView(R.layout.activity_account_overview_empty);
 		}
