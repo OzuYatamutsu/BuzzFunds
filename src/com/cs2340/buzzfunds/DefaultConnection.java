@@ -1,5 +1,10 @@
 package com.cs2340.buzzfunds;
 
+/**
+ * A class which holds default information profiles for often-used connection endpoints.
+ * 
+ * @author Sean Collins
+ */
 public class DefaultConnection {
 		/**
 		 * A default connection profile associated with the Buzzfunds endpoint.<br><br>
