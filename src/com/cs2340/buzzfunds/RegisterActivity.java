@@ -101,8 +101,10 @@ public class RegisterActivity extends Activity {
 			try {
 				if (mRegisterTask.get()) {
 					Intent success = new Intent(this, AccountOverviewActivity.class);
-					success.putExtra("AUTH_STATE", true);
-					success.putExtra("USERNAME", mUsername);
+					//success.putExtra("AUTH_STATE", true);
+					//success.putExtra("USERNAME", mUsername);
+					IntentSingleton.putBoolean("AUTH_STATE", true);
+					IntentSingleton.putString("USERNAME", mUsername);
 					startActivity(success);
 				}
 			} catch (Exception e) {
