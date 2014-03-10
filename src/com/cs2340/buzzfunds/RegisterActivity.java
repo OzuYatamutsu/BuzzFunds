@@ -2,6 +2,7 @@ package com.cs2340.buzzfunds;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -19,10 +20,16 @@ public class RegisterActivity extends Activity {
 	private String mVerify;
 	private UserRegisterTask mRegisterTask;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		
+		// Override NetworkOnMainThread exception (sssssshhhh)
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		
 		mUsernameView = (EditText) findViewById(R.id.register_username);
 		mPasswordView = (EditText) findViewById(R.id.register_password);
 		mVerifyView = (EditText) findViewById(R.id.register_verify);
