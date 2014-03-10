@@ -148,11 +148,10 @@ public class Authenticator {
 						return null; // Invalid or nonexistant data
 					}
 
-					// temp
-					accounts = new Account[1];
-					//accounts[0] = new Account(map.get("name"), this);
-					String a = map.get("amount");
-					accounts[0] = new Account(map.get("name"), this, Double.parseDouble(map.get("amount")));
+					accounts = new Account[map.size()];
+					for (int i = 0; i < map.size(); i++) {
+						accounts[i] = new Account(map.get("name"), this, Double.parseDouble(map.get("amount")));
+					}
 				}
 			}
 		}
