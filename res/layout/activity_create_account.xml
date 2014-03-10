@@ -42,7 +42,7 @@
         android:text="@string/create_account_type" />
 
     <RadioButton
-        android:id="@+id/radio1"
+        android:id="@+id/create_account_checking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
@@ -50,11 +50,11 @@
         android:text="@string/create_account_checking" />
 
     <RadioButton
-        android:id="@+id/radio0"
+        android:id="@+id/create_account_savings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/radio1"
+        android:layout_below="@+id/create_account_checking"
         android:checked="true"
         android:text="@string/create_account_savings" />
 

@@ -24,5 +24,6 @@
     <string name="create_account_checking">Checking</string>
     <string name="create_account">Create account</string>
     <string name="new_account_button">New Account</string>
+    <string name="error_account_create">Server-side error creating your account.</string>
 
 </resources>
