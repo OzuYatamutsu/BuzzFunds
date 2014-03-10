@@ -62,6 +62,6 @@ http://buzzfunds.herokuapp.com/transaction?user=<USERNAME>&name=<ACCOUNTNAME>&de
 //	delta(float) the amount to be put/taken in/out of the account 
 //  type(string) 'w' if the transaction is a withdrawal or 'd' if deposit
 //  account(string) the long name of the account from which to make the change
-//	initDate(string) the date in which the transaction was created
+//	initDate(string) the date in which the transaction was created yyyy-mm-dd (2013-12-26)
 //  exeDate(string) the date in which the transaction should occur
 //	Output: success(bool) whether the transaction was added successfully
