@@ -59,6 +59,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="36dp"
-        android:text="@string/detail_start_transaction" />
+        android:text="@string/detail_start_transaction" 
+        android:onClick="switchToChooseTransactionTypeActivity"/>
 
 </RelativeLayout>

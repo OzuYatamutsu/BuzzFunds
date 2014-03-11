@@ -38,5 +38,9 @@
     <string name="title_activity_withdrawl_transaction">WithdrawlTransactionActivity</string>
     <string name="title_activity_transfer_transaction">TransferTransactionActivity</string>
     <string name="title_activity_withdrawal_transaction">WithdrawalTransactionActivity</string>
+    <string name="transaction_deposit_button">Deposit</string>
+    <string name="transaction_withdrawal_button">Withdrawal</string>
+    <string name="transaction_transfer_button">Transfer</string>
+    <string name="transaction_choose_text">What kind of transaction?</string>
 
 </resources>

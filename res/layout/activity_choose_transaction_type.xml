@@ -8,9 +8,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ChooseTransactionTypeActivity" >
 
-    <TextView
+    <Button
+        android:id="@+id/transaction_withdrawal_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="116dp"
+        android:text="@string/transaction_withdrawal_button" 
+        android:onClick="switchToWithdrawalTransactionActivity"/>
+
+    <Button
+        android:id="@+id/transaction_deposit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transaction_withdrawal_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/transaction_deposit_button" 
+        android:onClick="switchToDepositTransactionActivity"/>
+
+    <Button
+        android:id="@+id/transaction_transfer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transaction_deposit_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/transaction_transfer_button" 
+        android:onClick="switchToTransferTransactionActivity"/>
+
+    <TextView
+        android:id="@+id/transaction_choose_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="@string/transaction_choose_text" />
 
 </RelativeLayout>
