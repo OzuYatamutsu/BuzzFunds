@@ -166,7 +166,7 @@ public class Authenticator {
 					for(int i = 0; i < accountA.length(); i++){
 						JSONObject obj;
 							obj = accountA.getJSONObject(i);
-							accounts[i] = new Account(obj.getString("name"), this, Double.parseDouble(obj.getString("amount")), obj.getString("type"));
+							accounts[i] = new Account(obj.getString("name"), this, calcBalance(obj.getJSONArray("transactionHistory")), obj.getString("type"));
 					}
 				} catch (Exception e) {
 					return null; // Invalid or nonexistant data
@@ -176,6 +176,20 @@ public class Authenticator {
 		return accounts;
 	}
 	
+	private double calcBalance(JSONArray array){
+		double balance = 0;
+		for(int i = 0; i < array.length(); i++){
+			try {
+				JSONObject obj = array.getJSONObject(i);
+				String deltaS = obj.getString("balance");
+				double delta = Double.parseDouble(deltaS);
+					balance += delta;
+			} catch (JSONException e) {
+				return -5000;
+			}
+		}
+		return balance;
+	}
 	/**
 	 * Sets the username used by this Authenticator.
 	 * 
