@@ -5,31 +5,30 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
+import android.widget.EditText;
 
 public class DepositTransactionActivity extends Activity {
 
 	boolean isAuth;
 	Intent intent = getIntent();
-	String username;
-	private UserDepositTask mAuthTask = null;
-	Authenticator endpoint = new Authenticator(DefaultConnection.BUZZFUNDS);
 	Account account;
+	EditText mAmount, mYear, mMonth, mDay;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Setup.ignoreMainNetworkException();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deposit_transaction);
+		mAmount = (EditText) findViewById(R.id.amount);
+		mYear = (EditText) findViewById(R.id.year);
+		mMonth = (EditText) findViewById(R.id.month);
+		mDay = (EditText) findViewById(R.id.day);
 		
-		if(IntentSingleton.keyExists("USERNAME")){
-			username = IntentSingleton.getString("USERNAME");
-			endpoint.setUsername(username);
-		}
-		if(IntentSingleton.keyExists("CURRENT_ACCOUNT")){
+		if (IntentSingleton.keyExists("CURRENT_ACCOUNT")) {
 			account = IntentSingleton.getAccount("CURRENT_ACCOUNT");
-		}
-		else
-		{
+		} else {
 			intent = new Intent(this, AccountOverviewActivity.class);
 			startActivity(intent);
 		}
@@ -42,13 +41,43 @@ public class DepositTransactionActivity extends Activity {
 		return true;
 	}
 	
-	public class UserDepositTask extends AsyncTask<Void, Void, Boolean>{
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-			// TODO Auto-generated method stub
-			return null;
+	public void attemptTransaction(View view) {
+		String date = mYear.getText() + "-" + mMonth.getText() + "-" + mDay.getText();
+		
+		if (queueTransaction(date)) {
+			if (pushTransaction(date)) {
+				// All good!
+				Intent intent = new Intent(this, AccountDetailActivity.class);
+				startActivity(intent);
+			} else {
+				mAmount.setError(getString(R.string.error_transaction));
+			}
+		} else {
+			mAmount.setError(getString(R.string.error_transaction));
+			
 		}
 		
+		
+	}
+	
+	private boolean queueTransaction(String date) {
+		boolean result = true;
+		
+		double amount = Double.parseDouble(mAmount.getText().toString());
+		Transaction transaction = new Transaction(account, amount, date, "deposit");
+		// Title is just date for now
+		account.queue(transaction);
+		
+		return result;
+	}
+	
+	private boolean pushTransaction(String date) {
+		boolean result = false;
+		
+		if (account.pushNeeded()) {
+			account.push(date);
+		}
+		
+		return result;
 	}
 }
