@@ -25,5 +25,11 @@
     <string name="create_account">Create account</string>
     <string name="new_account_button">New Account</string>
     <string name="error_account_create">Server-side error creating your account.</string>
+    <string name="account_detail_name">AccountName</string>
+    <string name="detail_type_label">Type</string>
+    <string name="detail_balance_label">Balance</string>
+    <string name="detail_start_transaction">Perform transaction</string>
+    <string name="detail_type_val">TypeVal</string>
+    <string name="detail_balance_val">BalanceVal</string>
 
 </resources>

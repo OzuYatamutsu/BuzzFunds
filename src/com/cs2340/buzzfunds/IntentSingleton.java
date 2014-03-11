@@ -11,6 +11,8 @@ import java.util.Map;
 public class IntentSingleton {
 	private static Map<String, String> stringMap = new HashMap<String, String>();
 	private static Map<String, Boolean> booleanMap = new HashMap<String, Boolean>();
+	private static Map<String, Account> accountMap = new HashMap<String, Account>();
+	
 	private static IntentSingleton instance = null;
 	
 	/**
@@ -82,5 +84,18 @@ public class IntentSingleton {
 	 */
 	public static boolean keyExists(String key) {
 		return (stringMap.containsKey(key) || booleanMap.containsKey(key));
+	}
+	
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public static void putAccount(String key, Account value) {
+		accountMap.put(key, value);
+	}
+	
+	public static Account getAccount(String key) {
+		return accountMap.get(key);
 	}
 }

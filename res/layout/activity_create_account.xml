@@ -9,7 +9,7 @@
     tools:context=".CreateAccountActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/detail_type_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_account_id" />
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/create_account_submit"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/detail_type_label"
         android:layout_marginTop="17dp"
         android:ems="10" >
 

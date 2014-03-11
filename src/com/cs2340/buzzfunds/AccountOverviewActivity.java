@@ -1,6 +1,7 @@
 package com.cs2340.buzzfunds;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -26,6 +27,10 @@ public class AccountOverviewActivity extends Activity {
 			endpoint.setUsername(username);
 		}
 		
+		// Override NetworkOnMainThread exception (sssssshhhh)
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		
 		isAuth = IntentSingleton.getBoolean("AUTH_STATE");
 		
 		if (!isAuth) {
@@ -47,6 +52,7 @@ public class AccountOverviewActivity extends Activity {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					Log.d("click event", "the button: " + id + " was pressed at " + position);
+					switchToAccountDetail(position);
 					
 				}
 			});
@@ -84,6 +90,17 @@ public class AccountOverviewActivity extends Activity {
 	 */
 	public void switchToCreateAccount(View view) {
 		Intent intent = new Intent(this, CreateAccountActivity.class);
+		startActivity(intent);
+	}
+	
+	/**
+	 * Transitions to AccountDetailActivity on ListItem click.
+	 * 
+	 * @param id The position of the ListItem
+	 */
+	public void switchToAccountDetail(int id) {
+		Intent intent = new Intent(this, AccountDetailActivity.class);
+		IntentSingleton.putAccount("CURRENT_ACCOUNT", accounts[id]);
 		startActivity(intent);
 	}
 	

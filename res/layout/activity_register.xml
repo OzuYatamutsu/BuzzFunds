@@ -9,7 +9,7 @@
     tools:context=".RegisterActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/detail_type_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -20,8 +20,8 @@
         android:id="@+id/register_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/detail_type_label"
+        android:layout_below="@+id/detail_type_label"
         android:layout_marginTop="78dp"
         android:ems="10"
         android:hint="@string/prompt_password"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/TextView01"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/detail_type_label"
         android:ems="10"
         android:hint="@string/prompt_username"
         android:inputType="text|textNoSuggestions"
@@ -57,7 +57,7 @@
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
+        android:layout_alignRight="@+id/detail_type_label"
         android:layout_below="@+id/register_username"
         android:layout_marginTop="20dp"
         android:text="@string/register_password_text" />
