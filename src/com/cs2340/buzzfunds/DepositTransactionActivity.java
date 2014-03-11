@@ -75,7 +75,7 @@ public class DepositTransactionActivity extends Activity {
 		boolean result = false;
 		
 		if (account.pushNeeded()) {
-			account.push(date);
+			result = account.push(date);
 		}
 		
 		return result;

@@ -202,7 +202,7 @@ public class Authenticator {
 					+ "&name=" + trans.getTitle() + "&delta=" + trans.getAmount() + "&type=" 
 					+ trans.getType() + "&exeDate=" + exeDate
 					+ "&initDate=" + dateFormat.format(today));
-			if (response.substring(0,1).equals('1')) {
+			if (response.substring(0,1).equals("1")) {
 				result = true;
 			}
 			

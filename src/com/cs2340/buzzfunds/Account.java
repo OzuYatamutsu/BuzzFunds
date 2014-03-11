@@ -91,10 +91,19 @@ public class Account {
 	
 	public boolean push(String date) {
 		boolean pushSuccessful = false;
+		double amount = 0.00;
 		
 		if (pushNeeded()) {
 			Transaction transaction = transactionQueue.remove();
+			amount = transaction.getAmount();
+			if (transaction.getType().equals("withdrawal")) {
+				amount = (-1) * amount;
+			}
 			pushSuccessful = dataSource.httpGetTransaction(transaction, date);
+		}
+		
+		if (pushSuccessful) {
+			balance += amount;
 		}
 		
 		return pushSuccessful;
