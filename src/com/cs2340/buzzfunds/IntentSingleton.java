@@ -83,18 +83,27 @@ public class IntentSingleton {
 	 * @return true if found; else false
 	 */
 	public static boolean keyExists(String key) {
-		return (stringMap.containsKey(key) || booleanMap.containsKey(key));
+		return (stringMap.containsKey(key) || 
+				booleanMap.containsKey(key) || 
+				accountMap.containsKey(key));
 	}
 	
 	/**
+	 * Adds an Account to this IntentSingleton store.
 	 * 
-	 * @param key
-	 * @param value
+	 * @param key The String key associated with the Account
+	 * @param value The value of the Account
 	 */
 	public static void putAccount(String key, Account value) {
 		accountMap.put(key, value);
 	}
 	
+	/**
+	 * Returns the Account associated with a given key.
+	 * 
+	 * @param key The String key of the value
+	 * @return The value associated with the key, or null if none found
+	 */
 	public static Account getAccount(String key) {
 		return accountMap.get(key);
 	}
