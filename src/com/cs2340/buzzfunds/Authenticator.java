@@ -192,7 +192,18 @@ public class Authenticator {
 	}
 	
 	public boolean httpGetTransaction(String username, String account, String title, String delta, String type, String exeDate){
-		return false;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = new Date();
+		boolean result = false;
+		String response = BasicHttpClient.exeGet("buzzfunds.herokuapp.com/transaction" 
+				+ "?user=" + username + "&account=" + account 
+				+"&name=" + title + "&delta=" + delta + "&type=" 
+				+ type + "&exeDate=" + exeDate
+				+ "&initDate=" + dateFormat.format(today));
+		if (response.substring(0,1).equals('1')) {
+			result = true;
+		}
+		return result;
 	}
 	/**
 	 * Sets the username used by this Authenticator.

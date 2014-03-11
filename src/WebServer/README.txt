@@ -53,7 +53,7 @@ http://buzzfunds.herokuapp.com/retrieveaccounts?user=<USERNAME>
 //	Output: accounts(json[]) the accounts associated with a user 
 
 **TRANSACTION**
-http://buzzfunds.herokuapp.com/transaction?user=<USERNAME>&name=<ACCOUNTNAME>&delta=<DELTA>&type=<TYPE>&account=<ACCOUNT>&initDate=<INITDATE>&exeDate=<EXEDATE>
+http://buzzfunds.herokuapp.com/transaction?user=<USERNAME>&name=<TRANSNAME>&delta=<DELTA>&type=<TYPE>&account=<ACCOUNT>&initDate=<INITDATE>&exeDate=<EXEDATE>
 // Takes in a transaction
 // 
 // Input:
@@ -65,3 +65,10 @@ http://buzzfunds.herokuapp.com/transaction?user=<USERNAME>&name=<ACCOUNTNAME>&de
 //	initDate(string) the date in which the transaction was created yyyy-mm-dd (2013-12-26)
 //  exeDate(string) the date in which the transaction should occur
 //	Output: success(bool) whether the transaction was added successfully
+
+**RETRIEVE TRANSACTIONS**
+
+retrieves the transactions for the specified user
+Input:
+user(string) name of the user
+name(string) name of the account
