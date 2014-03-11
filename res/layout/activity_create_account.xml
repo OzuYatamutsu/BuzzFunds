@@ -25,7 +25,7 @@
         android:text="@string/create_account" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/account_detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/create_account_newId"
@@ -37,8 +37,8 @@
         android:id="@+id/newAccountType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/account_detail_name"
+        android:layout_below="@+id/account_detail_name"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="17dp" >
 

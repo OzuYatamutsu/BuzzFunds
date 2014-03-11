@@ -31,5 +31,6 @@
     <string name="detail_start_transaction">Perform transaction</string>
     <string name="detail_type_val">TypeVal</string>
     <string name="detail_balance_val">BalanceVal</string>
+    <string name="title_activity_account_detail">AccountDetailActivity</string>
 
 </resources>
