@@ -51,7 +51,6 @@ public class AccountOverviewActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Log.d("click event", "the button: " + id + " was pressed at " + position);
 					switchToAccountDetail(position);
 					
 				}
