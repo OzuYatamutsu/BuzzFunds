@@ -2,7 +2,13 @@ package com.cs2340.buzzfunds;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 /**
  * The Authenticator class performs authentication operations 
@@ -145,28 +151,28 @@ public class Authenticator {
 	 */
 	public Account[] httpGetSyncAccount() {
 		Account[] accounts = null;
-		
+
 		if (conn.syncAccountEndpoint != null) {
 			String jsonResponse = BasicHttpClient.exeGet(conn.endpoint 
 					+ conn.syncAccountEndpoint + "?user=" + username);
 			if (jsonResponse != "" && jsonResponse != null) {
-				JSONMap map;
+				JSONObject object = null;
+				JSONArray accountA = null;
 				try {
-					map = new JSONMap(jsonResponse);
+					jsonResponse = "{accounts:"+jsonResponse+"}";
+					object = new JSONObject(jsonResponse);
+					accountA = object.getJSONArray("accounts");
+					accounts = new Account[accountA.length()];
+					for(int i = 0; i < accountA.length(); i++){
+						JSONObject obj;
+							obj = accountA.getJSONObject(i);
+							accounts[i] = new Account(obj.getString("name"), this, Double.parseDouble(obj.getString("amount")), obj.getString("type"));
+					}
 				} catch (Exception e) {
 					return null; // Invalid or nonexistant data
 				}
-
-				accounts = new Account[map.size()];
-				String[] ids = map.returnAllValues("name");
-				for (int i = 0; i < map.size(); i++) {
-					accounts[i] = new Account(ids[i], this, 
-							Double.parseDouble(map.get(ids[i], "amount")), 
-							map.get(ids[i], "type"));
-				}
 			}
 		}
-		
 		return accounts;
 	}
 	
