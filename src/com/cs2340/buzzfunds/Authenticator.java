@@ -190,6 +190,10 @@ public class Authenticator {
 		}
 		return balance;
 	}
+	
+	public boolean httpGetTransaction(String username, String account, String title, String delta, String type, String exeDate){
+		return false;
+	}
 	/**
 	 * Sets the username used by this Authenticator.
 	 * 

@@ -22,8 +22,6 @@ import android.widget.TextView;
  * well.
  */
 public class LoginActivity extends Activity {
-	//private static final String[] DUMMY_CREDENTIALS = new String[] {
-	//		"admin:pass123" };
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
