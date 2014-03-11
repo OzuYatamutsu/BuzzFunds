@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 
 public class AccountDetailActivity extends Activity {
@@ -38,6 +39,12 @@ public class AccountDetailActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.account_detail, menu);
 		return true;
+	}
+	
+	public void switchToChooseTransactionTypeActivity(View view) {
+		Intent intent = new Intent(this, ChooseTransactionTypeActivity.class);
+		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
+		startActivity(intent);
 	}
 
 }

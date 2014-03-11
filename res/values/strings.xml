@@ -32,5 +32,11 @@
     <string name="detail_type_val">TypeVal</string>
     <string name="detail_balance_val">BalanceVal</string>
     <string name="title_activity_account_detail">AccountDetailActivity</string>
+    <string name="title_activity_transaction_create">TransactionCreateActivity</string>
+    <string name="title_activity_choose_transaction_type">ChooseTransactionTypeActivity</string>
+    <string name="title_activity_deposit_transaction">DepositTransactionActivity</string>
+    <string name="title_activity_withdrawl_transaction">WithdrawlTransactionActivity</string>
+    <string name="title_activity_transfer_transaction">TransferTransactionActivity</string>
+    <string name="title_activity_withdrawal_transaction">WithdrawalTransactionActivity</string>
 
 </resources>

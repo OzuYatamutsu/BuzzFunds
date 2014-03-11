@@ -49,6 +49,30 @@
             android:name="com.cs2340.buzzfunds.AccountDetailActivity"
             android:label="@string/title_activity_account_detail" >
         </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.TransactionCreateActivity"
+            android:label="@string/title_activity_transaction_create" >
+        </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.ChooseTransactionTypeActivity"
+            android:label="@string/title_activity_choose_transaction_type" >
+        </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.DepositTransactionActivity"
+            android:label="@string/title_activity_deposit_transaction" >
+        </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.WithdrawlTransactionActivity"
+            android:label="@string/title_activity_withdrawl_transaction" >
+        </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.TransferTransactionActivity"
+            android:label="@string/title_activity_transfer_transaction" >
+        </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.WithdrawalTransactionActivity"
+            android:label="@string/title_activity_withdrawal_transaction" >
+        </activity>
     </application>
 
 </manifest>
