@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -47,6 +48,10 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
+		// Override NetworkOnMainThread exception (sssssshhhh)
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		
 		// Set up the login form.
 		mUsernameView = (EditText) findViewById(R.id.username);
 		mUsernameView.setText(mUsername);
