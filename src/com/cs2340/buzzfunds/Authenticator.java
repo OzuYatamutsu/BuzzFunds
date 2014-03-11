@@ -2,11 +2,7 @@ package com.cs2340.buzzfunds;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.json.simple.parser.ParseException;
-
 import android.annotation.SuppressLint;
-import android.text.format.DateFormat;
 
 /**
  * The Authenticator class performs authentication operations 

@@ -4,11 +4,6 @@ import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
-
 /**
  * An Account object stores account information as retrieved from
  * a database or data source.

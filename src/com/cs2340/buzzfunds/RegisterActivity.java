@@ -2,7 +2,6 @@ package com.cs2340.buzzfunds;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
