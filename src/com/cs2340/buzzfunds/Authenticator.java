@@ -191,18 +191,23 @@ public class Authenticator {
 		return balance;
 	}
 	
-	public boolean httpGetTransaction(String username, String account, String title, String delta, String type, String exeDate){
+	//public boolean httpGetTransaction(String username, String account, String title, String delta, String type, String exeDate) {
+	public boolean httpGetTransaction(Transaction trans, String exeDate) {	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date today = new Date();
 		boolean result = false;
-		String response = BasicHttpClient.exeGet("buzzfunds.herokuapp.com/transaction" 
-				+ "?user=" + username + "&account=" + account 
-				+"&name=" + title + "&delta=" + delta + "&type=" 
-				+ type + "&exeDate=" + exeDate
-				+ "&initDate=" + dateFormat.format(today));
-		if (response.substring(0,1).equals('1')) {
-			result = true;
+		if (conn.transactionEndpoint != null) {
+			String response = BasicHttpClient.exeGet(conn.endpoint + conn.transactionEndpoint 
+					+ "?user=" + username + "&account=" + trans.getSource().getKey() 
+					+ "&name=" + trans.getTitle() + "&delta=" + trans.getAmount() + "&type=" 
+					+ trans.getType() + "&exeDate=" + exeDate
+					+ "&initDate=" + dateFormat.format(today));
+			if (response.substring(0,1).equals('1')) {
+				result = true;
+			}
+			
 		}
+		
 		return result;
 	}
 	/**

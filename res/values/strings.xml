@@ -54,4 +54,5 @@
 	<string name="deposit">Deposit     Transaction</string>
 	<string name="accountText">Account</string>
 	<string name="toAccountText">To account:</string>
+	<string name="error_transaction">There was an error completing your transaction.</string>
 </resources>

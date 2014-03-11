@@ -89,14 +89,25 @@ public class Account {
 		return balance;
 	}
 	
+	public boolean push(String date) {
+		boolean pushSuccessful = false;
+		
+		if (pushNeeded()) {
+			Transaction transaction = transactionQueue.remove();
+			pushSuccessful = dataSource.httpGetTransaction(transaction, date);
+		}
+		
+		return pushSuccessful;
+	}
+	
 	/**
 	 * Pushes a Transaction from transactionQueue to the data source.
 	 *
-	 * @return true if the Transaction was successful; false otherwise
+	 * @return The Transaction at the top of transactionQueue.
 	 */
-	/*public boolean dequeue() {
-		
-	}*/
+	private Transaction dequeue() {
+		return transactionQueue.remove();
+	}
 	
 	/**
 	 * Returns whether this Account has changes which need to be pushed to

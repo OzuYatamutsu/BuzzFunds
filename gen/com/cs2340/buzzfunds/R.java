@@ -98,10 +98,10 @@ public final class R {
     public static final class string {
         public static final int accountText=0x7f050033;
         public static final int account_detail_name=0x7f050018;
-        public static final int action_forgot_password=0x7f05003a;
+        public static final int action_forgot_password=0x7f05003b;
         public static final int action_settings=0x7f050001;
-        public static final int action_sign_in_register=0x7f050038;
-        public static final int action_sign_in_short=0x7f050039;
+        public static final int action_sign_in_register=0x7f050039;
+        public static final int action_sign_in_short=0x7f05003a;
         public static final int add_account=0x7f05000f;
         public static final int amount_delta=0x7f05002a;
         public static final int amount_text=0x7f05002b;
@@ -120,27 +120,28 @@ public final class R {
         public static final int detail_type_val=0x7f05001c;
         public static final int enact_text=0x7f05002c;
         public static final int error_account_create=0x7f050017;
-        public static final int error_field_required=0x7f05003f;
-        public static final int error_incorrect_password=0x7f05003e;
-        public static final int error_invalid_password=0x7f05003d;
-        public static final int error_invalid_username=0x7f05003c;
+        public static final int error_field_required=0x7f050040;
+        public static final int error_incorrect_password=0x7f05003f;
+        public static final int error_invalid_password=0x7f05003e;
+        public static final int error_invalid_username=0x7f05003d;
+        public static final int error_transaction=0x7f050035;
         public static final int error_username_exists=0x7f05000a;
         public static final int hello_world=0x7f050002;
         public static final int login_button_text=0x7f050003;
-        public static final int login_progress_signing_in=0x7f05003b;
+        public static final int login_progress_signing_in=0x7f05003c;
         public static final int login_sucess_text=0x7f050004;
         public static final int month=0x7f05002e;
         public static final int new_account_button=0x7f050016;
         public static final int no_accounts=0x7f05000e;
-        public static final int prompt_password=0x7f050037;
+        public static final int prompt_password=0x7f050038;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f050036;
+        public static final int prompt_username=0x7f050037;
         public static final int register_button_text=0x7f050009;
         public static final int register_password_text=0x7f050007;
         public static final int register_passwordverify_text=0x7f050008;
         public static final int register_username_text=0x7f050006;
-        public static final int registerbutton_text=0x7f050040;
+        public static final int registerbutton_text=0x7f050041;
         public static final int submit_button_text=0x7f050029;
         public static final int success_text=0x7f05000c;
         public static final int title_activity_account_detail=0x7f05001e;
@@ -148,7 +149,7 @@ public final class R {
         public static final int title_activity_choose_transaction_type=0x7f050020;
         public static final int title_activity_create_account=0x7f050010;
         public static final int title_activity_deposit_transaction=0x7f050021;
-        public static final int title_activity_login=0x7f050035;
+        public static final int title_activity_login=0x7f050036;
         public static final int title_activity_register=0x7f050005;
         public static final int title_activity_success=0x7f05000b;
         public static final int title_activity_transaction_create=0x7f05001f;
