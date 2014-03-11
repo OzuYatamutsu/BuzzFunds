@@ -26,9 +26,7 @@ public class RegisterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		
-		// Override NetworkOnMainThread exception (sssssshhhh)
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
+		Setup.ignoreMainNetworkException();
 		
 		mUsernameView = (EditText) findViewById(R.id.register_username);
 		mPasswordView = (EditText) findViewById(R.id.register_password);

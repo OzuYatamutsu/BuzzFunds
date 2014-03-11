@@ -48,9 +48,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		// Override NetworkOnMainThread exception (sssssshhhh)
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
+		Setup.ignoreMainNetworkException();
 		
 		// Set up the login form.
 		mUsernameView = (EditText) findViewById(R.id.username);

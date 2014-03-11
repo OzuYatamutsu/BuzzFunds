@@ -15,6 +15,7 @@ public class AccountDetailActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Setup.ignoreMainNetworkException();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_detail);
 		mTitleVal = (TextView) findViewById(R.id.account_detail_name);
