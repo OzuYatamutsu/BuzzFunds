@@ -1,7 +1,9 @@
 package com.cs2340.buzzfunds;
 
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -21,54 +23,48 @@ public class Account {
 	private String key, type;
 	private Authenticator dataSource;
 	private Queue<Transaction> transactionQueue = new LinkedList<Transaction>();
-	
 	/**
-	 * Constructs a new Account object with a given key. 
-	 * (NOTE: A balance should not be passed to a constructor for 
-	 * integrity reasons - this should be pulled from a database instead.)
+	 * A Map containing the Transaction history of this Account.
+	 * It should be organized as follows:<br><br>
+	 * 
+	 * dateString -> Map(transactionType, amount)<br>
+	 * (i.e.
+	 * 
+	 * Map(<br>
+	 * (2012-12-31, Map(("deposit", 120.00), ("withdrawal", 12.00), ...)),<br>
+	 * (2013-01-01, Map(("deposit", 61.59), ...)))<br/>
+	 * )
+	 */
+	private Map<String, Map<String, Double>> history;
+	/**
+	 * Constructs a new Account object. 
 	 * 
 	 * @param key A key used to identify this Account to a data source
 	 * @param dataSource The data source authenticated against
+	 * @param balance The balance of this account
 	 * @param type The type of account
+	 * @param history A Map which contains the Transaction history of this account.
 	 */
-	public Account(String key, Authenticator dataSource, String type) {
-		this.key = key;
-		this.dataSource = dataSource;
-		this.type = type;
-		sync();
-	}
-	
-	public Account(String key, Authenticator dataSource, double balance, String type) {
+	public Account(String key, Authenticator dataSource, double balance, 
+			String type, Map<String, Map<String, Double>> history) {
 		this.key = key;
 		this.dataSource = dataSource;
 		this.balance = balance;
 		this.type = type;
+		this.history = history;
 	}
 	
 	/**
-	 * Initializes this account by syncing balances between app and database.
-	 * @return A String describing success state
+	 * Constructs a new Account object without a Transaction history.
+	 * 
+	 * @param key A key used to identify this Account to a data source
+	 * @param dataSource The data source authenticated against
+	 * @param balance The balance of this account
+	 * @param type The type of account
 	 */
-	public String sync() {
-		String initString = "Success!";
-		boolean balanceState = false; //pullBalance();
-		if (!balanceState) {
-			initString = "There was a problem syncing balances to the server.";
-		}
-		
-		return initString;
-	}
-	
-	
-	/**
-	 * Attempts to synchronize this Account's balance with a data source.
-	 * @return true if successful; else false
-	 */
-	public boolean pullBalance() throws Exception {
-		boolean success = false;
-		//this.balance = dataSource.getEndpoint();
-		
-		return success;
+	public Account(String key, Authenticator dataSource, double balance, 
+			String type) {
+		this(key, dataSource, balance, type, null);
 	}
 	
 	/**
@@ -89,12 +85,18 @@ public class Account {
 		return balance;
 	}
 	
+	/**
+	 * Attempts to push a Transaction from transactionQueue to the endpoint.
+	 * 
+	 * @param date The given date of this Transaction (in "yyyy-MM-dd" format)
+	 * @return true if push was successful; false otherwise
+	 */
 	public boolean push(String date) {
 		boolean pushSuccessful = false;
 		double amount = 0.00;
+		Transaction transaction = transactionQueue.remove();
 		
 		if (pushNeeded()) {
-			Transaction transaction = transactionQueue.remove();
 			amount = transaction.getAmount();
 			if (transaction.getType().equals("withdrawal")) {
 				amount = (-1) * amount;
@@ -104,18 +106,10 @@ public class Account {
 		
 		if (pushSuccessful) {
 			balance += amount;
+			addHistory(date, transaction.getType(), transaction.getAmount());
 		}
 		
 		return pushSuccessful;
-	}
-	
-	/**
-	 * Pushes a Transaction from transactionQueue to the data source.
-	 *
-	 * @return The Transaction at the top of transactionQueue.
-	 */
-	private Transaction dequeue() {
-		return transactionQueue.remove();
 	}
 	
 	/**
@@ -168,5 +162,39 @@ public class Account {
 	 public String toString() {
 		 return "[" + NumberFormat.getCurrencyInstance().format(getBalance()) 
 				 + "] " + getId() + ", " + getType();
+	 }
+	 
+	 /**
+	  * Adds a completed Transaction to this Account's history Map.
+	  * 
+	  * @param date The date of the Transaction (in "yyyy-MM-dd" format)
+	  * @param type The type of the Transaction
+	  * @param amount The amount of the Transaction
+	  */
+	 private void addHistory(String date, String type, double amount) {
+		 if (!history.containsKey(date)) {
+			 history.put(date, new HashMap<String, Double>());
+		 }
+		 
+		 history.get(date).put(type, amount);
+	 }
+	 
+	 /**
+	  * Returns a Map of all Transactions logged on a given date.
+	  * 
+	  * @param date The date of the Transaction (in "yyyy-MM-dd" format)
+	  * @return A Map of all Transactions on the given date, or null if none found
+	  */
+	 public Map<String, Double> getTransactionsByDate(String date) {
+		 return history.get(date);
+	 }
+	 
+	 /**
+	  * Returns the Transaction history for this Account.
+	  * 
+	  * @return The Transaction history for this Account
+	  */
+	 public Map<String, Map<String, Double>> getMap() {
+		 return history;
 	 }
 }

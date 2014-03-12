@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 /**
  * The Authenticator class performs authentication operations 
@@ -19,6 +18,7 @@ import android.util.Log;
  * 
  * @author Sean Collins
  */
+@SuppressLint("SimpleDateFormat")
 public class Authenticator {
 	/**
 	 * Contains connection endpoint information.
@@ -166,7 +166,10 @@ public class Authenticator {
 					for(int i = 0; i < accountA.length(); i++){
 						JSONObject obj;
 							obj = accountA.getJSONObject(i);
-							accounts[i] = new Account(obj.getString("name"), this, calcBalance(obj.getJSONArray("transactionHistory")), obj.getString("type"));
+							accounts[i] = new Account(obj.getString("name"), 
+									this, 
+									calcBalance(obj.getJSONArray("transactionHistory")), 
+									obj.getString("type"));
 					}
 				} catch (Exception e) {
 					return null; // Invalid or nonexistant data
@@ -176,6 +179,12 @@ public class Authenticator {
 		return accounts;
 	}
 	
+	/**
+	 * Calculates a balance from a history array.
+	 * 
+	 * @param array The JSONArray containing an Account's history
+	 * @return The balance of the user
+	 */
 	private double calcBalance(JSONArray array){
 		double balance = 0;
 		for(int i = 0; i < array.length(); i++){
@@ -191,7 +200,14 @@ public class Authenticator {
 		return balance;
 	}
 	
-	//public boolean httpGetTransaction(String username, String account, String title, String delta, String type, String exeDate) {
+	/**
+	 * Attempts to push a Transaction to the server via HTTP GET.
+	 * Requires transactionEndpoint in ConnectionProfile to be non-null.
+	 * 
+	 * @param trans The Transaction to push to the server
+	 * @param exeDate The date this Transaction was set to be executed (in "yyyy-MM-dd" format)
+	 * @return true if server reported successful; false otherwise
+	 */
 	public boolean httpGetTransaction(Transaction trans, String exeDate) {	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date today = new Date();
@@ -231,7 +247,7 @@ public class Authenticator {
 	/**
 	 * Returns the username used by this Authenticator.
 	 * 
-	 * @return The username used by this Authenticator.
+	 * @return The username used by this Authenticator
 	 */
 	public String getUsername() {
 		return username;
@@ -246,7 +262,8 @@ public class Authenticator {
 	
 	/**
 	 * Returns the connection endpoint used in this Authenticator.
-	 * @return The connection endpoint used in this Authenticator.
+	 * 
+	 * @return The connection endpoint used in this Authenticator
 	 */
 	public String getEndpoint() {
 		return conn.endpoint;
