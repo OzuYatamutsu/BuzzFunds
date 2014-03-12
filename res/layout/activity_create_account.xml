@@ -63,7 +63,8 @@
         android:layout_alignRight="@+id/create_account_submit"
         android:layout_below="@+id/detail_type_label"
         android:layout_marginTop="17dp"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>

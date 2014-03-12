@@ -1,7 +1,6 @@
 package com.cs2340.buzzfunds;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -21,14 +20,11 @@ public class AccountOverviewActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Setup.ignoreMainNetworkException();
 		if (IntentSingleton.keyExists("USERNAME")) {
 			username = IntentSingleton.getString("USERNAME");
 			endpoint.setUsername(username);
 		}
-		
-		// Override NetworkOnMainThread exception (sssssshhhh)
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
 		
 		isAuth = IntentSingleton.getBoolean("AUTH_STATE");
 		
