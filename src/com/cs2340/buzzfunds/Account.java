@@ -94,9 +94,10 @@ public class Account {
 	public boolean push(String date) {
 		boolean pushSuccessful = false;
 		double amount = 0.00;
-		Transaction transaction = transactionQueue.remove();
+		Transaction transaction = null;
 		
 		if (pushNeeded()) {
+			transaction = transactionQueue.remove();
 			amount = transaction.getAmount();
 			if (transaction.getType().equals("withdrawal")) {
 				amount = (-1) * amount;
