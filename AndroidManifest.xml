@@ -73,6 +73,10 @@
             android:name="com.cs2340.buzzfunds.WithdrawalTransactionActivity"
             android:label="@string/title_activity_withdrawal_transaction" >
         </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.HistoryActivity"
+            android:label="@string/title_activity_history" >
+        </activity>
     </application>
 
 </manifest>
