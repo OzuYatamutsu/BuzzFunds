@@ -41,10 +41,25 @@ public class AccountDetailActivity extends Activity {
 		return true;
 	}
 	
+	/**
+	 * Transitions to ChooseTransactioNTypeActivity.
+	 * 
+	 * @param view The current View.
+	 */
 	public void switchToChooseTransactionTypeActivity(View view) {
 		Intent intent = new Intent(this, ChooseTransactionTypeActivity.class);
 		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
 		startActivity(intent);
 	}
-
+	
+	/**
+	 * Transitions to HistoryActivity.
+	 * 
+	 * @param view The current View.
+	 */
+	public void switchToHistoryActivity(View view) {
+		Intent intent = new Intent(this, HistoryActivity.class);
+		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
+		startActivity(intent);
+	}
 }
