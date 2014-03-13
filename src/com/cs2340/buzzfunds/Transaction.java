@@ -15,10 +15,6 @@ public class Transaction {
 	 */
 	private Account source;
 	/**
-	 * The name of this Transaction.
-	 */
-	private String title;
-	/**
 	 * The type of this Transaction (deposit, withdrawal)
 	 */
 	private String type;
@@ -30,14 +26,12 @@ public class Transaction {
 	 * @param source The source Account
 	 * @param dest The destination Account
 	 * @param amount The amount to be transferred
-	 * @param title The name of this Transaction.
 	 * @param type The type of this Transaction (deposit, withdrawal)
 	 */
-	public Transaction(Account source, double amount, String title, String type) {
+	public Transaction(Account source, double amount, String type) {
 		this.source = source;
 		this.amount = amount;
-		this.title = title;
-		this.setType(type);
+		this.type = type;
 	}
 	
 	/**
@@ -47,7 +41,7 @@ public class Transaction {
 	 * @param amount The amount to be transferred
 	 */
 	public Transaction(double amount) {
-		this(null, amount, null, null);
+		this(null, amount, null);
 	}
 	
 	/**
@@ -84,24 +78,6 @@ public class Transaction {
 	 */
 	public double getAmount() {
 		return amount;
-	}
-
-	/**
-	 * Gets the current title.
-	 * 
-	 * @return The current title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * Sets the current title.
-	 * 
-	 * @param title The current title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	/**
