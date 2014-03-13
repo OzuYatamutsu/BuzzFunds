@@ -54,7 +54,7 @@
 
     <Button
         android:id="@+id/detail_start_transaction"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/detail_transaction_history"
         android:layout_centerHorizontal="true"
@@ -63,12 +63,11 @@
 
     <Button
         android:id="@+id/detail_transaction_history"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/detail_start_transaction"
         android:layout_marginBottom="17dp"
-        android:layout_toRightOf="@+id/detail_balance_label"
         android:text="@string/detail_transaction_history" 
         android:onClick="switchToHistoryActivity"/>
 

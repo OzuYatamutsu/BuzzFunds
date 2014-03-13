@@ -76,7 +76,7 @@
 
             <EditText
                 android:id="@+id/year"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/amount"
                 android:layout_alignRight="@+id/enact_text"
@@ -114,7 +114,7 @@
 
             <EditText
                 android:id="@+id/month"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/year"
                 android:layout_alignBottom="@+id/year"
@@ -126,7 +126,7 @@
 
             <EditText
                 android:id="@+id/day"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/month"
                 android:layout_alignLeft="@+id/sign_in_button"

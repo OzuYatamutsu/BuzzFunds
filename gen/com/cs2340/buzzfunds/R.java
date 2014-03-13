@@ -47,7 +47,7 @@ public final class R {
         public static final int detail_type_label=0x7f080002;
         public static final int detail_type_val=0x7f080004;
         public static final int enact_text=0x7f080018;
-        public static final int historyListView=0x7f08001e;
+        public static final int historyView=0x7f08001e;
         public static final int login=0x7f08001a;
         public static final int login_form=0x7f080014;
         public static final int login_status=0x7f080012;
