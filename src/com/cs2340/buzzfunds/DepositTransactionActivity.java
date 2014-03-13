@@ -63,8 +63,7 @@ public class DepositTransactionActivity extends Activity {
 		boolean result = true;
 		
 		double amount = Double.parseDouble(mAmount.getText().toString());
-		Transaction transaction = new Transaction(account, amount, date, "deposit");
-		// Title is just date for now
+		Transaction transaction = new Transaction(account, amount, "deposit");
 		account.queue(transaction);
 		
 		return result;

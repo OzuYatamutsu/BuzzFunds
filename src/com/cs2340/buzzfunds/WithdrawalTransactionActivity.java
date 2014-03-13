@@ -57,12 +57,14 @@ public class WithdrawalTransactionActivity extends Activity {
 	}
 	
 	private boolean queueTransaction(String date) {
-		boolean result = true;
+		boolean result = false;
 		
 		double amount = Double.parseDouble(mAmount.getText().toString());
-		Transaction transaction = new Transaction(account, amount, date, "withdrawal");
-		// Title is just date for now
-		account.queue(transaction);
+		Transaction transaction = new Transaction(account, amount, "withdrawal");
+		if (account.validate(amount)) {
+			account.queue(transaction);
+			result = true;
+		}
 		
 		return result;
 	}
