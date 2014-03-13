@@ -1,7 +1,11 @@
 package com.cs2340.buzzfunds;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -169,7 +173,8 @@ public class Authenticator {
 							accounts[i] = new Account(obj.getString("name"), 
 									this, 
 									calcBalance(obj.getJSONArray("transactionHistory")), 
-									obj.getString("type"));
+									obj.getString("type"), 
+									mapHistory(obj.getJSONArray("transactionHistory")));
 					}
 				} catch (Exception e) {
 					return null; // Invalid or nonexistant data
@@ -215,7 +220,7 @@ public class Authenticator {
 		if (conn.transactionEndpoint != null) {
 			String response = BasicHttpClient.exeGet(conn.endpoint + conn.transactionEndpoint 
 					+ "?user=" + username + "&account=" + trans.getSource().getKey() 
-					+ "&name=" + trans.getTitle() + "&delta=" + trans.getAmount() + "&type=" 
+					+ "&name=" + trans.getType() + "&delta=" + trans.getAmount() + "&type=" 
 					+ trans.getType() + "&exeDate=" + exeDate
 					+ "&initDate=" + dateFormat.format(today));
 			if (response.substring(0,1).equals("1")) {
@@ -267,5 +272,42 @@ public class Authenticator {
 	 */
 	public String getEndpoint() {
 		return conn.endpoint;
+	}
+	
+	/**
+	 * Returns a Map of an Account's history.
+	 * 
+	 * @param array A JSONArray of history items.
+	 * @return The converted history Map.
+	 */
+	private Map<String, List<TransactionHistoryItem>> mapHistory(JSONArray array) {
+		Map<String, List<TransactionHistoryItem>> history = 
+				new HashMap<String, List<TransactionHistoryItem>>();
+		JSONObject currentObject;
+		String processedDate;
+		
+		for (int i = 0; i < array.length(); i++) {
+			try {
+				currentObject = array.getJSONObject(i);
+				processedDate = currentObject.get("insDate").toString();
+				if (!history.containsKey(processedDate)) {
+					history.put(processedDate,  
+							new ArrayList<TransactionHistoryItem>());
+				}
+				
+				if (currentObject.has("name") && currentObject.has("balance")) {
+				history.get(processedDate).add(new TransactionHistoryItem(
+						currentObject.get("name").toString(), 
+						Double.parseDouble(currentObject.get("balance").toString()
+								)));
+				}
+				
+			} catch (JSONException e) {
+				return null;
+			}
+			
+		}
+		
+		return history;
 	}
 }
