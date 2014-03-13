@@ -1,8 +1,9 @@
 package com.cs2340.buzzfunds;
 
 import java.text.NumberFormat;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -27,15 +28,15 @@ public class Account {
 	 * A Map containing the Transaction history of this Account.
 	 * It should be organized as follows:<br><br>
 	 * 
-	 * dateString -> Map(transactionType, amount)<br>
+	 * dateString -> (transactionType, amount)<br>
 	 * (i.e.
 	 * 
 	 * Map(<br>
-	 * (2012-12-31, Map(("deposit", 120.00), ("withdrawal", 12.00), ...)),<br>
-	 * (2013-01-01, Map(("deposit", 61.59), ...)))<br/>
+	 * (2012-12-31, List("deposit", 120.00), ("withdrawal", 12.00), ...)),<br>
+	 * (2013-01-01, List(("deposit", 61.59), ...)))<br/>
 	 * )
 	 */
-	private Map<String, Map<String, Double>> history;
+	private Map<String, List<TransactionHistoryItem>> history;
 	/**
 	 * Constructs a new Account object. 
 	 * 
@@ -46,7 +47,7 @@ public class Account {
 	 * @param history A Map which contains the Transaction history of this account.
 	 */
 	public Account(String key, Authenticator dataSource, double balance, 
-			String type, Map<String, Map<String, Double>> history) {
+			String type, Map<String, List<TransactionHistoryItem>> history) {
 		this.key = key;
 		this.dataSource = dataSource;
 		this.balance = balance;
@@ -174,19 +175,19 @@ public class Account {
 	  */
 	 private void addHistory(String date, String type, double amount) {
 		 if (!history.containsKey(date)) {
-			 history.put(date, new HashMap<String, Double>());
+			 history.put(date, new ArrayList<TransactionHistoryItem>());
 		 }
 		 
-		 history.get(date).put(type, amount);
+		 history.get(date).add(new TransactionHistoryItem(type, amount));
 	 }
 	 
 	 /**
-	  * Returns a Map of all Transactions logged on a given date.
+	  * Returns a List of all Transactions logged on a given date.
 	  * 
 	  * @param date The date of the Transaction (in "yyyy-MM-dd" format)
-	  * @return A Map of all Transactions on the given date, or null if none found
+	  * @return A List of all Transactions on the given date, or null if none found
 	  */
-	 public Map<String, Double> getTransactionsByDate(String date) {
+	 public List<TransactionHistoryItem> getTransactionsByDate(String date) {
 		 return history.get(date);
 	 }
 	 
@@ -195,7 +196,7 @@ public class Account {
 	  * 
 	  * @return The Transaction history for this Account
 	  */
-	 public Map<String, Map<String, Double>> getMap() {
+	 public Map<String, List<TransactionHistoryItem>> getMap() {
 		 return history;
 	 }
 }
