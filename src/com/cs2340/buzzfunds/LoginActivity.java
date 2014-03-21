@@ -203,7 +203,7 @@ public class LoginActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			Authenticator login = new Authenticator(DefaultConnection.BUZZFUNDS, mUsername, mPassword);
-			return login.httpGetLogin("1");
+			return login.HasGoodCredentials("1");
 		}
 		
 		@Override

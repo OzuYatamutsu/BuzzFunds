@@ -127,7 +127,7 @@ public class RegisterActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			Authenticator auth = new Authenticator(DefaultConnection.BUZZFUNDS, mUsername, mPassword);
-			return auth.httpGetRegister("1");
+			return auth.RegisterNewUser("1");
 		}
 		
 		@Override
