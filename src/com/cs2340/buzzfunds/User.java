@@ -2,22 +2,39 @@ package com.cs2340.buzzfunds;
 
 import org.joda.time.LocalDate;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by Jeremy on 3/20/14.
  */
-public class User {
+public class User implements Serializable {
 
     // The user's credentials
-    private String name, password;
+    private String name;
 
     //The user's accounts
     private Collection<Account> accounts;
 
-    public User(String userName, String passwd) {
+    public User(String userName) {
         name = userName;
-        password = passwd;
+        PopulateAccounts();
+    }
+
+    public void PopulateAccounts() {
+        Collection<Account> maybeAccounts = NetworkActivities.GetAccountsFromServer(name);
+        if (maybeAccounts != null) {
+            accounts = maybeAccounts;
+            } else { accounts = new ArrayList<Account>(); }
+    }
+
+    public Collection<Account> getAccounts() { return accounts; }
+
+    public boolean HasAccounts() { return !accounts.isEmpty(); }
+
+    public boolean AddAccount(String shortName, double balance, String type, double rate) {
+        Account acct = new Account(String.format("%s-%s", name, shortName), balance, type, rate);
+        return NetworkActivities.AddAccountToUser(acct);
     }
 
     public Map<String, Collection<ReportCategory>> GenerateReports(LocalDate startDate, LocalDate endDate) {
@@ -27,7 +44,7 @@ public class User {
         Map<String, ReportCategory> flows = new HashMap<String, ReportCategory>();
 
         for (Account acct : accounts) {
-            for (Transaction txn : acct.GetTxns(startDate, endDate)){
+            for (Transaction txn : acct.getHistoryBetweenDates(startDate, endDate)){
                 if (txn.IsEnabled()) {
                     if (txn.getType() == "d") {
                         if (!income.containsKey(txn.getCategory())) {

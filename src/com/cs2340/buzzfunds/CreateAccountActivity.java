@@ -15,9 +15,11 @@ public class CreateAccountActivity extends Activity {
 	RadioButton mAccountTypeSavings;
 	RadioButton mAccountTypeChecking;
 	RadioGroup mNewAccountType;
-	
+	User user;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+        user = (User) getIntent().getSerializableExtra("user");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
 		mAccountId = (EditText) findViewById(R.id.create_account_newId);
@@ -44,7 +46,12 @@ public class CreateAccountActivity extends Activity {
 	}
 	
 	public void createAccount(View view) {
-		if (submitAccount()) {
+        String shortName = mAccountId.getText().toString();
+        String type = getAccountType();
+        double balance = 0;
+        double interest = 0;
+
+		if (user.AddAccount(shortName, balance, type, interest)) {
 			// Successful, transition back to AccountOverviewActivity
 			Intent intent = new Intent(this, AccountOverviewActivity.class);
 			startActivity(intent);
@@ -52,20 +59,4 @@ public class CreateAccountActivity extends Activity {
 			mAccountId.setError(getString(R.string.error_account_create));
 		}
 	}
-	
-	public boolean submitAccount() {
-		boolean result = false;
-		if (IntentSingleton.getString("USERNAME") != null) {
-			Authenticator auth = new Authenticator(DefaultConnection.BUZZFUNDS, 
-					IntentSingleton.getString("USERNAME"));
-			//Account newAccount = auth.httpGetAddAccount(mAccountId.getText().toString(), 
-					//getAccountType());
-			if (auth.httpGetAddAccount(mAccountId.getText().toString(), getAccountType(), "1")) {
-				result = true;
-			}
-		}
-		
-		return result;
-	}
-
 }

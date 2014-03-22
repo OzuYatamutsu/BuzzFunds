@@ -13,17 +13,14 @@ import android.widget.ListView;
 public class AccountOverviewActivity extends Activity {
 	boolean isAuth;
 	Intent intent = getIntent();
-	String username;
-	Authenticator endpoint = new Authenticator(DefaultConnection.BUZZFUNDS);
-	Account[] accounts;
+    User user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Setup.ignoreMainNetworkException();
 		if (IntentSingleton.keyExists("USERNAME")) {
-			username = IntentSingleton.getString("USERNAME");
-			endpoint.setUsername(username);
+            user = new User(IntentSingleton.getString("USERNAME"));
 		}
 		
 		isAuth = IntentSingleton.getBoolean("AUTH_STATE");
@@ -35,10 +32,10 @@ public class AccountOverviewActivity extends Activity {
 			startActivity(toLogin);
 		}
 		
-		if (populateAccounts()) {
+		if (user.HasAccounts()) {
 			setContentView(R.layout.activity_account_overview);
-			ArrayAdapter<Account> adapter = new ArrayAdapter<Account>(this, 
-			        android.R.layout.simple_list_item_1, accounts);
+			ArrayAdapter<Account> adapter = new ArrayAdapter<Account>(this,
+			        android.R.layout.simple_list_item_1, (Account[]) user.getAccounts().toArray());
 			ListView accountList = (ListView) findViewById(R.id.accountList);
 			accountList.setAdapter(adapter);
 			accountList.setOnItemClickListener(new OnItemClickListener() {
@@ -63,27 +60,13 @@ public class AccountOverviewActivity extends Activity {
 	}
 
 	/**
-	 * Populates accounts by contacting server.
-	 * 
-	 * @return true if the local accounts store was populated; false otherwise
-	 */
-	private boolean populateAccounts() {
-		boolean result = false;
-		accounts = endpoint.httpGetSyncAccount();
-		if (accounts != null) {
-			result = true;
-		}
-		
-		return result;
-	}
-	
-	/**
 	 * Transitions to CreateAccountActivity on button press.
 	 * 
 	 * @param view The current View
 	 */
 	public void switchToCreateAccount(View view) {
 		Intent intent = new Intent(this, CreateAccountActivity.class);
+        intent.putExtra("user", user);
 		startActivity(intent);
 	}
 	
@@ -94,7 +77,7 @@ public class AccountOverviewActivity extends Activity {
 	 */
 	public void switchToAccountDetail(int id) {
 		Intent intent = new Intent(this, AccountDetailActivity.class);
-		IntentSingleton.putAccount("CURRENT_ACCOUNT", accounts[id]);
+		IntentSingleton.putAccount("CURRENT_ACCOUNT", (Account) user.getAccounts().toArray()[id]);
 		startActivity(intent);
 	}
 	

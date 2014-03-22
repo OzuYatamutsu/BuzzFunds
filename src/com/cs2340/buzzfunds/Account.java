@@ -60,6 +60,7 @@ public class Account {
 		this.history = history;
         unsynced = new LinkedList<Transaction>();
         this.type = type == "savings" ? AccountType.SAVINGS : AccountType.CHECKING;
+        this.CalcBalance();
 	}
 	
 	/**
@@ -95,6 +96,8 @@ public class Account {
                 }
             history.get(txn.getDate()).add(txn);
         }
+
+        this.CalcBalance();
     }
 
     // Get the key for this account
@@ -166,15 +169,40 @@ public class Account {
          history.get(txn.getDate()).add(txn);
      }
 
+    // Get a list containing the full transaction history for the account
+    public Collection<Transaction> getHistory() {
+        Collection<Transaction> txnHistory = new LinkedList<Transaction>();
+        for (Collection<Transaction> txnOnDate : history.values()) {
+            for (Transaction txn : txnOnDate) {
+                txnHistory.add(txn);
+            }
+        }
+        return txnHistory;
+    }
+
+    public Collection<String> getSimpleHistory() {
+        Collection<String> simpleHistory = new LinkedList<String>();
+        for (LocalDate date : history.keySet()) {
+            String dateHistory = date.toString("yyyy-mm-dd:");
+            for (Transaction txn : history.get(date)) {
+                String typeString = txn.getType() == "d" ? "+" : "-";
+                dateHistory += String.format("\n%s: %s%f", txn.getName(), typeString,
+                        NumberFormat.getCurrencyInstance().format(txn.getAmount()));
+            }
+            simpleHistory.add(dateHistory);
+        }
+        return simpleHistory;
+    }
+
     // Get a list of transactions that took effect on the specified date
-    public Collection<Transaction> GetTxns(LocalDate date) {
+    public Collection<Transaction> getHistoryOnDate(LocalDate date) {
         if (history.containsKey(date)){
             return history.get(date);
             } else { return new LinkedList<Transaction>(); }
     }
 
     // Get a list of transactions that took effect in the specified date range
-    public Collection<Transaction> GetTxns(LocalDate startDate, LocalDate endDate) {
+    public Collection<Transaction> getHistoryBetweenDates(LocalDate startDate, LocalDate endDate) {
         List<Transaction> txns = new LinkedList<Transaction>();
         for (LocalDate date = startDate; date.isBefore(endDate) || date.isEqual(endDate); date = date.plusDays(1)) {
             if (history.containsKey(date)) {

@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class DepositTransactionActivity extends Activity {
 
@@ -41,41 +44,17 @@ public class DepositTransactionActivity extends Activity {
 	}
 	
 	public void attemptTransaction(View view) {
-		String date = mYear.getText() + "-" + mMonth.getText() + "-" + mDay.getText();
-		
-		if (queueTransaction(date)) {
-			if (pushTransaction(date)) {
-				// All good!
-				Intent intent = new Intent(this, AccountDetailActivity.class);
-				startActivity(intent);
-			} else {
-				mAmount.setError(getString(R.string.error_transaction));
-			}
-		} else {
-			mAmount.setError(getString(R.string.error_transaction));
-			
-		}
-		
-		
-	}
-	
-	private boolean queueTransaction(String date) {
-		boolean result = true;
-		
-		double amount = Double.parseDouble(mAmount.getText().toString());
-		Transaction transaction = new Transaction(account, amount, "deposit");
-		account.queue(transaction);
-		
-		return result;
-	}
-	
-	private boolean pushTransaction(String date) {
-		boolean result = false;
-		
-		if (account.pushNeeded()) {
-			result = account.push(date);
-		}
-		
-		return result;
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-mm-dd");
+        LocalDate effDate = fmt.parseLocalDate(String.format("%s-%s-%s",
+                mYear.getText().toString(), mMonth.getText().toString(), mDay.getText().toString()));
+
+        double amount = Double.parseDouble(mAmount.getText().toString());
+		if (account.MakeNewTransaction("deposit", amount, "d", "uncategorized", effDate)) {
+            // All good!
+            Intent intent = new Intent(this, AccountDetailActivity.class);
+            startActivity(intent);
+            } else {
+                mAmount.setError(getString(R.string.error_transaction));
+                }
 	}
 }

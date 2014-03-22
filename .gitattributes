@@ -1,0 +1,11 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+*.java text
+*.xml text
+*.js text
+*.json text
+*.jade text
+
+*.jar binary
+*.png binary
