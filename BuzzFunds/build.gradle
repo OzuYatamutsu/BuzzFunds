@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.+'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 16
+    buildToolsVersion "19.0.3"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    packagingOptions {
+        exclude "LICENSE.txt"
+    }
+}
+
+dependencies {
+    compile group: "joda-time", name: "joda-time", version: "2.3"
+//    compile group: "com.googlecode.json-simple", name: "json-simple", version: "1.1+"
+//    compile group: "com.google.android", name: "support-v4", version: "r7+"
+//    debugCompile group: "org.hamcrest", name: "hamcrest-core", version: "1.3+"
+//    debugCompile group: "junit", name: "junit-dep", version: "4.11+"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9'
+}

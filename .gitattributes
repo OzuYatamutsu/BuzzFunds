@@ -1,11 +1,15 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
+*.gitattributes text
+*.gitignore text
+*.gradle text
+*.jade text
 *.java text
+*.json text
+*.txt text
 *.xml text
 *.js text
-*.json text
-*.jade text
 
 *.jar binary
 *.png binary
