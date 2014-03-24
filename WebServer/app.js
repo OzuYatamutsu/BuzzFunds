@@ -128,14 +128,15 @@ app.get('/addaccount', function(request, response)
 	  	cUser 	  = request.query.user,
 	  	cType	  = request.query.type,
 	  	cInterest = request.query.interest,
+	  	cAmount   = request.query.amount,
 	  	cDate	  = request.query.date,
-		cName 	  = cUser + '-' + cName,
-		cAmount   = request.query.amount;
+		cName 	  = cUser + '-' + cName;
 
+		console.log('amount' + cAmount);
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
     	      'mongodb://localhost/RiotData';
-    if( (cName == null) || (cType == null) || (cInterest == null) || (cDate == null) ||  (cAmount = null)){
+    if( (cName == null) || (cType == null) || (cInterest == null) || (cDate == null) ||  (cAmount == null)){
     	response.send(400);
     }
     else{
