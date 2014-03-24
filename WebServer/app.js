@@ -131,7 +131,7 @@ app.get('/addaccount', function(request, response)
 	  	cAmount   = request.query.amount,
 	  	cDate	  = request.query.date,
 		cName 	  = cUser + '-' + cName;
-
+		cAmount = parseFloat(cAmount);
 		console.log('amount' + cAmount);
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
@@ -154,8 +154,8 @@ app.get('/addaccount', function(request, response)
 									'category'		: 'initialization',
 									'type'			: 'deposit',
 									'amount' 		: cAmount,
-									'CreationDate'  : cDate,
-									'EffectiveDate' : cDate
+									'creationDate'  : cDate,
+									'effectiveDate' : cDate
 						},
 					accountDoc = {	'name'    :cName,
 									'type'    :cType,
@@ -299,7 +299,7 @@ else{
 				'accounts.name': cAccount
 			}
 			console.log(cAccount);
-		loginCollection.update( query, {$push : {'accounts.$.transactionHistory' : firstTrans}}, function(err)
+		loginCollection.update( query, {$push : {'accounts.$.history' : firstTrans}}, function(err)
 		{
 			if(err)
 			{
