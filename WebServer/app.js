@@ -135,7 +135,7 @@ app.get('/addaccount', function(request, response)
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
     	      'mongodb://localhost/RiotData';
-    if(cName == null || cUser == null || cType == null || cInterest == null || cDate == null){
+    if( (cName == null) || (cType == null) || (cInterest == null) || (cDate == null) ||  (cAmount = null)){
     	response.send(400);
     }
     else{
@@ -153,8 +153,8 @@ app.get('/addaccount', function(request, response)
 									'category'		: "initialization",
 									'type'			: "deposit",
 									'amount' 		: cAmount,
-									'CreationDate'  : cInsDate,
-									'EffectiveDate' : cEffDate
+									'CreationDate'  : cDate,
+									'EffectiveDate' : cDate
 						}
 					var firstTrans = { 	'name'    :"*Account Created*",
 									'insDate' :cDate,
