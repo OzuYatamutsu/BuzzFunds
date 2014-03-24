@@ -149,17 +149,13 @@ app.get('/addaccount', function(request, response)
 				if(item === null ) //	if name doesn't already exist....
 				{
 					console.log('password nonexistent so that means this is a new value');
-					var	firstTrans = { 	'name'    	: "*Account created",
-									'category'		: "initialization",
-									'type'			: "deposit",
+					var	firstTrans = { 	'name'    	: '*Account created',
+									'category'		: 'initialization',
+									'type'			: 'deposit',
 									'amount' 		: cAmount,
 									'CreationDate'  : cDate,
 									'EffectiveDate' : cDate
-						}
-					var firstTrans = { 	'name'    :"*Account Created*",
-									'insDate' :cDate,
-									'effDate' :cDate
-								},
+						},
 					accountDoc = {	'name'    :cName,
 									'type'    :cType,
 									'interest':cInterest,
