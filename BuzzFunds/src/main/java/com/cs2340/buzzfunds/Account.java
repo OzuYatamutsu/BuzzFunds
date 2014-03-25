@@ -81,15 +81,8 @@ public class Account {
         intRate = Double.parseDouble(obj.getString("interest"));
         type = obj.getString("type") == "savings" ? AccountType.SAVINGS : AccountType.CHECKING;
 
-        String balString = obj.getString("amount");
-        if (balString.substring(0,1) == "-") {
-            balance = -Double.parseDouble(obj.getString("amount").substring(1));
-            } else {
-            balance = Double.parseDouble(obj.getString("amount").substring(1));
-            }
-
         history = new HashMap<LocalDate, Collection<Transaction>>();
-        Collection<Transaction> txns = Transaction.ParseTxnHistory(obj.getJSONArray("transactionHistory"));
+        Collection<Transaction> txns = Transaction.ParseTxnHistory(obj.getJSONArray("history"));
         for (Transaction txn : txns) {
             if (!history.containsKey(txn.getDate())) {
                 history.put(txn.getDate(), new ArrayList<Transaction>());
@@ -183,10 +176,10 @@ public class Account {
     public Collection<String> getSimpleHistory() {
         Collection<String> simpleHistory = new LinkedList<String>();
         for (LocalDate date : history.keySet()) {
-            String dateHistory = date.toString("yyyy-mm-dd:");
+            String dateHistory = date.toString("yyyy-MM-dd:");
             for (Transaction txn : history.get(date)) {
-                String typeString = txn.getType() == "d" ? "+" : "-";
-                dateHistory += String.format("\n%s: %s%f", txn.getName(), typeString,
+                String typeString = txn.getType().equals("d") ? "+" : "-";
+                dateHistory += String.format("\n%s: %s%s", txn.getName(), typeString,
                         NumberFormat.getCurrencyInstance().format(txn.getAmount()));
             }
             simpleHistory.add(dateHistory);
@@ -219,7 +212,7 @@ public class Account {
         for (Collection<Transaction> txnOnDate : history.values()) {
             for (Transaction txn : txnOnDate) {
                 if (txn.IsEnabled()) {
-                    if (txn.getType() == "d") {
+                    if (txn.getType().equals("d")) {
                         bal += txn.getAmount();
                     } else {
                         bal -= txn.getAmount();
@@ -232,7 +225,7 @@ public class Account {
 
     public String toURL() {
         String acctType = type == AccountType.SAVINGS ? "savings" : "checking";
-        return String.format("?user=%s&name=%s&balance=%f&type=%s&interest=%f&date=%tF", key.split("-")[0],
+        return String.format("?user=%s&name=%s&amount=%f&type=%s&interest=%f&date=%tF", key.split("-")[0],
                 key.split("-")[1], balance, acctType, intRate, LocalDate.now().toDate());
     }
     @Override

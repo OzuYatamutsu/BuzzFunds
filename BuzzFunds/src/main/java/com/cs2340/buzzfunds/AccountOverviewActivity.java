@@ -35,7 +35,7 @@ public class AccountOverviewActivity extends Activity {
 		if (user.HasAccounts()) {
 			setContentView(R.layout.activity_account_overview);
 			ArrayAdapter<Account> adapter = new ArrayAdapter<Account>(this,
-			        android.R.layout.simple_list_item_1, (Account[]) user.getAccounts().toArray());
+			        android.R.layout.simple_list_item_1, user.getAccountsAsArray());
 			ListView accountList = (ListView) findViewById(R.id.accountList);
 			accountList.setAdapter(adapter);
 			accountList.setOnItemClickListener(new OnItemClickListener() {

@@ -114,7 +114,7 @@ else
 //	Takes the info for an account and associates it with a user
 //	Input: name(String) the name of the account as displayed to the user (UNIQUE)
 //	Input: user(String) name of the user to associate the account
-//  Input: balance(Double) the amount of money in the account
+//  Input: amount(Double) the amount of money in the account
 //	Input: type(String) the type of account
 //	Input: interest(Double) the amount of interest associated with this account
 //  Input: date(String) the date in which the account was created
@@ -126,17 +126,17 @@ app.get('/addaccount', function(request, response)
 	var
 	  	cName 	  = request.query.name,
 	  	cUser 	  = request.query.user,
-	  	cBalance  = request.query.balance,
 	  	cType	  = request.query.type,
 	  	cInterest = request.query.interest,
+	  	cAmount   = request.query.amount,
 	  	cDate	  = request.query.date,
-	cName = cUser + '-' + cName,
-	cBalance = '+' + cBalance;
-
+		cName 	  = cUser + '-' + cName;
+		cAmount = parseFloat(cAmount);
+		console.log('amount' + cAmount);
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
     	      'mongodb://localhost/RiotData';
-    if(cName == null || cUser == null || cBalance == null || cType == null || cInterest == null || cDate == null){
+    if( (cName == null) || (cType == null) || (cInterest == null) || (cDate == null) ||  (cAmount == null)){
     	response.send(400);
     }
     else{
@@ -150,16 +150,17 @@ app.get('/addaccount', function(request, response)
 				if(item === null ) //	if name doesn't already exist....
 				{
 					console.log('password nonexistent so that means this is a new value');
-					var firstTrans = { 	'name'    :"*Account Created*",
-									'balance' :cBalance,
-									'insDate' :cDate,
-									'effDate' :cDate
-								},
+					var	firstTrans = { 	'name'    	: '*Account created',
+									'category'		: 'initialization',
+									'type'			: 'deposit',
+									'amount' 		: cAmount,
+									'creationDate'  : cDate,
+									'effectiveDate' : cDate
+						},
 					accountDoc = {	'name'    :cName,
-									'amount' :cBalance,
 									'type'    :cType,
 									'interest':cInterest,
-									'transactionHistory': [firstTrans]
+									'history': [firstTrans]
 								};
 					//  Into login find user*: user
 					//  Into user* Insert: doc{ account : {list} + {user'-'name} }
@@ -244,37 +245,40 @@ else{
 // Input:
 //  user(string) name of the user
 //  name(string) user defined identifier of the transaction
-//	delta(float) the amount to be put/taken in/out of the account 
-//  type(string) 'w' if the transaction is a withdrawal or 'd' if deposit
+//	amount(float) the amount to be put/taken in/out of the account 
+//  type(string) 'withdrawal' if the transaction is a withdrawal or 'deposit' if deposit
 //  account(string) the long name of the account from which to make the change
-//	initDate(string) the date in which the transaction was created
-//  exeDate(string) the date in which the transaction should occur
+//	insDate(string) the date in which the transaction was created
+//  effDate(string) the date in which the transaction should occur
+//  category(string) the category of transaction
 //	Output: success(bool) whether the transaction was added successfully
 
 app.get('/transaction', function(req,res){
 	var 
 		cUser     = req.query.user,
 		cName 	  = req.query.name,
-		cDelta 	  = req.query.delta,
+		cAmount	  = req.query.amount,
 		cType 	  = req.query.type,
 		cAccount  = req.query.account,
-		cInitDate = req.query.initDate,
-		cExeDate  = req.query.exeDate;
-	cDelta = parseFloat(cDelta);
+		cInsDate  = req.query.insDate,
+		cEffDate  = req.query.effDate;
+		cCategory = req.query.category; 
+	cAmount = parseFloat(cAmount);
 
-	if(cType == "w")
-	{
-		cDelta = '-' + cDelta;
-	}
-	if(cType == "d")
-	{
-		cDelta = '+' + cDelta;
-	}
+	// Moved to client side handling
+	// if(cType == "w")
+	// {
+	// 	cDelta = '-' + cDelta;
+	// }
+	// if(cType == "d")
+	// {
+	// 	cDelta = '+' + cDelta;
+	// }
 
 	var uri = process.env.MONGOLAB_URI || 
     	      process.env.MONGOHQ_URL  ||
     	      'mongodb://localhost/RiotData';
-if(cUser == null || cName == null || cDelta == null || cType == null || cAccount == null || cInitDate == null || cExeDate == null){
+if(cUser == null || cName == null || cAmount == null || cType == null || cAccount == null || cInsDate == null || cEffDate == null){
 	res.send(400);
 }
 else{
@@ -283,17 +287,19 @@ else{
 		console.log('we are connected!');
 		var loginCollection = db.collection('login'),
 		    accountsCollection = db.collection('accounts'),
-			firstTrans = { 	'name'    : cName,
-							'balance' : cDelta,
-							'insDate' : cInitDate,
-							'effDate' : cExeDate
+			firstTrans = { 	'name'    		: cName,
+							'category'		: cCategory,
+							'type'			: cType,
+							'amount' 		: cAmount,
+							'creationDate'  : cInsDate,
+							'effectiveDate' : cEffDate
 						},
 			query = {
 				'username': cUser,
 				'accounts.name': cAccount
 			}
 			console.log(cAccount);
-		loginCollection.update( query, {$push : {'accounts.$.transactionHistory' : firstTrans}}, function(err)
+		loginCollection.update( query, {$push : {'accounts.$.history' : firstTrans}}, function(err)
 		{
 			if(err)
 			{

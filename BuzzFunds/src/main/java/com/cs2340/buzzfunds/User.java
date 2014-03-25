@@ -30,6 +30,12 @@ public class User implements Serializable {
 
     public Collection<Account> getAccounts() { return accounts; }
 
+    public Account[] getAccountsAsArray() {
+    Account[] acctAry = new Account[0];
+    acctAry = accounts.toArray(acctAry);
+    return acctAry;
+    }
+
     public boolean HasAccounts() { return !accounts.isEmpty(); }
 
     public boolean AddAccount(String shortName, double balance, String type, double rate) {
