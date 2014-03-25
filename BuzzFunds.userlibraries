@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Gradle: joda-time-2.3">
+    <archive path="C:/Users/Jeremy/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar" />
+  </library>
+  <library name="joda-time-2.3">
+    <archive path="C:/Users/Jeremy/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar" />
+  </library>
+</eclipse-userlibraries>
+

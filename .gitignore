@@ -4,6 +4,3 @@ build/
 
 *.iml
 *.eml
-
-.project
-.classpath
