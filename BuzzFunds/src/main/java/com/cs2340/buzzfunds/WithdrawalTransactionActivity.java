@@ -41,7 +41,7 @@ public class WithdrawalTransactionActivity extends Activity {
 	}
 
     public void attemptTransaction(View view) {
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-mm-dd");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         LocalDate effDate = fmt.parseLocalDate(String.format("%s-%s-%s",
                 mYear.getText().toString(), mMonth.getText().toString(), mDay.getText().toString()));
 

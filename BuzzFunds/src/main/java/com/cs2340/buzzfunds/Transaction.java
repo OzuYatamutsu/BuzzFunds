@@ -19,11 +19,6 @@ import java.util.Collection;
  */
 public class Transaction {
 
-    private static MessageDigest sha;
-
-    // Unique ID for the transaction necessary for deleting transactions
-    private String id;
-
     // User-specified identifier for the transaction
     private String name;
 
@@ -57,11 +52,6 @@ public class Transaction {
      * @param effDate When the transaction should begin to effect the account
 	 */
 	public Transaction(String name, double amount, String type, String cat, LocalDate iDate, LocalDate eDate) {
-        // All Java VMs are required to support SHA-256 sums, so we should never get an exception
-        try {
-            sha = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
-
         this.name = name;
 		this.amount = amount;
         enabled = true;
@@ -69,19 +59,6 @@ public class Transaction {
         insDate = iDate;
         effDate = eDate;
         this.type = type == "d" ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
-
-        String outType = this.type == TransactionType.DEPOSIT ? "d" : "w";
-        String toHash = String.format("name=%s&delta=%f&type=%s&initDate=%tF&exeDate=%tF", name, amount, outType,
-                insDate.toDate(), effDate.toDate());
-        // I don't know what computing device doesn't support UTF-8, but I don't wanna meet it.
-        try {
-            byte[] hash = sha.digest(toHash.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 8; i++) {
-                sb.append(String.format("%02X", hash[i]));
-                }
-            id = sb.toString();
-            } catch (UnsupportedEncodingException e) { e.printStackTrace(); }
 	}
 
     public Transaction(String name, double amount, String type, String cat, LocalDate eDate) {
@@ -94,19 +71,18 @@ public class Transaction {
         try {
             enabled = true;
             name = obj.getString("name");
-            amount = Double.parseDouble(obj.getString("balance"));
             category = obj.getString("category");
-            id = obj.getString("id");
+            amount = obj.getDouble("amount");
 
-            if (obj.getString("type") == "d") {
+            if (obj.getString("type").equals("deposit")) {
                 type = TransactionType.DEPOSIT;
                 } else {
                 type = TransactionType.WITHDRAWAL;
                 }
 
-            DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-mm-dd");
-            insDate = fmt.parseLocalDate(obj.getString("insDate"));
-            effDate = fmt.parseLocalDate(obj.getString("effDate"));
+            DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+            insDate = fmt.parseLocalDate(obj.getString("creationDate"));
+            effDate = fmt.parseLocalDate(obj.getString("effectiveDate"));
         } catch (Exception e) { e.printStackTrace(); }
     }
 
@@ -119,8 +95,6 @@ public class Transaction {
     public String getCategory() { return category; }
 
     public LocalDate getDate() { return effDate; }
-
-    public String getId() { return id; }
 
     public boolean IsEnabled() { return enabled; }
 
@@ -137,8 +111,8 @@ public class Transaction {
     }
 
     public String toURL() {
-        String outType = type == TransactionType.DEPOSIT ? "d" : "w";
-        return String.format("id=%s&name=%s&delta=%f&type=%s&initDate=%tF&exeDate=%tF", id, name, amount, outType,
-                insDate.toDate(), effDate.toDate());
+        String outType = type == TransactionType.DEPOSIT ? "deposit" : "withdrawal";
+        return String.format("name=%s&amount=%f&type=%s&category=%s&insDate=%tF&effDate=%tF", name, amount, outType,
+                category, insDate.toDate(), effDate.toDate());
     }
 }
