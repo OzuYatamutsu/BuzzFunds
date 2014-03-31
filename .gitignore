@@ -1454,3 +1454,4 @@ bin/classes/WebServer/views/layout.jade
 src/com/cs2340/buzzfunds/LoginActivity.java.orig
 bin/BuzzFunds.apk
 bin/BuzzFunds.apk
+/bin
