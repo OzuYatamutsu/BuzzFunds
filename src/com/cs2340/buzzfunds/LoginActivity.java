@@ -202,8 +202,7 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			Authenticator login = new Authenticator(DefaultConnection.BUZZFUNDS, mUsername, mPassword);
-			return login.httpGetLogin("1");
+			return Authenticator.HasGoodCredentials(mUsername, mPassword);
 		}
 		
 		@Override

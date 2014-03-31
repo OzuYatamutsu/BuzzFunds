@@ -1,11 +1,10 @@
 package com.cs2340.buzzfunds;
 
+import org.joda.time.LocalDate;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * An Account object stores account information as retrieved from
@@ -14,189 +13,225 @@ import java.util.Queue;
  * @author Sean Collins
  */
 public class Account {
-	/**
-	 * The balance in this account; negative balances are illegal!
-	 */
+
+    // Account balance - negative balances are illegal!
 	private double balance;
-	/**
-	 * A key used to identify this account against a database.
-	 */
-	private String key, type;
-	private Authenticator dataSource;
-	private Queue<Transaction> transactionQueue = new LinkedList<Transaction>();
+
+    // Account type - checking or savings for now
+    private AccountType type;
+
+    // A key used to identify this account against a database.
+	private String key;
+
+    // The interest rate for the account
+    private double intRate;
+
+    // A queue containing transactions unsynced with the server
+    private Queue<Transaction> unsynced;
+
 	/**
 	 * A Map containing the Transaction history of this Account.
-	 * It should be organized as follows:<br><br>
+	 * It should be organized as follows:
 	 * 
-	 * dateString -> (transactionType, amount)<br>
+	 * dateString -> (transactionType, amount)
 	 * (i.e.
 	 * 
-	 * Map(<br>
-	 * (2012-12-31, List("deposit", 120.00), ("withdrawal", 12.00), ...)),<br>
-	 * (2013-01-01, List(("deposit", 61.59), ...)))<br/>
+	 * Map(
+	 * (2012-12-31, List("deposit", 120.00), ("withdrawal", 12.00), ...)),
+	 * (2013-01-01, List(("deposit", 61.59), ...)))
 	 * )
 	 */
-	private Map<String, List<TransactionHistoryItem>> history;
+	private Map<LocalDate, Collection<Transaction>> history;
+
 	/**
 	 * Constructs a new Account object. 
 	 * 
 	 * @param key A key used to identify this Account to a data source
-	 * @param dataSource The data source authenticated against
+     * @param rate The interest rate for the account
 	 * @param balance The balance of this account
 	 * @param type The type of account
 	 * @param history A Map which contains the Transaction history of this account.
 	 */
-	public Account(String key, Authenticator dataSource, double balance, 
-			String type, Map<String, List<TransactionHistoryItem>> history) {
+	public Account(String key, double balance, String type, double rate,
+                   Map<LocalDate, Collection<Transaction>> history) {
 		this.key = key;
-		this.dataSource = dataSource;
+        intRate = rate;
 		this.balance = balance;
-		this.type = type;
 		this.history = history;
+        unsynced = new LinkedList<Transaction>();
+        this.type = type == "savings" ? AccountType.SAVINGS : AccountType.CHECKING;
+        this.CalcBalance();
 	}
 	
 	/**
 	 * Constructs a new Account object without a Transaction history.
 	 * 
 	 * @param key A key used to identify this Account to a data source
-	 * @param dataSource The data source authenticated against
+     * @param rate The interest rate for the account
 	 * @param balance The balance of this account
 	 * @param type The type of account
 	 */
-	public Account(String key, Authenticator dataSource, double balance, 
-			String type) {
-		this(key, dataSource, balance, type, null);
+	public Account(String key, double balance, String type, double rate) {
+		this(key, balance, type, rate, new HashMap<LocalDate, Collection<Transaction>>());
 	}
-	
-	/**
-	 * Validates whether or not this account can withdraw a given amount.
-	 * 
-	 * @param amount The amount to validate
-	 * @return true if this account has enough funds; else false
-	 */
-	public boolean validate(double amount) {
-		return ((balance - amount) > 0.00) ? true : false;
-	}
-	
-	/**
-	 * Returns this Account's balance.
-	 * @return This Account's balance
-	 */
-	public double getBalance() {
-		return balance;
-	}
-	
-	/**
-	 * Attempts to push a Transaction from transactionQueue to the endpoint.
-	 * 
-	 * @param date The given date of this Transaction (in "yyyy-MM-dd" format)
-	 * @return true if push was successful; false otherwise
-	 */
-	public boolean push(String date) {
-		boolean pushSuccessful = false;
-		double amount = 0.00;
-		Transaction transaction = null;
-		
-		if (pushNeeded()) {
-			transaction = transactionQueue.remove();
-			amount = transaction.getAmount();
-			if (transaction.getType().equals("withdrawal")) {
-				amount = (-1) * amount;
-			}
-			pushSuccessful = dataSource.httpGetTransaction(transaction, date);
-		}
-		
-		if (pushSuccessful) {
-			balance += amount;
-			addHistory(date, transaction.getType(), transaction.getAmount());
-		}
-		
-		return pushSuccessful;
-	}
-	
-	/**
-	 * Returns whether this Account has changes which need to be pushed to
-	 * the data source and resynced.
-	 *
-	 * @return true if changes need to be pushed; false if up to date with data source
-	 */
-	public boolean pushNeeded() {
-		return !transactionQueue.isEmpty();
-	}
-	
-	/**
-	 * Adds a transaction to transactionQueue.
-	 */
-	 public void queue(Transaction transaction) {
-		 transactionQueue.add(transaction);
-	 }
-	 
-	 /**
-	  * Returns this Account's key.
-	  * 
-	  * @return This Account's key
-	  */
-	 public String getKey() {
-		 return key;
-	 }
-	 
-	 /**
-	  * Returns this Account's ID (key minus username-prefix).
-	  * 
-	  * @return This Account's key, without username prefix
-	  */
-	 public String getId() {
-		return key.replace(dataSource.getUsername() + "-", "");
-	 }
-	 
-	 /**
-	  * Returns this Account's type.
-	  * 
-	  * @return This Account's type
-	  */
-	 public String getType() {
-		 return type;
-	 }
-	 
-	 /**
-	  * Returns a String representation of this Account.
-	  */
-	 public String toString() {
-		 return "[" + NumberFormat.getCurrencyInstance().format(getBalance()) 
-				 + "] " + getId() + ", " + getType();
-	 }
-	 
-	 /**
-	  * Adds a completed Transaction to this Account's history Map.
-	  * 
-	  * @param date The date of the Transaction (in "yyyy-MM-dd" format)
-	  * @param type The type of the Transaction
-	  * @param amount The amount of the Transaction
-	  */
-	 private void addHistory(String date, String type, double amount) {
-		 if (!history.containsKey(date)) {
-			 history.put(date, new ArrayList<TransactionHistoryItem>());
-		 }
-		 
-		 history.get(date).add(new TransactionHistoryItem(type, amount));
-	 }
-	 
-	 /**
-	  * Returns a List of all Transactions logged on a given date.
-	  * 
-	  * @param date The date of the Transaction (in "yyyy-MM-dd" format)
-	  * @return A List of all Transactions on the given date, or null if none found
-	  */
-	 public List<TransactionHistoryItem> getTransactionsByDate(String date) {
-		 return history.get(date);
-	 }
-	 
-	 /**
-	  * Returns the Transaction history for this Account.
-	  * 
-	  * @return The Transaction history for this Account
-	  */
-	 public Map<String, List<TransactionHistoryItem>> getMap() {
-		 return history;
-	 }
+
+    // Construct a new Account object using a JSON object from the server
+    public Account(JSONObject obj) throws JSONException {
+        key = obj.getString("name");
+        intRate = Double.parseDouble(obj.getString("interest"));
+        type = obj.getString("type") == "savings" ? AccountType.SAVINGS : AccountType.CHECKING;
+
+        history = new HashMap<LocalDate, Collection<Transaction>>();
+        Collection<Transaction> txns = Transaction.ParseTxnHistory(obj.getJSONArray("history"));
+        for (Transaction txn : txns) {
+            if (!history.containsKey(txn.getDate())) {
+                history.put(txn.getDate(), new ArrayList<Transaction>());
+                }
+            history.get(txn.getDate()).add(txn);
+        }
+
+        this.CalcBalance();
+    }
+
+    // Get the key for this account
+    public String getKey() { return key; }
+
+    // Get the balance for this account
+	public double getBalance() { return balance; }
+
+    // Get the ID for this account
+    public String getId() { return key.split("-")[1]; }
+
+    // Get this account's type
+    public String getType() {
+        String outType = "";
+        switch (type) {
+            case SAVINGS:
+                outType = "savings";
+                break;
+            case CHECKING:
+                outType = "checking";
+                break;
+        }
+        return outType;
+    }
+
+
+    // Confirms if the user can withdraw the desired amount of money from this account
+    public boolean CanWithdraw(double amount) { return (balance - amount) > 0.00; }
+
+    /**
+     * Returns whether this Account has changes which need to be pushed to
+     * the data source and resynced.
+     *
+     * @return true if changes need to be pushed; false if up to date with data source
+     */
+    public boolean NeedSyncing() { return !unsynced.isEmpty(); }
+
+    public boolean MakeNewTransaction(String name, double amount, String type, String category, LocalDate effDate) {
+        boolean result = false;
+        Transaction txn = new Transaction(name, amount, type, category, effDate);
+        if (NetworkActivities.AddTransactionToAccount(key,txn)) {
+            AddTxnToHistory(txn);
+            CalcBalance();
+            result = true;
+            } else { unsynced.add(txn); }
+        return result;
+    }
+
+    // Returns true if there were no unsynced transactions or we synced them all, false otherwise
+    public boolean SyncTxns() {
+        if (!unsynced.isEmpty()) {
+            int size = unsynced.size();
+            for (int i = 0; i < size; i++) {
+                Transaction txn = unsynced.remove();
+                if (NetworkActivities.AddTransactionToAccount(key,txn)) {
+                    AddTxnToHistory(txn);
+                } else { unsynced.add(txn); }
+            }
+        }
+       CalcBalance();
+       return unsynced.isEmpty();
+    }
+
+    // Add a transaction to this account's history
+     private void AddTxnToHistory(Transaction txn) {
+         if (!history.containsKey(txn.getDate())) {
+             history.put(txn.getDate(), new ArrayList<Transaction>());
+            }
+         history.get(txn.getDate()).add(txn);
+     }
+
+    // Get a list containing the full transaction history for the account
+    public Collection<Transaction> getHistory() {
+        Collection<Transaction> txnHistory = new LinkedList<Transaction>();
+        for (Collection<Transaction> txnOnDate : history.values()) {
+            for (Transaction txn : txnOnDate) {
+                txnHistory.add(txn);
+            }
+        }
+        return txnHistory;
+    }
+
+    public Collection<String> getSimpleHistory() {
+        Collection<String> simpleHistory = new LinkedList<String>();
+        for (LocalDate date : history.keySet()) {
+            String dateHistory = date.toString("yyyy-MM-dd:");
+            for (Transaction txn : history.get(date)) {
+                String typeString = txn.getType().equals("d") ? "+" : "-";
+                dateHistory += String.format("\n%s: %s%s", txn.getName(), typeString,
+                        NumberFormat.getCurrencyInstance().format(txn.getAmount()));
+            }
+            simpleHistory.add(dateHistory);
+        }
+        return simpleHistory;
+    }
+
+    // Get a list of transactions that took effect on the specified date
+    public Collection<Transaction> getHistoryOnDate(LocalDate date) {
+        if (history.containsKey(date)){
+            return history.get(date);
+            } else { return new LinkedList<Transaction>(); }
+    }
+
+    // Get a list of transactions that took effect in the specified date range
+    public Collection<Transaction> getHistoryBetweenDates(LocalDate startDate, LocalDate endDate) {
+        List<Transaction> txns = new LinkedList<Transaction>();
+        for (LocalDate date = startDate; date.isBefore(endDate) || date.isEqual(endDate); date = date.plusDays(1)) {
+            if (history.containsKey(date)) {
+                for (Transaction txn : history.get(date)) {
+                    txns.add(txn);
+                }
+            }
+        }
+        return txns;
+    }
+
+    private void CalcBalance() {
+        double bal = 0;
+        for (Collection<Transaction> txnOnDate : history.values()) {
+            for (Transaction txn : txnOnDate) {
+                if (txn.IsEnabled()) {
+                    if (txn.getType().equals("d")) {
+                        bal += txn.getAmount();
+                    } else {
+                        bal -= txn.getAmount();
+                        }
+                    }
+                }
+            }
+        balance = bal;
+    }
+
+    public String toURL() {
+        String acctType = type == AccountType.SAVINGS ? "savings" : "checking";
+        return String.format("?user=%s&name=%s&amount=%f&type=%s&interest=%f&date=%tF", key.split("-")[0],
+                key.split("-")[1], balance, acctType, intRate, LocalDate.now().toDate());
+    }
+    @Override
+    public String toString() {
+        return "[" + NumberFormat.getCurrencyInstance().format(getBalance())
+                + "] " + getId() + ", " + getType();
+    }
+
 }
