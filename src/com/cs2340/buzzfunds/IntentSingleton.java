@@ -12,7 +12,8 @@ public class IntentSingleton {
 	private static Map<String, String> stringMap = new HashMap<String, String>();
 	private static Map<String, Boolean> booleanMap = new HashMap<String, Boolean>();
 	private static Map<String, Account> accountMap = new HashMap<String, Account>();
-	
+	private static Map<String, User> userMap = new HashMap<String, User>();
+
 	private static IntentSingleton instance = null;
 	
 	/**
@@ -97,7 +98,26 @@ public class IntentSingleton {
 	public static void putAccount(String key, Account value) {
 		accountMap.put(key, value);
 	}
-	
+
+    /**
+     * Adds a User to this IntentSingleton store.
+     *
+     * @param key The String key associated with the User
+     * @param value The value of the User
+     */
+    public static void putUser(String key, User value) {
+        userMap.put(key, value);
+    }
+
+    /**
+     * Returns the User associated with a given key.
+     *
+     * @param key The String key associated with the User
+     * @return The value associated with the key, or null if none found
+     */
+    public static User getUser(String key) {
+        return userMap.get(key);
+    }
 	/**
 	 * Returns the Account associated with a given key.
 	 * 
@@ -107,4 +127,5 @@ public class IntentSingleton {
 	public static Account getAccount(String key) {
 		return accountMap.get(key);
 	}
+
 }

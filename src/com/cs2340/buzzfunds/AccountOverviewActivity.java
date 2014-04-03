@@ -66,7 +66,8 @@ public class AccountOverviewActivity extends Activity {
 	 */
 	public void switchToCreateAccount(View view) {
 		Intent intent = new Intent(this, CreateAccountActivity.class);
-        intent.putExtra("user", user);
+        //intent.putExtra("user", user);
+        IntentSingleton.putUser("USER", user);
 		startActivity(intent);
 	}
 	

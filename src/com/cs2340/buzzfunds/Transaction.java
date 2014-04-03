@@ -58,7 +58,7 @@ public class Transaction {
         category = cat;
         insDate = iDate;
         effDate = eDate;
-        this.type = type == "d" ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
+        this.type = type.equals("deposit") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
 	}
 
     public Transaction(String name, double amount, String type, String cat, LocalDate eDate) {

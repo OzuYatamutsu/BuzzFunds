@@ -19,7 +19,8 @@ public class CreateAccountActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        user = (User) getIntent().getSerializableExtra("user");
+        //user = (User) getIntent().getSerializableExtra("user");
+        user = IntentSingleton.getUser("USER");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
 		mAccountId = (EditText) findViewById(R.id.create_account_newId);
