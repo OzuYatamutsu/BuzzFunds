@@ -46,7 +46,7 @@ public class WithdrawalTransactionActivity extends Activity {
                 mYear.getText().toString(), mMonth.getText().toString(), mDay.getText().toString()));
 
         double amount = Double.parseDouble(mAmount.getText().toString());
-        if (account.MakeNewTransaction("deposit", amount, "d", "uncategorized", effDate)) {
+        if (account.MakeNewTransaction("withdrawal", amount, "w", "uncategorized", effDate)) {
             // All good!
             Intent intent = new Intent(this, AccountDetailActivity.class);
             startActivity(intent);
