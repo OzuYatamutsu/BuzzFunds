@@ -32,7 +32,7 @@ public class NetworkActivities {
         ArrayList<Account> accounts = null;
         String endpoint = String.format("%s%s?user=%s", base, allAcctsEP, username);
         String res = BasicHttpClient.exeGet(endpoint);
-        if (res == null || res == "") { return accounts; }
+        if (res == null || res.equals("")) { return accounts; }
         try {
             JSONArray ary = new JSONArray(res);
             accounts = new ArrayList<Account>(ary.length());
