@@ -59,7 +59,7 @@ public class Account {
 		this.balance = balance;
 		this.history = history;
         unsynced = new LinkedList<Transaction>();
-        this.type = type == "savings" ? AccountType.SAVINGS : AccountType.CHECKING;
+        this.type = type.equals("savings") ? AccountType.SAVINGS : AccountType.CHECKING;
         this.CalcBalance();
 	}
 	
@@ -79,7 +79,7 @@ public class Account {
     public Account(JSONObject obj) throws JSONException {
         key = obj.getString("name");
         intRate = Double.parseDouble(obj.getString("interest"));
-        type = obj.getString("type") == "savings" ? AccountType.SAVINGS : AccountType.CHECKING;
+        type = obj.getString("type").equals("savings") ? AccountType.SAVINGS : AccountType.CHECKING;
 
         history = new HashMap<LocalDate, Collection<Transaction>>();
         Collection<Transaction> txns = Transaction.ParseTxnHistory(obj.getJSONArray("history"));
