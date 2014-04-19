@@ -57,5 +57,7 @@
     <string name="error_transaction">There was an error completing your transaction.</string>
     <string name="title_activity_history">HistoryActivity</string>
     <string name="detail_transaction_history">Transaction history</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="splash_title">BuzzFunds</string>
 
 </resources>

@@ -16,13 +16,18 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.cs2340.buzzfunds.MainActivity"
-            android:label="@string/app_name" >
+                android:name="com.cs2340.buzzfunds.SplashActivity"
+                android:label="@string/title_activity_splash" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.cs2340.buzzfunds.MainActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.cs2340.buzzfunds.LoginActivity"
@@ -50,10 +55,6 @@
             android:label="@string/title_activity_account_detail" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.TransactionCreateActivity"
-            android:label="@string/title_activity_transaction_create" >
-        </activity>
-        <activity
             android:name="com.cs2340.buzzfunds.ChooseTransactionTypeActivity"
             android:label="@string/title_activity_choose_transaction_type" >
         </activity>
@@ -62,7 +63,7 @@
             android:label="@string/title_activity_deposit_transaction" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.WithdrawlTransactionActivity"
+            android:name="com.cs2340.buzzfunds.WithdrawalTransactionActivity"
             android:label="@string/title_activity_withdrawl_transaction" >
         </activity>
         <activity
@@ -70,13 +71,8 @@
             android:label="@string/title_activity_transfer_transaction" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.WithdrawalTransactionActivity"
-            android:label="@string/title_activity_withdrawal_transaction" >
-        </activity>
-        <activity
             android:name="com.cs2340.buzzfunds.HistoryActivity"
             android:label="@string/title_activity_history" >
         </activity>
     </application>
-
 </manifest>
