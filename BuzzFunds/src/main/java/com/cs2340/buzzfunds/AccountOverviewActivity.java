@@ -65,6 +65,9 @@ public class AccountOverviewActivity extends Activity {
 	 * @param view The current View
 	 */
 	public void switchToCreateAccount(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		Intent intent = new Intent(this, CreateAccountActivity.class);
         //intent.putExtra("user", user);
         IntentSingleton.putUser("USER", user);
@@ -77,6 +80,9 @@ public class AccountOverviewActivity extends Activity {
 	 * @param id The position of the ListItem
 	 */
 	public void switchToAccountDetail(int id) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		Intent intent = new Intent(this, AccountDetailActivity.class);
 		IntentSingleton.putAccount("CURRENT_ACCOUNT", (Account) user.getAccounts().toArray()[id]);
 		startActivity(intent);

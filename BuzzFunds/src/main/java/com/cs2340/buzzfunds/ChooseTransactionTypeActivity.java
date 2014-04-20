@@ -28,6 +28,9 @@ public class ChooseTransactionTypeActivity extends Activity {
 	 * @param view The current View.
 	 */
 	public void switchToDepositTransactionActivity(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		Intent intent = new Intent(this, DepositTransactionActivity.class);
 		startActivity(intent);
 	}
@@ -38,6 +41,9 @@ public class ChooseTransactionTypeActivity extends Activity {
 	 * @param view The current View.
 	 */
 	public void switchToWithdrawalTransactionActivity(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		Intent intent = new Intent(this, WithdrawalTransactionActivity.class);
 		startActivity(intent);
 	}
@@ -48,6 +54,9 @@ public class ChooseTransactionTypeActivity extends Activity {
 	 * @param view The current View.
 	 */
 	public void switchToTransferTransactionActivity(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		Intent intent = new Intent(this, TransferTransactionActivity.class);
 		startActivity(intent);
 	}

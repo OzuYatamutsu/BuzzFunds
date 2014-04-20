@@ -44,6 +44,9 @@ public class DepositTransactionActivity extends Activity {
 	}
 	
 	public void attemptTransaction(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         LocalDate effDate = fmt.parseLocalDate(String.format("%s-%s-%s",
                 mYear.getText().toString(), mMonth.getText().toString(), mDay.getText().toString()));

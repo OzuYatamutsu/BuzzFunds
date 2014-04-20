@@ -91,6 +91,9 @@ public class LoginActivity extends Activity {
 	 */
 	@SuppressLint("NewApi")
 	public void attemptLogin() {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		if (mAuthTask != null) {
 			return;
 		}
