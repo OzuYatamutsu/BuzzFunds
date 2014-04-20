@@ -47,6 +47,9 @@ public class AccountDetailActivity extends Activity {
 	 * @param view The current View.
 	 */
 	public void switchToChooseTransactionTypeActivity(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		Intent intent = new Intent(this, ChooseTransactionTypeActivity.class);
 		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
 		startActivity(intent);
@@ -58,6 +61,9 @@ public class AccountDetailActivity extends Activity {
 	 * @param view The current View.
 	 */
 	public void switchToHistoryActivity(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
 		Intent intent = new Intent(this, HistoryActivity.class);
 		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
 		startActivity(intent);

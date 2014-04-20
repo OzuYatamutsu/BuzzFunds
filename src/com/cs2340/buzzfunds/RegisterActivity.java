@@ -53,6 +53,8 @@ public class RegisterActivity extends Activity {
 	 * errors are presented and no actual register attempt is made.
 	 */
 	public void attemptRegister() {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
 
 		// Reset errors.
 		mUsernameView.setError(null);

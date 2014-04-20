@@ -47,6 +47,9 @@ public class CreateAccountActivity extends Activity {
 	}
 	
 	public void createAccount(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
         String shortName = mAccountId.getText().toString();
         String type = getAccountType();
         double balance = 0;

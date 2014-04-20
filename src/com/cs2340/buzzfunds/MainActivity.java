@@ -23,11 +23,15 @@ public class MainActivity extends Activity {
 	}
 	
 	public void switchToLogin(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
 		Intent login = new Intent(this, LoginActivity.class);
 		startActivity(login);
 	}
 	
 	public void switchToRegister(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
 		Intent register = new Intent(this, RegisterActivity.class);
 		startActivity(register);
 	}
