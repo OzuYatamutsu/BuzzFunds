@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    compile 'com.android.support:appcompat-v7:+'
     compile group: "joda-time", name: "joda-time", version: "2.3"
 //    compile group: "com.googlecode.json-simple", name: "json-simple", version: "1.1+"
 //    compile group: "com.google.android", name: "support-v4", version: "r7+"
