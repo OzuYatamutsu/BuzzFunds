@@ -87,4 +87,6 @@
     <string name="withdrawal_transaction_help">Enter the (positive number) amount you wish to withdraw out of this
         account above, followed by the date you want to be associated with it in the YYYY-MM-DD format specified above.
     </string>
+    <string name="register_email_text">Please enter your email</string>
+    <string name="prompt_email">email@example.com</string>
 </resources>
