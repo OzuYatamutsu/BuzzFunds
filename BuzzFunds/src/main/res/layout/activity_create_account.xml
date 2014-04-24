@@ -68,5 +68,24 @@
 
         <requestFocus />
     </EditText>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/global_help_label"
+            android:id="@+id/helpView"
+            android:textColor="#598aff"
+            android:clickable="true"
+            android:onClick="displayHelp" android:layout_alignParentBottom="true" android:layout_alignParentRight="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/helpText"
+            android:textColor="#598aff"
+            android:visibility="invisible"
+            android:text="@string/create_account_help"
+            android:layout_marginTop="34dp"
+            android:layout_below="@+id/newAccountType" android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

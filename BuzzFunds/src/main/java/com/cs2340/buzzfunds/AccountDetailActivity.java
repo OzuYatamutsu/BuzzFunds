@@ -13,7 +13,6 @@ public class AccountDetailActivity extends Activity {
 
 	Account account;
 	TextView mTitleVal, mTypeVal, mBalanceVal;
-	private final int HELP_TEXT_LABEL = R.id.account_detail_help;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,7 @@ public class AccountDetailActivity extends Activity {
 
     public void displayHelp(View view) {
         TextView helpButton = (TextView) findViewById(R.id.helpView);
-        TextView helpText = (TextView) findViewById(HELP_TEXT_LABEL);
+        TextView helpText = (TextView) findViewById(R.id.helpText);
         if (helpText.getVisibility() == View.INVISIBLE) {
             helpButton.setText(R.string.global_help_label_off);
             helpText.setVisibility(View.VISIBLE);

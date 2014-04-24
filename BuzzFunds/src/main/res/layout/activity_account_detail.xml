@@ -85,9 +85,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/account_detail_help"
-            android:id="@+id/account_detail_help"
-            android:layout_marginBottom="28dp" android:textColor="#598aff"
-            android:layout_above="@+id/detail_start_transaction" android:layout_centerHorizontal="true"
-            android:visibility="invisible"/>
+            android:id="@+id/helpText"
+            android:textColor="#598aff"
+            android:layout_marginBottom="28dp"
+            android:visibility="invisible"
+            android:layout_above="@+id/detail_start_transaction" android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
