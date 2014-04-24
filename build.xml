@@ -5,15 +5,15 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="BuzzFunds">
     <property environment="env"/>
+    <!--  CHANGE BELOW TO YOUR OWN LOCATION OF ECLIPSE -->
     <property name="ECLIPSE_HOME" value="../../../../../../Program Files/eclipse_adk/eclipse"/>
-    <!--  CHANGE ABOVE TO REFLECT YOUR OWN ECLIPSE LOCATION - Sean -->
+    <!--  CHANGE ABOVE TO YOUR OWN LOCATION OF ECLIPSE -->
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
     <path id="Android Private Libraries.libraryclasspath">
         <pathelement location="libs/joda-time-2.3.jar"/>
-        <pathelement location="libs/android.jar"/>
         <pathelement location="libs/android-support-v4.jar"/>
         <pathelement location="libs/json-simple-1.1.1.jar"/>
     </path>
@@ -22,15 +22,21 @@
         <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
     </path>
+    <path id="Android 4.4.2.libraryclasspath">
+        <!--  CHANGE BELOW TO YOUR OWN LOCATION OF ANDROID.JAR -->
+        <pathelement location="../../../../../../Program Files/eclipse_adk/sdk/platforms/android-19/android.jar"/>
+    	<!--  CHANGE ABOVE TO YOUR OWN LOCATION OF ECLIPSE -->
+    </path>
     <path id="BuzzFunds.classpath">
         <pathelement location="bin/classes"/>
         <path refid="Android Private Libraries.libraryclasspath"/>
         <path refid="Android Dependencies.libraryclasspath"/>
         <path refid="JUnit 4.libraryclasspath"/>
         <pathelement location="libs/joda-time-2.3.jar"/>
-        <pathelement location="libs/android.jar"/>
+        <path refid="Android 4.4.2.libraryclasspath"/>
     </path>
     <path id="run.AndroidRun.classpath">
+        <path refid="Android 4.4.2.libraryclasspath"/>
         <path refid="BuzzFunds.classpath"/>
     </path>
     <path id="run.AndroidRun.bootclasspath"/>
