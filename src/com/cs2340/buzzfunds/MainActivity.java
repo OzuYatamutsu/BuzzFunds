@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -35,5 +36,18 @@ public class MainActivity extends Activity {
 		Intent register = new Intent(this, RegisterActivity.class);
 		startActivity(register);
 	}
+
+    public void displayHelp(View view) {
+        TextView helpButton = (TextView) findViewById(R.id.helpView);
+        TextView helpText = (TextView) findViewById(R.id.helpText);
+        if (helpText.getVisibility() == View.INVISIBLE) {
+            helpButton.setText(R.string.global_help_label_off);
+            helpText.setVisibility(View.VISIBLE);
+        } else {
+            helpButton.setText(R.string.global_help_label);
+            helpText.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
 }

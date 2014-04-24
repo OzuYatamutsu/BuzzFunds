@@ -13,7 +13,7 @@ public class AccountDetailActivity extends Activity {
 
 	Account account;
 	TextView mTitleVal, mTypeVal, mBalanceVal;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Setup.ignoreMainNetworkException();
@@ -68,4 +68,17 @@ public class AccountDetailActivity extends Activity {
 		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
 		startActivity(intent);
 	}
+
+    public void displayHelp(View view) {
+        TextView helpButton = (TextView) findViewById(R.id.helpView);
+        TextView helpText = (TextView) findViewById(R.id.helpText);
+        if (helpText.getVisibility() == View.INVISIBLE) {
+            helpButton.setText(R.string.global_help_label_off);
+            helpText.setVisibility(View.VISIBLE);
+        } else {
+            helpButton.setText(R.string.global_help_label);
+            helpText.setVisibility(View.INVISIBLE);
+        }
+
+    }
 }

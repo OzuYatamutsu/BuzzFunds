@@ -59,5 +59,32 @@
     <string name="detail_transaction_history">Transaction history</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="splash_title">BuzzFunds</string>
-
+    <!-- Help text below... -->
+    <string name="global_help_label">Help...</string>
+    <string name="global_help_label_off">Hide help</string>
+    <string name="account_detail_help">Click the "Perform transaction" button below to create a new Deposit,
+        Withdrawal, or Transfer transaction. You can also see a raw report of your transactions by clicking on the
+        "Transaction history" button.</string>
+    <string name="account_overview_help">Click one of the accounts in the view above to view an account summary
+    for that account. You can also click "New Account" below to add a new one.</string>
+    <string name="choose_transaction_help">Click one of the buttons above to set up a new withdrawal out of this
+        account, deposit into this account, or transfer out of this account.</string>
+    <string name="create_account_help">Enter a new name that will be used to identify this new account above,
+    followed by the account type in the buttons below it. You do not need to remember this name - only recognize it.
+    </string>
+    <string name="deposit_transaction_help">Enter the amount you wish to deposit into this account above, followed
+    by the date you want to be associated with it in the YYYY-MM-DD format specified above.</string>
+    <string name="history_help"></string>
+    <string name="login_help">Please enter your username and password above. Your username is NOT your account ID(s)!
+    </string>
+    <string name="main_help">If you have an account, press the "Login" button to authenticate above. Otherwise, you
+    can create a new account by pressing "Register."</string>
+    <string name="register_help">Enter a new username and password above. You will need to remember this combination.
+    Passwords must be at least four characters long.</string>
+    <string name="transfer_transaction_help">Enter the (positive number) amount you wish to transfer out of this
+        account above, followed by the date you want to be associated with it in the YYYY-MM-DD format specified above.
+    </string>
+    <string name="withdrawal_transaction_help">Enter the (positive number) amount you wish to withdraw out of this
+        account above, followed by the date you want to be associated with it in the YYYY-MM-DD format specified above.
+    </string>
 </resources>

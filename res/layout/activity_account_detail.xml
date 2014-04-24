@@ -70,5 +70,25 @@
         android:layout_marginBottom="17dp"
         android:text="@string/detail_transaction_history" 
         android:onClick="switchToHistoryActivity"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/global_help_label"
+            android:id="@+id/helpView"
+            android:textColor="#598aff"
+            android:layout_alignParentBottom="true" android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:onClick="displayHelp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/account_detail_help"
+            android:id="@+id/helpText"
+            android:textColor="#598aff"
+            android:layout_marginBottom="28dp"
+            android:visibility="invisible"
+            android:layout_above="@+id/detail_start_transaction" android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

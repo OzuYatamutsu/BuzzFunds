@@ -84,5 +84,24 @@
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
         android:text="@string/registerbutton_text" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/global_help_label"
+            android:id="@+id/helpView"
+            android:textColor="#598aff"
+            android:clickable="true"
+            android:onClick="displayHelp"
+            android:layout_alignParentBottom="true" android:layout_alignParentRight="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/helpText"
+            android:textColor="#598aff"
+            android:visibility="invisible"
+            android:text="@string/register_help"
+            android:layout_below="@+id/registerbutton" android:layout_alignParentLeft="true"/>
 
 </RelativeLayout>

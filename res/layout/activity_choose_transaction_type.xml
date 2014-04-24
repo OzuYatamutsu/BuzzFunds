@@ -44,5 +44,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
         android:text="@string/transaction_choose_text" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/helpText"
+            android:textColor="#598aff"
+            android:visibility="invisible"
+            android:text="@string/choose_transaction_help"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/transaction_transfer_button" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/global_help_label"
+            android:id="@+id/helpView"
+            android:textColor="#598aff"
+            android:clickable="true"
+            android:onClick="displayHelp"
+            android:layout_alignParentBottom="true" android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

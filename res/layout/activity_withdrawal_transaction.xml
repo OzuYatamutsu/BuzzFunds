@@ -134,9 +134,39 @@
                 android:ems="10"
                 android:hint="@string/day"
                 android:maxLength="2" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/global_help_label"
+                    android:id="@+id/helpView"
+                    android:textColor="#598aff"
+                    android:clickable="true"
+                    android:onClick="displayHelp"
+                    android:layout_below="@+id/year" android:layout_alignLeft="@+id/year"/>
 
         </RelativeLayout>
 
     </ScrollView>
 
+    <LinearLayout
+            android:id="@+id/helpLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible"
+            >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/helpText"
+                android:textColor="#598aff"
+                android:visibility="invisible"
+                android:text="@string/withdrawal_transaction_help"
+                android:layout_alignBottom="@+id/sign_in_button"
+                android:layout_alignLeft="@+id/year"/>
+    </LinearLayout>
 </merge>

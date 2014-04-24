@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class RegisterActivity extends Activity {
 	Intent intent = getIntent();
@@ -144,4 +145,16 @@ public class RegisterActivity extends Activity {
 			}
 		}
 	}
+
+    public void displayHelp(View view) {
+        TextView helpButton = (TextView) findViewById(R.id.helpView);
+        TextView helpText = (TextView) findViewById(R.id.helpText);
+        if (helpText.getVisibility() == View.INVISIBLE) {
+            helpButton.setText(R.string.global_help_label_off);
+            helpText.setVisibility(View.VISIBLE);
+        } else {
+            helpButton.setText(R.string.global_help_label);
+            helpText.setVisibility(View.INVISIBLE);
+        }
+    }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class CreateAccountActivity extends Activity {
 
@@ -63,4 +64,16 @@ public class CreateAccountActivity extends Activity {
 			mAccountId.setError(getString(R.string.error_account_create));
 		}
 	}
+
+    public void displayHelp(View view) {
+        TextView helpButton = (TextView) findViewById(R.id.helpView);
+        TextView helpText = (TextView) findViewById(R.id.helpText);
+        if (helpText.getVisibility() == View.INVISIBLE) {
+            helpButton.setText(R.string.global_help_label_off);
+            helpText.setVisibility(View.VISIBLE);
+        } else {
+            helpButton.setText(R.string.global_help_label);
+            helpText.setVisibility(View.INVISIBLE);
+        }
+    }
 }

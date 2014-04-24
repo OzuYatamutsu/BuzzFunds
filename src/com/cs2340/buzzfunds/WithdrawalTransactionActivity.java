@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -55,6 +56,18 @@ public class WithdrawalTransactionActivity extends Activity {
             startActivity(intent);
         } else {
             mAmount.setError(getString(R.string.error_transaction));
+        }
+    }
+
+    public void displayHelp(View view) {
+        TextView helpButton = (TextView) findViewById(R.id.helpView);
+        TextView helpText = (TextView) findViewById(R.id.helpText);
+        if (helpText.getVisibility() == View.INVISIBLE) {
+            helpButton.setText(R.string.global_help_label_off);
+            helpText.setVisibility(View.VISIBLE);
+        } else {
+            helpButton.setText(R.string.global_help_label);
+            helpText.setVisibility(View.INVISIBLE);
         }
     }
 }
