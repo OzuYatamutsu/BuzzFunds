@@ -157,7 +157,8 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="visible"
+        >
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,6 +166,8 @@
                 android:id="@+id/helpText"
                 android:textColor="#598aff"
                 android:visibility="invisible"
-                android:text="@string/deposit_transaction_help"/>
+                android:text="@string/deposit_transaction_help"
+                android:layout_alignBottom="@+id/sign_in_button"
+                android:layout_alignLeft="@+id/year"/>
     </LinearLayout>
 </merge>

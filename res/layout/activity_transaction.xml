@@ -1,0 +1,141 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.cs2340.buzzfunds.TransactionActivity">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/transaction_activity_title"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true" android:layout_centerHorizontal="true" android:singleLine="false"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/amount_text"
+            android:id="@+id/amountText" android:layout_below="@+id/textView" android:layout_alignParentLeft="true"
+            android:layout_marginTop="30dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/enact_text"
+            android:id="@+id/enactText" android:layout_below="@+id/amountText" android:layout_alignParentLeft="true"
+            android:layout_marginTop="46dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/transaction_type"
+            android:id="@+id/typeText"
+            android:singleLine="false" android:layout_below="@+id/transactionName"
+            android:layout_alignParentLeft="true"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/amount"
+            android:layout_below="@+id/amountText" android:layout_alignParentLeft="true" android:hint="0.00"
+            android:singleLine="true"/>
+    <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/transactionType" android:layout_below="@+id/typeText"
+            android:layout_alignParentLeft="true">
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/depositName"
+                android:id="@+id/depositButton"/>
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/withdrawalName"
+                android:id="@+id/withdrawalButton"/>
+    </RadioGroup>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/year" android:layout_below="@+id/enactText" android:layout_toLeftOf="@+id/textView"
+            android:hint="YYYY" android:maxLength="4" android:singleLine="true"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/month"
+            android:layout_alignTop="@+id/year" android:layout_alignLeft="@+id/textView"
+            android:layout_alignRight="@+id/amount" android:maxLength="2" android:hint="MM"
+            android:singleLine="true"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/day"
+             android:maxWidth="2dp"
+            android:hint="DD"
+            android:layout_alignTop="@+id/month" android:layout_toRightOf="@+id/month" android:singleLine="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit_button_text"
+            android:id="@+id/submitButton" android:layout_gravity="right"
+            android:layout_alignParentBottom="true" android:layout_alignParentRight="true"
+            android:onClick="attemptTransaction"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/helpText"
+            android:textColor="#598aff"
+            android:visibility="invisible"
+            android:text="@string/transaction_help"
+            android:layout_below="@+id/transactionName" android:layout_toRightOf="@+id/transactionName"
+            android:layout_above="@+id/submitButton"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/global_help_label"
+            android:id="@+id/helpView"
+            android:textColor="#598aff"
+            android:clickable="true"
+            android:onClick="displayHelp"
+            android:layout_alignParentBottom="true" android:layout_alignRight="@+id/typeText"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/transaction_name"
+            android:id="@+id/transaction_name_label" android:layout_below="@+id/year" android:layout_alignParentLeft="true"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/transactionName"
+            android:layout_below="@+id/transaction_name_label" android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/textView2" android:singleLine="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/transaction_category"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/month" android:layout_toLeftOf="@+id/submitButton" android:singleLine="false"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/transactionCategory"
+            android:layout_below="@+id/textView2" android:layout_alignRight="@+id/day"
+            android:layout_alignLeft="@+id/textView2" android:singleLine="true"/>
+</RelativeLayout>

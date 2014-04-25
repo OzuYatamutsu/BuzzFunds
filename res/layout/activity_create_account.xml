@@ -18,11 +18,9 @@
         android:id="@+id/create_account_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
         android:onClick="createAccount"
-        android:text="@string/create_account" />
+        android:text="@string/create_account" android:layout_above="@+id/helpView"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/account_detail_name"
@@ -85,7 +83,23 @@
             android:textColor="#598aff"
             android:visibility="invisible"
             android:text="@string/create_account_help"
-            android:layout_marginTop="34dp"
-            android:layout_below="@+id/newAccountType" android:layout_centerHorizontal="true"/>
+            android:layout_below="@+id/newAccountType" android:layout_alignParentLeft="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/interestRate"
+            android:id="@+id/interestRate"
+            android:singleLine="false"
+            android:layout_below="@+id/newAccountType" android:layout_alignLeft="@+id/account_detail_name"
+            android:layout_marginTop="62dp"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/newAccountRate"
+            android:hint="0.00%"
+            android:layout_below="@+id/interestRate" android:layout_alignLeft="@+id/interestRate"/>
 
 </RelativeLayout>

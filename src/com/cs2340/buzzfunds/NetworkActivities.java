@@ -13,6 +13,9 @@ public class NetworkActivities {
     private static final String newAcctEP = "addaccount";
     private static final String allAcctsEP = "retrieveaccounts";
     private static final String newTxnEP = "transaction";
+    private static final String deleteAcctEP = "deleteaccount";
+    private static final String editAcctNameEP = "editaccount";
+    private static final String editInterestEP = "editinterest";
     private static final String success = "1";
 
     public static boolean AddTransactionToAccount(String longName, Transaction txn) {
@@ -41,5 +44,17 @@ public class NetworkActivities {
             }
         } catch (Exception e) { return accounts; }
         return accounts;
+    }
+
+    public static boolean deleteAccount(String username, Account acct) {
+        String endpoint = String.format("%s%s?user=%s&account=%s", base, deleteAcctEP, username, acct.getKey().split("-")[1]);
+        String res = BasicHttpClient.exeGet(endpoint);
+        return res.substring(0,1).equals(success);
+    }
+
+    public static boolean editAccountName(String username, Account acct, String newName) {
+        String endpoint = String.format("%s%s?user=%s&account=%s", base, deleteAcctEP, username, acct.getKey().split("-")[0]);
+        String res = BasicHttpClient.exeGet(endpoint);
+        return res.substring(0,1).equals(success);
     }
 }

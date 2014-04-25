@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
@@ -72,16 +73,16 @@ public class RegisterActivity extends Activity {
 
 		// Check for a valid password.
 		if (TextUtils.isEmpty(mPassword)) {
-			mPasswordView.setError(getString(R.string.error_field_required));
+			mPasswordView.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_field_required) + "</font>"));
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (mPassword.length() < 4) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
+			mPasswordView.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_invalid_password) + "</font>"));
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (!mPassword.equals(mVerify)) {
 			// TODO: Error string if password doesn't match verify field
-			// mPasswordView.setError(getString(R.string.error_verify_does_not_match));
+			// mPasswordView.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_verify_does_not_match) + "</font>"));
 			focusView = mPasswordView;
 			cancel = true;
 		}
@@ -140,7 +141,7 @@ public class RegisterActivity extends Activity {
 				finish();
 			} else {
 				mUsernameView
-						.setError(getString(R.string.error_username_exists));
+						.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_username_exists) + "</font>"));
 				mUsernameView.requestFocus();
 			}
 		}

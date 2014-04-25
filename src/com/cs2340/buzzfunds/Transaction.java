@@ -6,9 +6,6 @@ import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -81,8 +78,8 @@ public class Transaction {
                 }
 
             DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-            insDate = fmt.parseLocalDate(obj.getString("creationDate"));
-            effDate = fmt.parseLocalDate(obj.getString("effectiveDate"));
+            insDate = fmt.parseLocalDate(obj.getString("effectiveDate"));
+            effDate = fmt.parseLocalDate(obj.getString("creationDate"));
         } catch (Exception e) { e.printStackTrace(); }
     }
 

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -111,18 +112,18 @@ public class LoginActivity extends Activity {
 
 		// Check for a valid password.
 		if (TextUtils.isEmpty(mPassword)) {
-			mPasswordView.setError(getString(R.string.error_field_required));
+			mPasswordView.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_field_required) + "</font>"));
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (mPassword.length() < 4) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
+			mPasswordView.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_invalid_password) + "</font>"));
 			focusView = mPasswordView;
 			cancel = true;
 		}
 
 		// Check for a valid username.
 		if (TextUtils.isEmpty(mUsername)) {
-			mUsernameView.setError(getString(R.string.error_field_required));
+			mUsernameView.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_field_required) + "</font>"));
 			focusView = mUsernameView;
 			cancel = true;
 		} 
@@ -216,7 +217,7 @@ public class LoginActivity extends Activity {
 				finish();
 			} else {
 				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+						.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_incorrect_password) + "</font>"));
 				mPasswordView.requestFocus();
 			}
 		}
