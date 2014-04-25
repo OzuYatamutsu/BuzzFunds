@@ -44,9 +44,9 @@ public class Transaction {
      * @param name The user's identifier for the transaction
 	 * @param amount The amount to be transferred
 	 * @param type The type of this Transaction (deposit, withdrawal)
-     * @param category What the money went to or where it came from
-     * @param insDate When the transaction was created
-     * @param effDate When the transaction should begin to effect the account
+     * @param cat What the money went to or where it came from
+     * @param iDate When the transaction was created
+     * @param eDate When the transaction should begin to effect the account
 	 */
 	public Transaction(String name, double amount, String type, String cat, LocalDate iDate, LocalDate eDate) {
         this.name = name;
@@ -109,7 +109,7 @@ public class Transaction {
 
     public String toURL() {
         String outType = type == TransactionType.DEPOSIT ? "deposit" : "withdrawal";
-        return String.format("name=%s&amount=%f&type=%s&category=%s&insDate=%tF&effDate=%tF", name, amount, outType,
-                category, insDate.toDate(), effDate.toDate());
+        return String.format("name=%s&amount=%f&type=%s&category=%s&insDate=%tF&effDate=%tF", name.replace(" ", "%20"), amount, outType,
+                category.replace(" ", "%20"), insDate.toDate(), effDate.toDate());
     }
 }
