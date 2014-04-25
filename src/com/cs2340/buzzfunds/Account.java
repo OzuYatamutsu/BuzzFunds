@@ -138,7 +138,7 @@ public class Account {
     public void UpdateInterest() {
     	LocalDate now = new LocalDate();
     	double lastBalance = balance;
-    	if(lastSyncDate != null && now.compareTo(lastSyncDate) > 0) {
+		if(lastSyncDate != null && now.compareTo(lastSyncDate) > 0) {
     		while(now.getYear() > lastSyncDate.getYear()) {
     			if(lastSyncDate.getMonthOfYear() == 12) {
     				lastSyncDate = new LocalDate(lastSyncDate.getYear() + 1, 1, 1);
@@ -263,8 +263,11 @@ public class Account {
                 + "] " + getId() + ", " + getType();
     }
 
+<<<<<<< HEAD
     public double getInterest() {
         return intRate;
     }
 
+=======
+>>>>>>> origin/last-eclipse-build-fork
 }

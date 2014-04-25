@@ -81,10 +81,8 @@
     Passwords must be at least four characters long.</string>
     <string name="transfer_transaction_help">Enter the (positive number) amount you wish to transfer out of this
         account above, followed by the date you want to be associated with it in the YYYY-MM-DD format specified above.</string>
-    <string name="withdrawal_transaction_help">Enter the (positive number) amount you wish to withdraw out of this
-        account above, followed by the date you want to be associated with it in the YYYY-MM-DD format specified above.</string>
-    <string name="transaction_help">Enter the amount you wish to deposit/withdraw from this account,
-        followed by the date, an identifying name, and category.</string>
+    <string name="withdrawal_transaction_help">Enter the (positive number) amount you wish to withdraw out of this account above, followed by the date you want to be associated with it in the YYYY-MM-DD format specified above.</string>
+    <string name="transaction_help">Enter the amount you wish to deposit/withdraw from this account, followed by the date, an identifying name, and category.</string>
     <!-- End help text -->
     <string name="delete_account">Delete...</string>
     <string name="title_activity_transaction">TransactionActivity</string>
@@ -96,9 +94,14 @@
     <string name="interestRate">Interest rate:</string>
     <string name="transaction_name">Name:</string>
     <string name="transaction_category">Category:</string>
+<<<<<<< HEAD
     <string name="title_activity_edit_account">EditAccountActivity</string>
     <string name="edit_account_name_label">Account name:</string>
     <string name="edit_account_interest_label">Interest rate:</string>
     <string name="edit_account_title">Edit Account Details</string>
     <string name="editAccountLabel">Edit...</string>
+=======
+    <string name="register_email_text">Please enter your email</string>
+    <string name="prompt_email">email@example.com</string>
+>>>>>>> origin/last-eclipse-build-fork
 </resources>
