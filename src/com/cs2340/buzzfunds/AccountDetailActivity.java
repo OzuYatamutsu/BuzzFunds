@@ -16,6 +16,7 @@ public class AccountDetailActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		account.UpdateInterest();
 		Setup.ignoreMainNetworkException();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_detail);
