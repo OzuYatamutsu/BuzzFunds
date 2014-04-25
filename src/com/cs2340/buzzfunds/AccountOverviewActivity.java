@@ -33,6 +33,7 @@ public class AccountOverviewActivity extends Activity {
 		}
 		
 		if (user.HasAccounts()) {
+			user.UpdateInterest();
 			setContentView(R.layout.activity_account_overview);
 			ArrayAdapter<Account> adapter = new ArrayAdapter<Account>(this,
 			        android.R.layout.simple_list_item_1, user.getAccountsAsArray());
