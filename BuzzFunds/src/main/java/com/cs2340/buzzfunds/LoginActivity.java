@@ -217,7 +217,7 @@ public class LoginActivity extends Activity {
 				finish();
 			} else {
 				mPasswordView
-						.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_incorrect_password)+ "</font>"));
+						.setError(Html.fromHtml("<font color='red'>" + getString(R.string.error_incorrect_password) + "</font>"));
 				mPasswordView.requestFocus();
 			}
 		}
