@@ -138,7 +138,7 @@ public class Account {
     public void UpdateInterest() {
     	LocalDate now = new LocalDate();
     	double lastBalance = balance;
-    	if(now.compareTo(lastSyncDate) > 0) {
+    	if(lastSyncDate != null && now.compareTo(lastSyncDate) > 0) {
     		while(now.getYear() > lastSyncDate.getYear()) {
     			if(lastSyncDate.getMonthOfYear() == 12) {
     				lastSyncDate = new LocalDate(lastSyncDate.getYear() + 1, 1, 1);
@@ -261,6 +261,10 @@ public class Account {
     public String toString() {
         return "[" + NumberFormat.getCurrencyInstance().format(getBalance())
                 + "] " + getId() + ", " + getType();
+    }
+
+    public double getInterest() {
+        return intRate;
     }
 
 }
