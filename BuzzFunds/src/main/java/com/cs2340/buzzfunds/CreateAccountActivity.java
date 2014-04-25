@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class CreateAccountActivity extends Activity {
 
-	EditText mAccountId;
+	EditText mAccountId, mInterestRate;
 	RadioButton mAccountTypeSavings;
 	RadioButton mAccountTypeChecking;
 	RadioGroup mNewAccountType;
@@ -25,6 +25,7 @@ public class CreateAccountActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
 		mAccountId = (EditText) findViewById(R.id.create_account_newId);
+        mInterestRate = (EditText) findViewById(R.id.newAccountRate);
 		mAccountTypeSavings = (RadioButton) findViewById(R.id.create_account_savings);
 		//mAccountTypeChecking = (RadioButton) findViewById(R.id.create_account_checking);
 		mNewAccountType = (RadioGroup) findViewById(R.id.newAccountType);
@@ -54,7 +55,7 @@ public class CreateAccountActivity extends Activity {
         String shortName = mAccountId.getText().toString();
         String type = getAccountType();
         double balance = 0;
-        double interest = 0;
+        double interest = Double.parseDouble(mInterestRate.getText().toString());
 
 		if (user.AddAccount(shortName, balance, type, interest)) {
 			// Successful, transition back to AccountOverviewActivity
