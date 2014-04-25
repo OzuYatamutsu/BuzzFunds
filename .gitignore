@@ -1,6 +1,7 @@
 .idea/
 .gradle/
 build/
+BuzzFunds/src/debug/
 
 *.iml
 *.eml
