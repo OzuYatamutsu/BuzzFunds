@@ -42,7 +42,9 @@ public class NetworkActivities {
             for (int i = 0; i < ary.length(); i++) {
                 accounts.add(new Account(ary.getJSONObject(i)));
             }
-        } catch (Exception e) { return accounts; }
+        } catch (Exception e) {
+            return accounts;
+        }
         return accounts;
     }
 
@@ -53,7 +55,13 @@ public class NetworkActivities {
     }
 
     public static boolean editAccountName(String username, Account acct, String newName) {
-        String endpoint = String.format("%s%s?user=%s&account=%s", base, deleteAcctEP, username, acct.getKey().split("-")[0]);
+        String endpoint = String.format("%s%s?user=%s&account=%s&new=%s", base, editAcctNameEP, username, acct.getKey().split("-")[1], newName);
+        String res = BasicHttpClient.exeGet(endpoint);
+        return res.substring(0,1).equals(success);
+    }
+
+    public static boolean editInterest(String username, Account acct, double newRate) {
+        String endpoint = String.format("%s%s?user=%s&account=%s&interest=%s", base, editInterestEP, username, acct.getKey().split("-")[1], newRate);
         String res = BasicHttpClient.exeGet(endpoint);
         return res.substring(0,1).equals(success);
     }

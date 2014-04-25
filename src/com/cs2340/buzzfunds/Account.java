@@ -25,6 +25,9 @@ public class Account {
 
     // The interest rate for the account
     private double intRate;
+    
+    // Date of the last time the account was synced with the server
+    private LocalDate lastSyncDate;
 
     // A queue containing transactions unsynced with the server
     private Queue<Transaction> unsynced;
@@ -127,6 +130,32 @@ public class Account {
      * @return true if changes need to be pushed; false if up to date with data source
      */
     public boolean NeedSyncing() { return !unsynced.isEmpty(); }
+    
+    /**
+     * Makes transactions on the the first of each month that has passed since the lastSyncDate that
+     * represent interest payments into the account.
+     */
+    public void UpdateInterest() {
+    	LocalDate now = new LocalDate();
+    	double lastBalance = balance;
+    	if(lastSyncDate != null && now.compareTo(lastSyncDate) > 0) {
+    		while(now.getYear() > lastSyncDate.getYear()) {
+    			if(lastSyncDate.getMonthOfYear() == 12) {
+    				lastSyncDate = new LocalDate(lastSyncDate.getYear() + 1, 1, 1);
+    				MakeNewTransaction("Interest", Math.round(lastBalance * intRate)/100, "deposit", "Interest", lastSyncDate);
+    			}
+    			else {
+    				lastSyncDate = new LocalDate(lastSyncDate.getYear(), lastSyncDate.getMonthOfYear() + 1, 1);
+    				MakeNewTransaction("Interest", Math.round(lastBalance * intRate)/100, "deposit", "Interest", lastSyncDate);
+    			}
+    		}
+    		while(now.getMonthOfYear() > lastSyncDate.getMonthOfYear()) {
+    			lastSyncDate = new LocalDate(lastSyncDate.getYear(), lastSyncDate.getMonthOfYear() + 1, 1);
+    			MakeNewTransaction("Interest", Math.round(lastBalance * intRate)/100, "deposit", "Interest", lastSyncDate);
+    		}
+    	}
+    	lastSyncDate = now;
+    }
 
     public boolean MakeNewTransaction(String name, double amount, String type, String category, LocalDate effDate) {
         boolean result = false;
@@ -232,6 +261,10 @@ public class Account {
     public String toString() {
         return "[" + NumberFormat.getCurrencyInstance().format(getBalance())
                 + "] " + getId() + ", " + getType();
+    }
+
+    public double getInterest() {
+        return intRate;
     }
 
 }

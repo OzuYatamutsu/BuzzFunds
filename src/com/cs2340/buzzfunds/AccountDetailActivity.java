@@ -16,6 +16,7 @@ public class AccountDetailActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		Setup.ignoreMainNetworkException();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_detail);
@@ -24,6 +25,7 @@ public class AccountDetailActivity extends Activity {
 		mBalanceVal = (TextView) findViewById(R.id.detail_balance_val);
 		if (IntentSingleton.keyExists("CURRENT_ACCOUNT")) {
 			account = IntentSingleton.getAccount("CURRENT_ACCOUNT");
+            account.UpdateInterest();
 			mTitleVal.setText(account.getId());
 			mTypeVal.setText(account.getType());
 			mBalanceVal.setText(NumberFormat.getCurrencyInstance().format(account.getBalance()));
@@ -61,14 +63,23 @@ public class AccountDetailActivity extends Activity {
 	 * 
 	 * @param view The current View.
 	 */
-	public void switchToHistoryActivity(View view) {
+    public void switchToHistoryActivity(View view) {
         // Button click
         SoundEffect.playSound(getApplicationContext(), R.raw.click);
 
-		Intent intent = new Intent(this, HistoryActivity.class);
-		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
-		startActivity(intent);
-	}
+        Intent intent = new Intent(this, HistoryActivity.class);
+        IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
+        startActivity(intent);
+    }
+
+    public void switchToEditAccountActivity(View view) {
+        // Button click
+        SoundEffect.playSound(getApplicationContext(), R.raw.click);
+
+        Intent intent = new Intent(this, EditAccountActivity.class);
+        IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
+        startActivity(intent);
+    }
 
     public void displayHelp(View view) {
         TextView helpButton = (TextView) findViewById(R.id.helpView);

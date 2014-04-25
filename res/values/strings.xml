@@ -96,6 +96,9 @@
     <string name="interestRate">Interest rate:</string>
     <string name="transaction_name">Name:</string>
     <string name="transaction_category">Category:</string>
-
-
+    <string name="title_activity_edit_account">EditAccountActivity</string>
+    <string name="edit_account_name_label">Account name:</string>
+    <string name="edit_account_interest_label">Interest rate:</string>
+    <string name="edit_account_title">Edit Account Details</string>
+    <string name="editAccountLabel">Edit...</string>
 </resources>

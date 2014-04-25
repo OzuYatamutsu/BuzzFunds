@@ -42,6 +42,12 @@ public class User implements Serializable {
         Account acct = new Account(String.format("%s-%s", name, shortName), balance, type, rate);
         return NetworkActivities.AddAccountToUser(acct);
     }
+    
+    public void UpdateInterest() {
+    	for(Account a: accounts) {
+    		a.UpdateInterest();
+    	}
+    }
 
     public Map<String, Collection<ReportCategory>> GenerateReports(LocalDate startDate, LocalDate endDate) {
         Map<String, Collection<ReportCategory>> reports = new HashMap<String, Collection<ReportCategory>>();
