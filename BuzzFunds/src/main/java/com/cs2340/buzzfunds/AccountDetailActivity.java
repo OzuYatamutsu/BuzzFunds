@@ -50,7 +50,8 @@ public class AccountDetailActivity extends Activity {
         // Button click
         SoundEffect.playSound(getApplicationContext(), R.raw.click);
 
-		Intent intent = new Intent(this, ChooseTransactionTypeActivity.class);
+		//Intent intent = new Intent(this, ChooseTransactionTypeActivity.class);
+        Intent intent = new Intent(this, TransactionActivity.class);
 		IntentSingleton.putAccount("CURRENT_ACCOUNT", account);
 		startActivity(intent);
 	}
@@ -80,5 +81,17 @@ public class AccountDetailActivity extends Activity {
             helpText.setVisibility(View.INVISIBLE);
         }
 
+    }
+
+    /**
+     * Deletes the current account.
+     *
+     * @param view The current View.
+     */
+    public void deleteAccount(View view) {
+        // Prepare to go back to account overview
+        Intent intent = new Intent(this, AccountOverviewActivity.class);
+        boolean success = NetworkActivities.deleteAccount(IntentSingleton.getString("USERNAME"), account);
+        startActivity(intent);
     }
 }

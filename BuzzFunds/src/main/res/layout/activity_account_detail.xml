@@ -90,5 +90,15 @@
             android:layout_marginBottom="28dp"
             android:visibility="invisible"
             android:layout_above="@+id/detail_start_transaction" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/delete_account"
+            android:id="@+id/deleteAccount"
+            android:clickable="true"
+            android:onClick="deleteAccount"
+            android:layout_alignTop="@+id/account_detail_name" android:layout_alignRight="@+id/helpText"
+            android:textColor="#ff3c2b"/>
 
 </RelativeLayout>
