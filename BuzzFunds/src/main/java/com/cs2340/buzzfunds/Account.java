@@ -176,7 +176,7 @@ public class Account {
     public Collection<String> getSimpleHistory() {
         Collection<String> simpleHistory = new LinkedList<String>();
         for (LocalDate date : history.keySet()) {
-            String dateHistory = date.toString("yyyy-MM-dd:");
+            String dateHistory = date.toString("yyyy-MM-dd");
             for (Transaction txn : history.get(date)) {
                 String typeString = txn.getType().equals("d") ? "+" : "-";
                 dateHistory += String.format("\n%s: %s%s", txn.getName(), typeString,
