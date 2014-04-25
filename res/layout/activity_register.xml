@@ -73,27 +73,6 @@
         android:inputType="text|textNoSuggestions|textPassword"
         android:maxLines="1"
         android:singleLine="true" />
-
-    <Button
-        android:id="@+id/registerbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/register_verify"
-        android:layout_below="@+id/register_verify"
-        android:layout_marginTop="52dp"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
-        android:text="@string/registerbutton_text" />
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/global_help_label"
-            android:id="@+id/helpView"
-            android:textColor="#598aff"
-            android:clickable="true"
-            android:onClick="displayHelp"
-            android:layout_alignParentBottom="true" android:layout_alignParentRight="true"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,5 +82,49 @@
             android:visibility="invisible"
             android:text="@string/register_help"
             android:layout_below="@+id/registerbutton" android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/register_verify"
+        android:layout_below="@+id/register_verify"
+        android:layout_marginTop="22dp"
+        android:text="@string/register_email_text" />
+
+    <EditText
+        android:id="@+id/register_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView03"
+        android:layout_below="@+id/TextView03"
+        android:ems="10"
+        android:hint="@string/prompt_email"
+        android:inputType="text|textEmailAddress|textNoSuggestions"
+        android:maxLines="1"
+        android:singleLine="true" />
+
+    <Button
+        android:id="@+id/registerbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_email"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/TextView03"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:text="@string/registerbutton_text" />
+
+    <TextView
+        android:id="@+id/helpView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/registerbutton"
+        android:layout_alignRight="@+id/TextView01"
+        android:clickable="true"
+        android:onClick="displayHelp"
+        android:text="@string/global_help_label"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#598aff" />
 
 </RelativeLayout>
