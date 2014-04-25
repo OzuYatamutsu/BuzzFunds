@@ -100,5 +100,15 @@
             android:onClick="deleteAccount"
             android:layout_alignTop="@+id/account_detail_name" android:layout_alignRight="@+id/helpText"
             android:textColor="#ff3c2b"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/editAccountLabel"
+            android:id="@+id/editAccountLabel"
+            android:clickable="true"
+            android:onClick="switchToEditAccountActivity"
+            android:layout_alignBaseline="@+id/helpView" android:layout_alignBottom="@+id/helpView"
+            android:layout_alignParentLeft="true" android:textColor="#96c030"/>
 
 </RelativeLayout>

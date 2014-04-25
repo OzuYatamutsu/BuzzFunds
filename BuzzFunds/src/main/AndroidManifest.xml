@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cs2340.buzzfunds"
-    android:versionCode="1"
-    android:versionName="1.0" >
+          package="com.cs2340.buzzfunds"
+          android:versionCode="1"
+          android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="19" />
+            android:minSdkVersion="9"
+            android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+            android:allowBackup="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" >
         <activity
-            android:name="com.cs2340.buzzfunds.SplashActivity"
-            android:label="@string/title_activity_splash" >
+                android:name="com.cs2340.buzzfunds.SplashActivity"
+                android:label="@string/title_activity_splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,57 +25,61 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.MainActivity"
-            android:label="@string/app_name" >
+                android:name="com.cs2340.buzzfunds.MainActivity"
+                android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+                android:name="com.cs2340.buzzfunds.LoginActivity"
+                android:label="@string/title_activity_login"
+                android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.RegisterActivity"
-            android:label="@string/title_activity_register" >
+                android:name="com.cs2340.buzzfunds.RegisterActivity"
+                android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.SuccessActivity"
-            android:label="@string/title_activity_success" >
+                android:name="com.cs2340.buzzfunds.SuccessActivity"
+                android:label="@string/title_activity_success" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.AccountOverviewActivity"
-            android:label="@string/title_activity_account_overview" >
+                android:name="com.cs2340.buzzfunds.AccountOverviewActivity"
+                android:label="@string/title_activity_account_overview" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.CreateAccountActivity"
-            android:label="@string/title_activity_create_account" >
+                android:name="com.cs2340.buzzfunds.CreateAccountActivity"
+                android:label="@string/title_activity_create_account" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.AccountDetailActivity"
-            android:label="@string/title_activity_account_detail" >
+                android:name="com.cs2340.buzzfunds.AccountDetailActivity"
+                android:label="@string/title_activity_account_detail" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.ChooseTransactionTypeActivity"
-            android:label="@string/title_activity_choose_transaction_type" >
+                android:name="com.cs2340.buzzfunds.ChooseTransactionTypeActivity"
+                android:label="@string/title_activity_choose_transaction_type" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.DepositTransactionActivity"
-            android:label="@string/title_activity_deposit_transaction" >
+                android:name="com.cs2340.buzzfunds.DepositTransactionActivity"
+                android:label="@string/title_activity_deposit_transaction" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.WithdrawalTransactionActivity"
-            android:label="@string/title_activity_withdrawl_transaction" >
+                android:name="com.cs2340.buzzfunds.WithdrawalTransactionActivity"
+                android:label="@string/title_activity_withdrawl_transaction" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.TransferTransactionActivity"
-            android:label="@string/title_activity_transfer_transaction" >
+                android:name="com.cs2340.buzzfunds.TransferTransactionActivity"
+                android:label="@string/title_activity_transfer_transaction" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.HistoryActivity"
-            android:label="@string/title_activity_history" >
+                android:name="com.cs2340.buzzfunds.HistoryActivity"
+                android:label="@string/title_activity_history" >
         </activity>
         <activity
-            android:name="com.cs2340.buzzfunds.TransactionActivity"
-            android:label="@string/title_activity_transaction" >
+                android:name="com.cs2340.buzzfunds.TransactionActivity"
+                android:label="@string/title_activity_transaction" >
+        </activity>
+        <activity
+                android:name="com.cs2340.buzzfunds.EditAccountActivity"
+                android:label="@string/title_activity_edit_account" >
         </activity>
     </application>
 
